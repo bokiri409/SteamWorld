@@ -3,6 +3,8 @@ package com.a105.apiServer.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.a105.apiServer.dto.UserDto;
+import com.a105.apiServer.service.JwtService;
 import com.a105.apiServer.service.UserService;
 
 @RestController
@@ -24,7 +27,13 @@ import com.a105.apiServer.service.UserService;
 public class UserController {
 
 	@Autowired
+	private JwtService jwtService;
+	
+	@Autowired
 	private UserService userService;
+	
+	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	
 	//로그인
 	@PostMapping(value = "/login")
@@ -34,7 +43,10 @@ public class UserController {
 		try {
 			UserDto user = userService.login(map);
 			if(user != null) {
+				String token = jwtService.create(user);
+				logger.trace("token", token);
 				result.put("success", "success");
+				result.put("x-access-token", token);
 				result.put("data", user);
 			}
 			else {
