@@ -10,5 +10,5 @@ public class A105Application implements WebMvcConfigurer{
 	public static void main(String[] args) {
 		SpringApplication.run(A105Application.class, args);
 	}
-
+	
 }

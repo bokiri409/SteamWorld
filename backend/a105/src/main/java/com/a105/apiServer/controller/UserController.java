@@ -55,6 +55,7 @@ public class UserController {
 	private ResponseEntity join(@RequestBody UserDto user) {
 		Map result = new HashMap();
         ResponseEntity entity = null;
+        
         try {
         	if (userService.join(user) == 1) {
         		result.put("success", "success");
