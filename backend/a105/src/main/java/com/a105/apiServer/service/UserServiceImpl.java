@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService{
 	
 	PasswordEncoder passwordEncoder;
 	
+	
 	@Autowired
 	public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder) {
 		// TODO Auto-generated constructor stub
@@ -23,15 +24,26 @@ public class UserServiceImpl implements UserService{
 		this.passwordEncoder = passwordEncoder;
 	}
 	
+	private String matchPassword(String userid, String password) throws Exception {
+
+		UserDto user = userDao.getUser(userid);
+		System.out.println(user.getPassword());
+		System.out.println(passwordEncoder.matches(password, user.getPassword()));
+		if(passwordEncoder.matches(password, user.getPassword())) {
+			
+			return  user.getPassword();
+		}
+		else {
+			return null;
+		}
+	}
+	
 	@Override
 	public UserDto login(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		UserDto user = userDao.getUser(map.get("userid").toString());
-		System.out.println(user.getPassword());
-		System.out.println(passwordEncoder.matches((String) map.get("password"), user.getPassword()));
-		if(passwordEncoder.matches((String) map.get("password"), user.getPassword())) {
-			map.put("password", user.getPassword());
-			return userDao.login(map);			
+		String securePw = matchPassword((String) map.get("userid"),(String) map.get("password"));
+		if(securePw != null) {
+			map.put("password", securePw);
+			return userDao.login(map);
 		}
 		else {
 			return null;
@@ -56,20 +68,41 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int modify(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		return userDao.updateUser(map);
-	}
-
+		String securePw = matchPassword((String) map.get("userid"),(String) map.get("password"));
+		if(securePw != null) {
+			map.put("password", securePw);
+			return userDao.updateUser(map);
+		}
+		else {
+			return -1;
+		}		
+	}	
+	
 	@Override
 	public int modifyPassword(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return userDao.updatePassword(map);
+		String securePw = matchPassword((String) map.get("userid"),(String) map.get("password"));
+		if(securePw != null) {
+			map.put("password", securePw);
+			String secureNewPw = passwordEncoder.encode((String) map.get("newpassword"));
+			map.put("newpassword", secureNewPw);
+			return userDao.updatePassword(map);
+		}
+		else {
+			return -1;
+		}
 	}
 
 	@Override
 	public int secede(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		return userDao.deleteUser(map);
+		String securePw = matchPassword((String) map.get("userid"),(String) map.get("password"));
+		if(securePw != null) {
+			map.put("password", securePw);
+			return userDao.deleteUser(map);
+		}
+		else {
+			return -1;
+		}
 	}
 
 }
