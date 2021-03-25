@@ -5,6 +5,7 @@ import java.util.Map;
 import com.a105.apiServer.dto.UserDto;
 
 public interface UserService {
+
 	public UserDto login(Map map) throws Exception;
 	public int join(UserDto user) throws Exception;
 	public UserDto info(String userid) throws Exception;
