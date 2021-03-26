@@ -6,11 +6,11 @@ from CBF import loadData
 
 class ContentsBasedFiltering:
 
-    def __init__(self, percent, gamenames={'Dungreed' : 3, 'Skul: The Hero Slayer': 2}):
+    def __init__(self, gameids):
         print('init')
         readData = loadData.ReadData()
-        self.percent = percent
-        self.gameNames = gamenames
+        self.percent = 0.9
+        self.gameIds = gameids
         self.pointDic = {}
         self.pointList = []
         self.data = readData.gameData
@@ -19,16 +19,16 @@ class ContentsBasedFiltering:
     # 점수표 제작
     def makePoint(self):
         print('mp')
-        for gameName in self.gameNames:
+        for appid in self.gameIds:
             for tag in self.genreData['genre']:
                 if str(tag) not in self.pointDic:
                     self.pointDic[str(tag)] = 0
-            for target in self.data[self.data['name'] == gameName]['genre']:
+            for target in self.data[self.data['appid'] == appid]['genre']:
                 point = 10
                 for genre in target:
                     if genre == 'VR' or genre == 'Free to Play':
                         continue
-                    self.pointDic[genre] += point * self.gameNames[gameName]
+                    self.pointDic[genre] += point
                     point -= 1
 
     #데이터 정제
@@ -60,7 +60,7 @@ class ContentsBasedFiltering:
         for i in self.data.index:
             point = 0
             game = self.data.at[i, 'genre']  # get_value(i, 'genre')
-            name = self.data.at[i, 'name']
+            appid = self.data.at[i, 'appid']
             cnt = 10
             for genre in game:
                 if genre == "Beat 'em up":
@@ -73,7 +73,7 @@ class ContentsBasedFiltering:
                     genre = 'Parody'
                 point += self.pointDic[genre] * cnt
                 cnt -= 1
-            if name in self.gameNames:
+            if appid in self.gameIds:
                 point = -1
             self.pointList.append(point)
 
@@ -86,4 +86,4 @@ class ContentsBasedFiltering:
         result = self.data.sort_values(by=['point'], ascending=False).head(n)
         result = result.to_json(orient='records')
         parsed = json.loads(result)
-        return json.dumps(parsed, indent=4)
+        return json.dumps(parsed, ensure_ascii=False)

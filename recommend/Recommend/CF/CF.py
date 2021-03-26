@@ -123,12 +123,11 @@ class CollaborativeFiltering:
         recommendations = recommendations.rename(columns={user_row_number: 'Predictions'}).sort_values('Predictions',
                                                 ascending=False).iloc[:num_recommendations, :]
 
-        print(type(recommendations))
         user_history = user_history.to_json(orient='records')
         user_history = json.loads(user_history)
         recommendations = recommendations.to_json(orient='records')
         recommendations = json.loads(recommendations)
 
-        return json.dumps(user_history, indent=2), json.dumps(recommendations, indent=2)
+        return json.dumps(user_history), json.dumps(recommendations)
 
 
