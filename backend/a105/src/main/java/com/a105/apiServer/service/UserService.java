@@ -12,5 +12,6 @@ public interface UserService {
 	public int modify(Map map) throws Exception;
 	public int modifyPassword(Map map) throws Exception;
 	public int secede(Map map) throws Exception;
+	public int checkid(String userid) throws Exception;
 
 }

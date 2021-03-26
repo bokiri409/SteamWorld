@@ -105,4 +105,14 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 
+	@Override
+	public int checkid(String userid) throws Exception {
+		if(userDao.checkid(userid) == null) {
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+
 }
