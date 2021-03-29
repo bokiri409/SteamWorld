@@ -40,4 +40,10 @@
 		from a105.user
 		where userid = #{userid}
 	</select>
+	
+	<update id="addSteamid" parameterType="map">
+		update a105.user
+		set steamid = #{steamid}
+		where userid = #{userid}
+	</update>
 </mapper>
