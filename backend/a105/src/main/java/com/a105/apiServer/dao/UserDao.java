@@ -14,4 +14,5 @@ public interface UserDao {
 	public int updateUser(Map map) throws Exception;
 	public int updatePassword(Map map) throws Exception;
 	public int deleteUser(Map map) throws Exception;
+	public String checkid(String userid) throws Exception;
 }
