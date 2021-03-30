@@ -7,7 +7,6 @@ import werkzeug
 werkzeug.cached_property = werkzeug.utils.cached_property
 from flask_restplus import Api, Resource
 
-
 app = Flask(__name__)
 
 ## CORS 에러 방지

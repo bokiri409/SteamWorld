@@ -84,6 +84,7 @@ class ContentsBasedFiltering:
         print('res')
         # 데이터 출력
         result = self.data.sort_values(by=['point'], ascending=False).head(n)
+        result = result.drop(['genre', 'vote', 'point'], axis='columns')
         result = result.to_json(orient='records')
         parsed = json.loads(result)
         return json.dumps(parsed, ensure_ascii=False)
