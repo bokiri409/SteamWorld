@@ -15,4 +15,5 @@ public interface UserDao {
 	public int updatePassword(Map map) throws Exception;
 	public int deleteUser(Map map) throws Exception;
 	public String checkid(String userid) throws Exception;
+	public int addSteamid(Map map) throws Exception;
 }
