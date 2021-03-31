@@ -24,6 +24,22 @@ export default {
   @import "./assets/css/style.css";
 </style>
 
+  <style type="text/css" media="screen, print">
+    @font-face {
+      font-family: "DungGeunMo";
+      src: "../";
+    }
+
+    *{ font-family: "DungGeunMo"}
+
+    p { font-family: "DungGeunMo"; font-style: normal; font-weight: normal; }
+    em { font-family: "DungGeunMo"; font-style: normal; font-weight: normal; }
+    a { font-family: "DungGeunMo"; font-style: normal; font-weight: normal; }
+        h1 { font-family: "DungGeunMo"; font-style: normal; font-weight: normal; }
+            h2 { font-family: "DungGeunMo"; font-style: normal; font-weight: normal; }
+
+  </style>
+
 
 
 

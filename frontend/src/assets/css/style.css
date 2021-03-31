@@ -9,7 +9,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "DungGeunMo";
   background-color: #040404;
   color: #fff;
   position: relative;
@@ -36,17 +36,19 @@ body::before {
 }
 
 a {
+  font-family: "DungGeunMo";
   color: #18d26e;
   text-decoration: none;
 }
 
 a:hover {
+  font-family: "DungGeunMo";
   color: #35e888;
   text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", sans-serif;
+  font-family: "DungGeunMo", sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -60,6 +62,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   z-index: 997;
   overflow-y: auto;
+  font-family: "DungGeunMo";
 }
 
 #header * {
@@ -67,13 +70,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header h1 {
-  font-size: 48px;
+  font-size: 56px;
   color: #fff;
   margin: 0;
   padding: 0;
   line-height: 1;
   font-weight: 700;
-  font-family: "Poppins", sans-serif;
+  font-family: "DungGeunMo";
 }
 
 #header h1 a, #header h1 a:hover {
@@ -83,12 +86,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header h2 {
+  font-family: "DungGeunMo";
   font-size: 24px;
   margin-top: 20px;
   color: rgba(255, 255, 255, 0.8);
 }
 
 #header h2 span {
+  font-family: "DungGeunMo";
   color: #fff;
   border-bottom: 2px solid #18d26e;
   padding-bottom: 6px;
@@ -124,9 +129,11 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 992px) {
   #header h1 {
+    font-family: "DungGeunMo";
     font-size: 36px;
   }
   #header h2 {
+    font-family: "DungGeunMo";
     font-size: 20px;
     line-height: 30px;
   }
@@ -209,7 +216,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: space-between;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "DungGeunMo";
   font-size: 16px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
@@ -1114,6 +1121,17 @@ section .container {
 
 .contact .php-email-form button[type="submit"]:hover {
   background: #15bb62;
+}
+
+.blueArea{
+  background-color: #1226d8c5;
+  padding: 30px;
+}
+
+.darkArea{
+  background-color: #000000a6;
+  padding: 30px;
+
 }
 
 @-webkit-keyframes animate-loading {
