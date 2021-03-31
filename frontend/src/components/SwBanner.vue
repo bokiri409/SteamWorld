@@ -1,6 +1,7 @@
 <template>
     <div>
   <!-- ======= Header ======= -->
+  <!--
     <b-navbar  v-if="show" toggleable="lg" type="dark" style="margin-top:0px; background-color:#00000099; ">
     <b-navbar-brand href="/" style="color:white; font-size:30px; font-weight:bold">Steam World!</b-navbar-brand>
 
@@ -8,7 +9,6 @@
 
     <b-collapse id="nav-collapse" is-nav>
 
-      <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
 
 
@@ -26,7 +26,7 @@
         </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>
-  </b-navbar>
+  </b-navbar> -->
 
 
    <transition name="slide" mode="out-in">
@@ -171,7 +171,9 @@
       opacity: 0;
     transform: translateY(100px);
   }
-
+  
 
 </style>
+
+
 

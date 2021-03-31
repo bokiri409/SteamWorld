@@ -5,6 +5,8 @@ import Login from './components/Login.vue'
 import Recommend from './components/Recommend.vue'
 import MyPage from './components/MyPage.vue'
 import Survey from './components/Survey.vue'
+import Result from './components/surveyResult/Result.vue'
+import q1 from './components/surveyQ/Q1.vue'
 
 
 Vue.use(VueRouter);
@@ -31,6 +33,14 @@ export const router = new VueRouter({
         {
             path: '/mypage',
             component: MyPage
+        },
+        {
+            path: '/result',
+            component: Result
+        },
+        {
+            path: '/q1',
+            component: q1
         }
     ]
 })  
