@@ -17,6 +17,7 @@
           <router-link to="/mypage" class="nav-link" href="#services">마이 페이지</router-link>
           <router-link to="/recommend" class="nav-link" href="#portfolio">게임 추천</router-link>
           <router-link to="/user/login" class="nav-link" href="#services">로그인</router-link>
+          <router-link to="/user/signup" class="nav-link" href="#services">회원가입</router-link>
 
            <router-link to="/swiper" class="nav-link" href="#services">스와이퍼</router-link>
            <span><a href="#" class=""><img src="../assets/img/steam.svg"></a>스팀 연동하기</span>

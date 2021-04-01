@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import requests
 from bs4 import BeautifulSoup
+import config
+import pickle
 
 
 class CollaborativeFiltering:
@@ -23,9 +25,9 @@ class CollaborativeFiltering:
 
     def getUserData(self):
         print('gud')
-        self.userData = self.userData.drop(columns=['Unnamed: 0'])
         self.userData = self.userData.drop_duplicates(['appid', 'steamid'])
-        url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=F1DAAB7BF3894FBDC83881C81C20803A&steamid=' + str(self.userId)
+        url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=' + config.api_key + '&steamid=' + str(
+            self.userId)
         response = requests.get(url)
         flag = 0
         if response.status_code == 200:
@@ -54,15 +56,14 @@ class CollaborativeFiltering:
         if 'playtime_2weeks' not in self.searchUser.columns:
             self.searchUser['playtime_2weeks'] = 0
 
-
     # weight 할당 def
     def refine(self):
-
         print('rf')
         # 가중치 부여
         self.searchUser['weight'] = 0
         self.searchUser['playtime_forever'] = self.searchUser['playtime_forever'] / 60
         self.searchUser['playtime_forever'] = np.log10(self.searchUser['playtime_forever'])
+
         def nonePlaying(playtime_forever, playtime_2weeks, weight):
             # 플레이시간 0
             if playtime_forever == float('-inf'):
@@ -83,16 +84,29 @@ class CollaborativeFiltering:
             return weight
 
         self.searchUser['weight'] = self.searchUser.apply(lambda x: nonePlaying(x['playtime_forever'],
-                                                            x['playtime_2weeks'], x['weight']), axis=1)
+                                                                                x['playtime_2weeks'], x['weight']),
+                                                          axis=1)
+
+        # pivot테이블 pickle 파일 생성, 1회 실행 필요
+        # pivotUserApp = self.userData.pivot(
+        #     index='newsteamid',
+        #     columns='appid',
+        #     values='weight',
+        # ).fillna(0)
+        # with open('CF/data/pivot.pickle', 'rw') as fw:
+        #     pickle.dump(pivotUserApp, fw)
+
         # 데이터 병합
         self.userData = self.userData.append(self.searchUser)
-
-        pivotUserApp = self.userData.pivot(
+        with open('CF/data/pivot.pickle', 'rb') as fr:
+            pivotUserApp = pickle.load(fr)
+        pivotSearchUserApp = self.searchUser.pivot(
             index='newsteamid',
             columns='appid',
-            values='weight'
+            values='weight',
         ).fillna(0)
-
+        pivotUserApp = pivotUserApp.append(pivotSearchUserApp, sort=False).fillna(0)
+        ## 피봇 테이블을 저장해두자.
         matrix = pivotUserApp.values
         weightMean = np.mean(matrix, axis=1)
         matrixUserMean = matrix - weightMean.reshape(-1, 1)
@@ -100,7 +114,6 @@ class CollaborativeFiltering:
         sigma = np.diag(sigma)
         svd_user_predicted_weight = np.dot(np.dot(U, sigma), Vt) + weightMean.reshape(-1, 1)
         self.svd_preds = pd.DataFrame(svd_user_predicted_weight, columns=pivotUserApp.columns)
-
 
     def recommend_games(self, num_recommendations=5):
 
@@ -121,13 +134,12 @@ class CollaborativeFiltering:
         recommendations = recommendations.merge(pd.DataFrame(sorted_user_predictions).reset_index(), on='appid')
         # 컬럼 이름 바꾸고 정렬해서 return
         recommendations = recommendations.rename(columns={user_row_number: 'Predictions'}).sort_values('Predictions',
-                                                ascending=False).iloc[:num_recommendations, :]
-
+                                                                                                       ascending=False).iloc[
+                          :num_recommendations, :]
         user_history = user_history.to_json(orient='records')
         user_history = json.loads(user_history)
         recommendations = recommendations.to_json(orient='records')
         recommendations = json.loads(recommendations)
-
         return json.dumps(user_history), json.dumps(recommendations)
 
 

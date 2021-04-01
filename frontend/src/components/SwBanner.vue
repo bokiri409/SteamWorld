@@ -89,7 +89,12 @@
                 >
               </li>
               <li>
-                <a href="/" class=""
+                <router-link to="/user/signup" class="nav-link" href="#services"
+                  >회원가입</router-link
+                >
+              </li>
+              <li>
+                <a href="#" class=""
                   ><img src="../assets/img/steam.svg" @click="toggle" />스팀
                   연동하기</a
                 >
@@ -101,9 +106,10 @@
 
           <div class="social-links">
             <a href="#" class="twitter"><b-icon-twitter></b-icon-twitter></a>
-            <a href="#" class="facebook">
-              <img src="../assets/img/steam.svg"/>
-            </a>
+
+            <a href="#" class="facebook"
+              ><img src="../assets/img/steam.svg"
+            /></a>
             <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
           </div>
@@ -116,7 +122,7 @@
 
 <script>
 export default {
-  name: "SwBanner",
+  name: 'SwBanner',
   data() {
     return {
       bannerShow: true,

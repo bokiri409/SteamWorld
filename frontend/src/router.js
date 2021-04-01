@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from './components/Main.vue'
 import Login from './components/Login.vue'
+import SignUp from './components/SignUp.vue'
 import Recommend from './components/Recommend.vue'
 import MyPage from './components/MyPage.vue'
 import Survey from './components/Survey.vue'
@@ -22,6 +23,10 @@ export const router = new VueRouter({
         {
             path: '/user/login',
             component: Login
+        },
+        {
+            path: '/user/signup',
+            component: SignUp
         },
         {
             path: '/survey',

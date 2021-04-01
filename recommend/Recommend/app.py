@@ -7,7 +7,6 @@ import werkzeug
 werkzeug.cached_property = werkzeug.utils.cached_property
 from flask_restplus import Api, Resource
 
-
 app = Flask(__name__)
 
 ## CORS 에러 방지
@@ -17,7 +16,7 @@ CORS(app)
 api = Api(app, version='1.0', title='Recommendation API',
           description='게임 추천 API',)
 
-recomm = api.namespace('Recommendation', description='게임추천 API 목록')
+recomm = api.namespace('rec', description='게임추천 API 목록')
 app.config.SWAGGER_UI_DOC_EXPANSION = 'list'
 
 
@@ -26,7 +25,7 @@ def index():
     return "hello, world!"
 
 
-@recomm.route('/CBF/<int:appid>')
+@recomm.route('/cbf/<int:appid>')
 class CBF(Resource):
     def get(self, appid):
         list = []
@@ -38,7 +37,7 @@ class CBF(Resource):
         return Response(data.result(10), content_type='application/json; charset=utf-8')
 
 
-@recomm.route('/CF/<int:steamid>')
+@recomm.route('/cf/<int:steamid>')
 class CF(Resource):
     def get(self,steamid):
         data = CollaborativeFiltering(steamid)
