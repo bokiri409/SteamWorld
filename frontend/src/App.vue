@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+      <link href="../src/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <TopHeader />
     <SwBanner />
   </div>
@@ -7,6 +8,7 @@
 <script>
 import SwBanner from "./components/SwBanner.vue";
 import TopHeader from "./components/TopHeader.vue";
+
 
 export default {
   name: "App",
@@ -27,6 +29,7 @@ p {
   color: white;
 }
 @import "./assets/css/style.css";
+@import "./assets/vendor/bootstrap-icons/bootstrap-icons.css";
 </style>
 
 <style type="text/css" media="screen, print">

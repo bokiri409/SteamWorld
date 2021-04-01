@@ -10,16 +10,16 @@
   "dependencies": {
     "aos": "^2.3.4",
     "axios": "^0.21.1",
-    "bootstrap-icons": "^1.4.0",
+    "bootstrap-icons": "^1.4.1",
     "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.6.5",
+    "core-js": "^3.10.0",
     "glightbox": "^3.0.7",
     "isotope-layout": "^3.0.6",
     "jquery": "^3.6.0",
     "node-steam-openid": "^1.0.0",
     "sass-loader": "^11.0.1",
     "steamapi": "^2.1.2",
-    "swiper": "^6.5.0",
+    "swiper": "^6.5.3",
     "vue": "^2.6.11",
     "vue-bootstrap-slider": "^2.1.8",
     "vue-router": "^3.5.1",
@@ -32,7 +32,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.46.0"
   },
   "eslintConfig": {
     "root": true,
