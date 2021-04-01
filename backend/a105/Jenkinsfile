@@ -17,7 +17,7 @@ pipeline {
         stage('Docker build') {
             agent any
             steps {
-                sh 'docker build -t backend/a105/java-migrator-image:latest .'
+                sh 'docker build -t /var/jenkins_home/workspace/test1-project/backend/a105/java-migrator-image:latest .'
             }
         }
         stage('Docker run') {
