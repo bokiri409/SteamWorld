@@ -8,12 +8,12 @@ import requests
 from bs4 import BeautifulSoup
 import config
 import pickle
+from CBF.CBF import ContentsBasedFiltering
 
 
 class CollaborativeFiltering:
 
     def __init__(self, user_id):
-        print('init')
         ReadData = loadData.ReadData()
         self.userData = ReadData.userData
         self.appList = ReadData.appList
@@ -23,42 +23,41 @@ class CollaborativeFiltering:
         self.svd_preds = ""
         self.newSteamId = ""
 
+        
     def getUserData(self):
-        print('gud')
         self.userData = self.userData.drop_duplicates(['appid', 'steamid'])
         url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=' + config.api_key + '&steamid=' + str(
             self.userId)
         response = requests.get(url)
-        flag = 0
         if response.status_code == 200:
-            flag = 1
             html = response.text
             soup = BeautifulSoup(html, 'html.parser')
             jsonData = pd.read_json(soup.text)
             if jsonData.empty:
-                print("empty")
+                return "스팀 프로필 및 게임 세부정보 설정을 공개로 바꿔주세요"
             elif jsonData['response']['game_count'] == 0:
-                print("none data")
+                return "스팀 라이브러리에 게임이 없습니다."
         else:
-            print(response.status_code)
+            if response.status_code == 500:
+                return "입력하신 스팀 id를 확인해주세요"
+            else:
+                return "스팀서버 통신 에러입니다. 잠시 후 다시 시도해주세요."
 
-        if flag == 1:
-            self.searchUser = pd.DataFrame(jsonData['response']['games'])
-            self.searchUser = self.searchUser.drop(['playtime_windows_forever', 'playtime_mac_forever',
-                                                    'playtime_linux_forever'], axis='columns')
-            self.searchUser['steamid'] = self.userId
-            self.newSteamId = self.searchUser['steamid']
-            self.newSteamId = self.userData['steamid'].unique().size
-            self.searchUser['newsteamid'] = self.newSteamId
-        else:
-            pass
+        self.searchUser = pd.DataFrame(jsonData['response']['games'])
+        self.searchUser = self.searchUser.drop(['playtime_windows_forever', 'playtime_mac_forever',
+                                                'playtime_linux_forever'], axis='columns')
+        self.searchUser['steamid'] = self.userId
+        self.newSteamId = self.searchUser['steamid']
+        self.newSteamId = self.userData['steamid'].unique().size
+        self.searchUser['newsteamid'] = self.newSteamId
 
         if 'playtime_2weeks' not in self.searchUser.columns:
             self.searchUser['playtime_2weeks'] = 0
 
+        return 'success'
+
     # weight 할당 def
     def refine(self):
-        print('rf')
         # 가중치 부여
         self.searchUser['weight'] = 0
         self.searchUser['playtime_forever'] = self.searchUser['playtime_forever'] / 60
@@ -115,9 +114,8 @@ class CollaborativeFiltering:
         svd_user_predicted_weight = np.dot(np.dot(U, sigma), Vt) + weightMean.reshape(-1, 1)
         self.svd_preds = pd.DataFrame(svd_user_predicted_weight, columns=pivotUserApp.columns)
 
-    def recommend_games(self, num_recommendations=5):
+    def recommend_games(self, num_recommendations=10):
 
-        print('rg')
         user_row_number = self.newSteamId
         # 최종적으로 만든 pred_df에서 사용자 index에 따라 게임 데이터 정렬 -> 게임 weight가 높은 순으로 정렬 됌
         sorted_user_predictions = self.svd_preds.iloc[user_row_number].sort_values(ascending=False)
@@ -136,10 +134,21 @@ class CollaborativeFiltering:
         recommendations = recommendations.rename(columns={user_row_number: 'Predictions'}).sort_values('Predictions',
                                                                                                        ascending=False).iloc[
                           :num_recommendations, :]
-        user_history = user_history.to_json(orient='records')
-        user_history = json.loads(user_history)
-        recommendations = recommendations.to_json(orient='records')
-        recommendations = json.loads(recommendations)
-        return json.dumps(user_history), json.dumps(recommendations)
+
+        recommendations = recommendations[['appid', 'name']]
+        predictions = pd.DataFrame(columns=['appid', 'name', 'score'])
+        scores = []
+        for appid in recommendations['appid']:
+            data = ContentsBasedFiltering(appid)
+            scores.append(0)
+            data.refine()
+            data.makePoint()
+            data.simEval()
+            predictions = predictions.append(data.result(3))
+        recommendations['score'] = scores
+        recommendations = recommendations.append(predictions).drop(['score', 'name'], axis='columns')
+        recommendations = recommendations.drop_duplicates()
+        recommendations = recommendations[~recommendations['appid'].isin(user_history['appid'])]
+        return user_history, recommendations
 
 
