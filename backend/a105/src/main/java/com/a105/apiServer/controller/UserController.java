@@ -47,6 +47,7 @@ public class UserController {
 				logger.trace("token", token);
 				result.put("success", "success");
 				result.put("x-access-token", token);
+				user.setPassword("");
 				result.put("data", user);
 			}
 			else {
@@ -95,6 +96,7 @@ public class UserController {
 			UserDto member = userService.info(userid);
 			if (member != null) {
 				result.put("success", "success");
+				member.setPassword("");
 				result.put("data", member);
 				entity = new ResponseEntity<>(result, HttpStatus.OK);
 				
