@@ -43,6 +43,7 @@ public class MailController {
 		logger.info("email : "+ userId);
 		try {
 			service.sendSimpleMessage(userId);
+//			service.testKey();
 			result.put("success", "success");
 			entity = new ResponseEntity(result, HttpStatus.OK);
 			
@@ -62,9 +63,10 @@ public class MailController {
 
 		ResponseEntity entity = null;
 		Map result = new HashMap();
-		code = code.substring(0, code.length()-1);
+		code = code.substring(0, code.length());
 //		int result = 0;
 //		System.out.println("code : " + code);
+//		System.out.println("ePw : " + EmailServiceImpl.ePw);
 //		System.out.println("code match : " + EmailServiceImpl.ePw.equals(code));
 		if (EmailServiceImpl.ePw.equals(code)) {
 			result.put("success", "success");
