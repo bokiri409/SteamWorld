@@ -11,5 +11,5 @@ public class GameTagsDto {
 	private int gametagid;
 	private int appid;
 	private String genre;
-	private int rank;
+	private int ranking;
 }

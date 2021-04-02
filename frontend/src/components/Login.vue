@@ -60,7 +60,7 @@
           <b-form-input
             type="email"
             class="form-control form-control-lg"
-            v-model="id"
+            v-model="user.userid"
             :state="state"
             id="feedback-user"
           />
@@ -79,7 +79,7 @@
             class="form-control form-control-lg"
             id="text-password"
             aria-describedby="password-help-block"
-            v-model="password"
+            v-model="user.password"
             :state="statePassword"
           />
           <b-form-text id="password-help-block">
@@ -88,12 +88,18 @@
           </b-form-text>
         </div>
 
-        <button type="submit" class="btn btn-dark btn-lg btn-block">
+        <button
+          type="submit"
+          class="btn btn-dark btn-lg btn-block"
+          @click="loginHandler()"
+        >
           로그인
         </button>
-        <button class="btn btn-dark btn-lg btn-block">
-          회원가입
-        </button>
+        <router-link to="/user/signup" class="nav-link">
+          <button class="btn btn-dark btn-lg btn-block">
+            회원가입
+          </button></router-link
+        >
 
         <p class="forgot-password text-right mt-2 mb-4">
           <router-link to="/user/forgotpassword">Forgot password ?</router-link>
@@ -106,30 +112,71 @@
 <script>
 export default {
   computed: {
-    state() {
-      return this.id.length >= 4;
-    },
-    statePassword() {
-      return this.password.length >= 4;
-    },
-    invalidFeedback() {
-      if (this.id.length > 0) {
-        return 'Enter at least 4 characters.';
-      }
-      return 'Please enter something.';
-    },
-    invalidFeedbackPassword() {
-      if (this.password.length > 0) {
-        return 'Enter at least 4 characters.';
-      }
-      return 'Please enter something.';
-    },
+    // state() {
+    //   return this.user.userid.length >= 4;
+    // },
+    // statePassword() {
+    //   return this.user.password.length >= 4;
+    // },
+    // invalidFeedback() {
+    //   if (this.user.userid.length > 0) {
+    //     return 'Enter at least 4 characters.';
+    //   }
+    //   return 'Please enter something.';
+    // },
+    // invalidFeedbackPassword() {
+    //   if (this.user.password.length > 0) {
+    //     return 'Enter at least 4 characters.';
+    //   }
+    //   return 'Please enter something.';
+    // },
   },
   data() {
     return {
-      id: '',
-      password: '',
+      user: {
+        userid: '',
+        password: '',
+      },
     };
+  },
+  methods: {
+    loginHandler: function() {
+      // console.log(this.user.userid);
+      let err = true;
+      let msg = '';
+
+      //에러메세지 출력 - 이메일, 패스워드 미입력시
+      !this.user.userid && ((msg = '이메일을 입력해주세요.'), (err = false));
+      err &&
+        !this.user.password &&
+        ((msg = '비밀번호를 입력해주세요.'), (err = false));
+      err &&
+        !this.validEmail(this.user.userid) &&
+        ((msg =
+          '이메일 형식에 맞게 입력해주세요. ex) steamworld@steamworld.com'),
+        (err = false));
+
+      if (!err) alert(msg);
+      else this.login(); //에러 안나면 login()실행
+    },
+
+    //이메일 형식 체크
+    validEmail: function(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    login: function() {
+      this.$store
+        .dispatch('login', this.user)
+        .then(() =>
+          this.$router.push({
+            path: '/',
+          })
+        )
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>

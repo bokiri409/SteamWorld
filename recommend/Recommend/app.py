@@ -6,6 +6,7 @@ from flask_cors import CORS
 import werkzeug
 werkzeug.cached_property = werkzeug.utils.cached_property
 from flask_restplus import Api, Resource
+import json
 
 app = Flask(__name__)
 
@@ -28,20 +29,41 @@ def index():
 @recomm.route('/cbf/<int:appid>')
 class CBF(Resource):
     def get(self, appid):
-        list = []
-        list.append(appid)
-        data = ContentsBasedFiltering(list)
-        data.refine()
+        data = ContentsBasedFiltering(appid)
         data.makePoint()
+        data.refine()
         data.simEval()
-        return Response(data.result(10), content_type='application/json; charset=utf-8')
+        result = data.result(10).to_json(orient='records')
+        parsed = json.loads(result)
+        resp = {
+            'success': 'success',
+            'data' : parsed
+        }
+        return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
 
 
 @recomm.route('/cf/<int:steamid>')
 class CF(Resource):
-    def get(self,steamid):
+    def get(self, steamid):
         data = CollaborativeFiltering(steamid)
-        data.getUserData()
-        data.refine()
-        already_rated, predictions = data.recommend_games(30)
-        return Response(predictions, content_type='application/json; charset=utf-8')
+        reason = data.getUserData()
+        if reason == 'success':
+            data.refine()
+            already_rated, predictions = data.recommend_games(10)
+            result = predictions.to_json(orient='records')
+            parsed = json.loads(result)
+            resp = {
+                'success': 'success',
+                'data': parsed
+            }
+            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+        else:
+            resp = {
+                'success': 'fail',
+                'reason' : reason,
+                'data' : ''
+            }
+            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
