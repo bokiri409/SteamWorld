@@ -8,6 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 import config
 import pickle
+import os.path
 from CBF.CBF import ContentsBasedFiltering
 
 
@@ -23,7 +24,6 @@ class CollaborativeFiltering:
         self.svd_preds = ""
         self.newSteamId = ""
 
-        
     def getUserData(self):
         self.userData = self.userData.drop_duplicates(['appid', 'steamid'])
         url = 'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=' + config.api_key + '&steamid=' + str(
@@ -86,25 +86,31 @@ class CollaborativeFiltering:
                                                                                 x['playtime_2weeks'], x['weight']),
                                                           axis=1)
 
-        # pivot테이블 pickle 파일 생성, 1회 실행 필요
-        # pivotUserApp = self.userData.pivot(
-        #     index='newsteamid',
-        #     columns='appid',
-        #     values='weight',
-        # ).fillna(0)
-        # with open('CF/data/pivot.pickle', 'rw') as fw:
-        #     pickle.dump(pivotUserApp, fw)
+        file = 'CF/data/pivot.pickle'
 
-        # 데이터 병합
-        self.userData = self.userData.append(self.searchUser)
-        with open('CF/data/pivot.pickle', 'rb') as fr:
-            pivotUserApp = pickle.load(fr)
+        if os.path.isfile(file):
+            self.userData = self.userData.append(self.searchUser)
+            with open(file, 'rb') as fr:
+                pivotUserApp = pickle.load(fr)
+        else:
+            pivotUserApp = self.userData.pivot(
+                index='newsteamid',
+                columns='appid',
+                values='weight',
+            ).fillna(0)
+            with open(file, 'wb') as fw:
+                pickle.dump(pivotUserApp, fw)
+            self.userData = self.userData.append(self.searchUser)
+
         pivotSearchUserApp = self.searchUser.pivot(
             index='newsteamid',
             columns='appid',
             values='weight',
         ).fillna(0)
         pivotUserApp = pivotUserApp.append(pivotSearchUserApp, sort=False).fillna(0)
+
+        # 데이터 병합
+
         ## 피봇 테이블을 저장해두자.
         matrix = pivotUserApp.values
         weightMean = np.mean(matrix, axis=1)
