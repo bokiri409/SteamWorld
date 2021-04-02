@@ -72,7 +72,7 @@ class ContentsBasedFiltering:
         # 계산된 유사도를 데이터에 추가
         self.data.loc[:, 'point'] = self.pointList
 
-    def result(self, n):
+    def result(self, n=10):
         # 데이터 출력
         result = self.data.sort_values(by=['point'], ascending=False).head(n)
         result = result.drop(['genre', 'vote', 'point'], axis='columns')
