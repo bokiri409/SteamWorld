@@ -11,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-slider/dist/css/bootstrap-slider.css'
 import BootstrapIcons from './assets/vendor/bootstrap-icons//bootstrap-icons.json'
+import 'aos'
+import Aos from 'aos'
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
@@ -19,6 +21,7 @@ Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 Vue.use(CarouselPlugin)
 Vue.use(BootstrapIcons)
+Vue.use(Aos)
 
 
 

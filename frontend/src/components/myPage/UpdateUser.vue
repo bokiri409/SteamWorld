@@ -26,30 +26,22 @@
           style="margin-left: 100px ; font-size: 20px"
           >********</span
         >
-        <UpdatePw
-          v-if="show"
-          v-on:cancel="cancel()"
-          style="margin-left:390px;margin-top:-50px;"
-        />
-        <n-button
+ 
+        <b-button
           type="primary"
           @click.prevent="show_update_pw()"
           style="margin-left: 40px ;margin-top:-6px;font-size:0.5rem;border-radius: 10rem"
           v-if="!show"
         >
           변경
-        </n-button>
+        </b-button>
       </div>
     </div>
     <div>
       <div style="margin-top:35px">
         <div class="inpbx" style="font-size: large">
           <span style="margin-left:220px ;font-size: 20px ;"> 닉네임 </span>
-          <fg-input
-            placeholder="닉네임"
-            style="margin-left : 370px ; margin-top:-44px;width : 300px"
-            v-model="user.nickname"
-          />
+   
           <br />
 
           <div>
@@ -64,19 +56,11 @@
           <span style="margin-left:175px ;font-size: 20px ;">
             휴대폰 번호
           </span>
-          <fg-input
-            style="margin-left : 370px ; margin-top:-44px;width : 300px"
-            placeholder="휴대폰 번호"
-            v-model="user.phone"
-          /><br />
+  
 
           <div style="margin-top:-10px">
             <span style="margin-left:215px ;font-size: 20px ;"> 사는 곳 </span>
-            <fg-input
-              placeholder=""
-              v-model="user.region"
-              style="margin-top:-44px ;margin-left : 370px ; width :450px"
-            />
+
      
             <br />
    
