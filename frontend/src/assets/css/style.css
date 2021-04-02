@@ -29,6 +29,13 @@ body::before {
   z-index: -1;
 }
 
+@font-face {
+  font-family: 'DungGeunMo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @media (min-width: 1024px) {
   body::before {
     background-attachment: fixed;
