@@ -64,3 +64,6 @@ class CF(Resource):
                 'data' : ''
             }
             return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
