@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.a105.apiServer.dao.UserDao">
 	<select id="login" parameterType="map" resultType="UserDto">
-		select userid, nickname, steamid
+		select *
 		from a105.user
 		where userid = #{userid} and password = #{password}
 	</select>
@@ -14,7 +14,7 @@
 	</insert>
 	
 	<select id="getUser" parameterType="String" resultType="UserDto">
-		select userid, nickname, steamid from a105.user
+		select * from a105.user
 		where userid = #{userid}
 	</select>
 	
