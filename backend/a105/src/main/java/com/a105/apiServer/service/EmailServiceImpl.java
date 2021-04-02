@@ -23,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
 	public MimeMessage createMessage(String to) throws Exception {
 //		System.out.println("보내는 대상 : " + to);
 //		System.out.println("인증 번호 : " + ePw);
-		ePw = createKey();
+//		ePw = createKey();
 		MimeMessage message = emailSender.createMimeMessage();
 		MimeMessageHelper msgHelper = new MimeMessageHelper(message, true, "UTF-8"); //이미지 첨부용
 
