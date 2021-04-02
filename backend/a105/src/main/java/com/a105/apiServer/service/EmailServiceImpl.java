@@ -18,16 +18,16 @@ public class EmailServiceImpl implements EmailService {
 	@Autowired
 	JavaMailSender emailSender;
 
-	public static String ePw;
+	public static String ePw = createKey();
 
 	public MimeMessage createMessage(String to) throws Exception {
 //		System.out.println("보내는 대상 : " + to);
 //		System.out.println("인증 번호 : " + ePw);
+		ePw = createKey();
 		MimeMessage message = emailSender.createMimeMessage();
 		MimeMessageHelper msgHelper = new MimeMessageHelper(message, true, "UTF-8"); //이미지 첨부용
-		
-		ePw = createKey();
-		
+
+
 		message.addRecipients(RecipientType.TO, to);// 보내는 대상
 		message.setSubject("『Game World』 인증번호가 도착했습니다.");// 제목
 
@@ -52,6 +52,7 @@ public class EmailServiceImpl implements EmailService {
 		return message;
 	}
 
+	
 //		인증코드 만들기
 	public static String createKey() {
 		StringBuffer key = new StringBuffer();
@@ -89,6 +90,13 @@ public class EmailServiceImpl implements EmailService {
 //			es.printStackTrace();
 //			throw new IllegalArgumentException();
 //		}
+	}
+
+
+	@Override
+	public void testKey() throws Exception {
+		ePw = createKey();
+		System.out.println(ePw);
 	}
 
 }
