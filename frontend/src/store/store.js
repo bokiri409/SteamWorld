@@ -29,6 +29,10 @@ export default new Vuex.Store({
                 userid: state.userid,
                 nickname: state.nickname
             }
+        },
+        logout(state) {
+            state.userid = ''
+            state.nickname = ''
         }
     },
     actions: {
@@ -38,6 +42,9 @@ export default new Vuex.Store({
                     // console.info(res.data)
                     context.commit('login', res.data)
                 })
+        },
+        logout: (context) => {
+            context.commit('logout')
         }
     }
 })
