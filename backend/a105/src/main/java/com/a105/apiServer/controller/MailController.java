@@ -37,8 +37,9 @@ public class MailController {
 		
 		logger.info("post emailConfirm");
 		
-		userId = userId.substring(0, userId.length());
+		userId = userId.substring(0, userId.length()-1);
 		userId= userId.replace("%40", "@");	
+		userId= userId.replace("%22", "\"");
 		
 		logger.info("email : "+ userId);
 		try {
@@ -63,7 +64,8 @@ public class MailController {
 
 		ResponseEntity entity = null;
 		Map result = new HashMap();
-		code = code.substring(0, code.length());
+		code = code.substring(0, code.length()-1);
+		System.out.println(code);
 //		int result = 0;
 //		System.out.println("code : " + code);
 //		System.out.println("ePw : " + EmailServiceImpl.ePw);
