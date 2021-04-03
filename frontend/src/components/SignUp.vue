@@ -133,7 +133,17 @@ export default {
         .post(api_url + `/a105/user/checkid`, this.user)
         .then((res) => {
           if (res.data.success == 'success') {
-            this.signUp();
+            axios
+              .post(api_url + `/a105/mail/*`, '"' + this.user.userid + '"')
+              .then(() => {
+                var code = prompt(
+                  '입력하신 메일로 인증코드가 발송되었습니다. 인증코드를 입력해주세요.'
+                );
+                this.emailConfirm(code);
+              })
+              .catch((err) => {
+                console.dir(err);
+              });
           } else {
             console.log('이미 있는 아이디');
             alert('이미 등록된 아이디입니다!');
@@ -143,19 +153,25 @@ export default {
           console.dir(error);
         });
     },
+    emailConfirm: function(code) {
+      axios.post(api_url + `/a105/mail/verify`, code).then((res) => {
+        if (res.data.success == 'success') {
+          this.signUp();
+        } else {
+          console.log(res.data);
+        }
+      });
+    },
     signUp: function() {
       axios
         .post(api_url + `/a105/user/join`, this.user)
         .then((res) => {
-          if (res.data.data == 'success') {
+          if (res.data.success == 'success') {
             alert(
-              '입력하신 이메일로 메일이 발송되었습니다. 메일을 확인해주세요!'
+              'Steam World! 에 가입해주셔서 감사합니다! 로그인 페이지로 이동합니다.'
             );
           } else {
-            console.log(res);
-            console.log(res.config.data); //{"userid":"dog@steam.com","nickname":"멍멍","password":"ajdajd123"}
-            console.log(res.config.data.userid); //undefined
-            alert(res);
+            alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
           }
         })
         .catch((error) => {
