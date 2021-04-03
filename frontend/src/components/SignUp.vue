@@ -116,7 +116,7 @@ export default {
         ((msg = '비밀번호를 다시 확인해주세요!'), (err = false));
 
       if (!err) alert(msg);
-      else this.signUp();
+      else this.checkid();
     },
     validEmail: function(userid) {
       //이메일 형식 체크
@@ -127,6 +127,21 @@ export default {
       //비밀번호 형식 체크
       var re = /^[a-zA-z0-9]{8,}$/;
       return re.test(password);
+    },
+    checkid: function() {
+      axios
+        .post(api_url + `/a105/user/checkid`, this.user)
+        .then((res) => {
+          if (res.data.success == 'success') {
+            this.signUp();
+          } else {
+            console.log('이미 있는 아이디');
+            alert('이미 등록된 아이디입니다!');
+          }
+        })
+        .catch((error) => {
+          console.dir(error);
+        });
     },
     signUp: function() {
       axios
