@@ -117,7 +117,9 @@
       <!-- End Banner -->
     </transition>
     <!-- <keep-alive> -->
-    <router-view></router-view>
+    <transition name="slide" mode="out-in">
+      <router-view></router-view>
+    </transition>
     <!-- </keep-alive> -->
   </div>
 </template>

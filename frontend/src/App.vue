@@ -1,21 +1,22 @@
 <template>
   <div id="app">
-      <link href="../src/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <TopHeader />
+    <link
+      href="../src/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- <TopHeader /> -->
     <SwBanner />
   </div>
 </template>
 <script>
-import SwBanner from "./components/SwBanner.vue";
-import TopHeader from "./components/TopHeader.vue";
-
-
+import SwBanner from './components/SwBanner.vue';
+// import TopHeader from "./components/TopHeader.vue";
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     SwBanner,
-    TopHeader,
+    // TopHeader,
   },
 };
 </script>
@@ -29,42 +30,42 @@ h5,
 p {
   color: white;
 }
-@import "./assets/css/style.css";
-@import "./assets/vendor/bootstrap-icons/bootstrap-icons.css";
+@import './assets/css/style.css';
+@import './assets/vendor/bootstrap-icons/bootstrap-icons.css';
 </style>
 
 <style type="text/css" media="screen, print">
 @font-face {
-  font-family: "DungGeunMo";
-  src: "../";
+  font-family: 'DungGeunMo';
+  src: '../';
 }
 
 * {
-  font-family: "DungGeunMo";
+  font-family: 'DungGeunMo';
 }
 
 p {
-  font-family: "DungGeunMo";
+  font-family: 'DungGeunMo';
   font-style: normal;
   font-weight: normal;
 }
 em {
-  font-family: "DungGeunMo";
+  font-family: 'DungGeunMo';
   font-style: normal;
   font-weight: normal;
 }
 a {
-  font-family: "DungGeunMo";
+  font-family: 'DungGeunMo';
   font-style: normal;
   font-weight: normal;
 }
 h1 {
-  font-family: "DungGeunMo";
+  font-family: 'DungGeunMo';
   font-style: normal;
   font-weight: normal;
 }
 h2 {
-  font-family: "DungGeunMo";
+  font-family: 'DungGeunMo';
   font-style: normal;
   font-weight: normal;
 }
