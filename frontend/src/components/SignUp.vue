@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section class="section-show">
     <div
       class="container"
       style="background-color:#00000077; margin-bottom:50px; align:center"
@@ -68,7 +68,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
