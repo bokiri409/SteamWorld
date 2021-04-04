@@ -10,13 +10,14 @@ pipeline {
             }
             options { skipDefaultCheckout(false) }
             steps {
+				
+				sh 'pwd'
+				sh 'ls'
+				sh 'cd frontend/'
+				sh 'pwd'
+				sh 'ls'
 				sh 'npm -v'
 				sh 'npm install'
-				sh 'pwd'
-				sh 'ls'
-				sh 'cd frontend'
-				sh 'pwd'
-				sh 'ls'
 				sh 'npm run build'
             }
         }
