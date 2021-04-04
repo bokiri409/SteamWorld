@@ -8,11 +8,35 @@
           <h2>마이페이지</h2>
           <p>My Page</p>
 
-          <h1 class="text-center typing-txt" style="align:center;">
-            ㅁㅁㅁ님의 마이페이지
+          <h1 class=" typing-txt" style="margin-bottom:100px;">
+            가락동겜돌이 님의 마이페이지
           </h1>
 
-          <form action="https://steamcommunity.com/openid/login" method="post">
+          <br />
+
+          <div class="profile-row row">
+             <div class="col-md-2"></div>
+            <div class="col-md-4">
+              <div style="display:flex; justify-content:flex-end; border-color:#36e888; border-width:3px; border-radius:20px; height:250px; width:250px; display:block; overflow: hidden;">
+                <img src="../assets/img/poster.png" style="display:block; max-width:100%; min-width:100%;">
+                </div>
+            </div>
+            <div class="col-md-6" style="">
+              <div class="section-title">
+                <h2>닉네임</h2>
+              </div>
+              <h3>가락동겜돌이</h3>
+              <br />
+              <div class="section-title">
+                <h2>이메일</h2>
+              </div>
+              <h3>steamworld@hello.world</h3>
+              
+            </div>
+          </div>
+
+          <b-button class="btn-lg">스팀 연동하기</b-button>
+                        <form action="https://steamcommunity.com/openid/login" method="post">
             <input
               type="hidden"
               name="openid.identity"
@@ -41,41 +65,8 @@
             />
             <button type="submit">Log in through Steam</button>
           </form>
-          <br />
-
-          <div class="row">
-            <div class="col-md-4">
-              <div class="profile_wrapper">
-                <div class="gradation_animate"></div>
-                <div class="image_wrapper">
-                  <img
-                    class="image"
-                    src="https://k.kakaocdn.net/dn/cxzhEK/btqzv6kQW0A/3UIhw0S52V3kPK0QTEHPT0/img.png"
-                  />
-                </div>
-              </div>
-
-              <b-avatar
-                size="8rem"
-                variant="success"
-                icon="people-fill"
-              ></b-avatar>
-            </div>
-            <div class="col-md-8" style="">
-              <div class="section-title">
-                <h2>닉네임</h2>
-              </div>
-              <h3>가락동겜돌이</h3>
-              <br />
-              <div class="section-title">
-                <h2>이메일</h2>
-              </div>
-              <h3>steamworld@hello.world</h3>
-              <b-button class="btn-lg">스팀 연동하기</b-button>
               <b-button class="btn-lg">프로필 수정</b-button>
               <b-icon icon="exclamation-circle-fill" variant="danger"></b-icon>
-            </div>
-          </div>
 
           <div class="counts container">
             <div class="row">
@@ -137,15 +128,16 @@
             </div>
           </div>
 
-          <div>
-            <b-card title="Card Title" no-body>
-              <b-card-header header-tag="nav">
+          <div style="background-color:none">
+            <b-card title="Card Title" no-body >
+              <b-card-header header-tag="nav" style="background-color:none">
                 <b-nav card-header tabs>
                   <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
                   <b-nav-item
                     @click.prevent="loadUpdate()"
                     exact
                     exact-active-class="active"
+                    style=""
                     >프로필 상세</b-nav-item
                   >
                   <b-nav-item
@@ -160,7 +152,7 @@
                 </b-nav>
               </b-card-header>
 
-              <b-card-body justify-content>
+              <b-card-body justify-content style="background-color:none">
                 <!-- Child route gets rendered in <router-view> or <nuxt-child> -->
                 <div id="mypage-contents">
                   <!-- <UpdateUser id="update" style="margin-top:0px;margin-left:0px" /> -->
@@ -428,6 +420,8 @@
             <div class="owl-carousel testimonials-carousel"></div>
           </div>
 
+          
+
           <!-- 임시로 해주는 구간 -->
         </div>
       </div>
@@ -647,6 +641,7 @@ export default {
   height: 100px;
   margin: 0 15px 0 36px;
   position: relative;
+ 
 }
 .gradation_animate {
   position: absolute;
@@ -678,5 +673,59 @@ export default {
   height: 92px;
   min-width: 100%;
   min-height: 100%;
+}
+
+nav.card-header{
+  background-color:none;
+}
+
+a.nav-link{
+  color:rgba(255, 255, 255, 0.945);
+  border-color: none;
+  border-width: 3px;
+  border-bottom: none;
+  border-radius: 12px 12px 0px  0px;
+  background-color: rgba(88, 88, 88, 0.678);
+}
+
+a.nav-link:hover{
+  color:white;
+  border-color: white;
+  border-width: 3px;
+  border-bottom: none;
+  border-radius: 12px 12px 0px  0px;
+
+}
+
+a.nav-link:focus{
+   color:#35e888;
+  border-color: #35e888;
+  border-width: 3px;
+  border-bottom: none;
+  border-radius: 12px 12px 0px  0px;
+}
+
+
+div.card{
+  background-color: #00000000;
+  
+}
+
+div.card-body{
+  background-color: rgba(255, 255, 255, 0.08);
+   border-width: 15px;
+  border-color: #35e888;
+
+}
+
+
+h2.section-title{
+  line-height: 0px;
+  margin: 0 0 10px 0;
+}
+
+
+div.profile-container{
+  background-color: rgba(255, 255, 255, 0.08);
 }
 </style>

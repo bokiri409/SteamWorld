@@ -13,6 +13,8 @@
 
 
       <div>
+
+
   <b-card
     no-body
     style="max-width: 20rem; background-color:black; border-width:1px; border-color:white"
@@ -166,6 +168,7 @@
       </div>
 
     </div>
+    
 
     <div id="game_area_description" class="game_area_description">
 							<h2>게임에 대해</h2>
@@ -352,6 +355,22 @@
     </div>
 
 </template>
+<script>
+
+
+ export default {
+ 
+        components : {
+
+            
+        },
+ 
+        mounted() {
+            console.log('Component mounted.')
+        }
+
+ }
+</script>
 
 <!--  <script src="../assets/js/main.js"></script>-->
 <style scoped>
