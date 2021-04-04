@@ -95,11 +95,6 @@
         >
           로그인
         </button>
-        <router-link to="/user/signup" class="nav-link">
-          <button class="btn btn-dark btn-lg btn-block">
-            회원가입
-          </button></router-link
-        >
 
         <p class="forgot-password text-right mt-2 mb-4">
           <router-link to="/user/forgotpassword">Forgot password ?</router-link>

@@ -42,64 +42,73 @@
           <i class="addBtn fas fa-plus" aria-hidden="true"></i>
 
           <nav id="navbarMain" class="navbarMain">
-            <ul>
-              <li>
-                <router-link
-                  to="/"
-                  class="nav-link active"
-                  href="#header"
-                  @click="toggleBanner"
-                  >Home</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  to="/survey"
-                  class="nav-link"
-                  href="#about"
-                  @click="show = !show"
-                  >내게 맞는 게임 찾기</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  to="/mypage"
-                  class="nav-link"
-                  href="#services"
-                  @click="toggle"
-                  >마이 페이지</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  to="/recommend"
-                  class="nav-link"
-                  href="#portfolio"
-                  @click="toggle"
-                  >게임 추천</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  to="/user/login"
-                  class="nav-link"
-                  href="#services"
-                  @click="toggle"
-                  >로그인</router-link
-                >
-              </li>
-              <li>
-                <router-link to="/user/signup" class="nav-link" href="#services"
-                  >회원가입</router-link
-                >
-              </li>
-              <li>
-                <a href="#" class=""
-                  ><img src="../assets/img/steam.svg" @click="toggle" />스팀
-                  연동하기</a
-                >
-              </li>
-            </ul>
+            <router-link
+              to="/"
+              class="nav-link active"
+              href="#header"
+              @click="toggleBanner"
+              style="margin-right: 20px"
+              >Home</router-link
+            >
+            <router-link
+              to="/survey"
+              class="nav-link"
+              href="#about"
+              @click="show = !show"
+              style="margin-right: 20px"
+              >내게 맞는 게임 찾기</router-link
+            >
+            <router-link
+              to="/recommend"
+              class="nav-link"
+              href="#portfolio"
+              @click="toggle"
+              style="margin-right: 20px"
+              >게임 추천</router-link
+            >
+            <div v-if="!getUserid">
+              <router-link
+                to="/user/login"
+                class="nav-link"
+                href="#services"
+                @click="toggle"
+                style="margin-right: 20px"
+                >로그인</router-link
+              >
+              <router-link
+                to="/user/signup"
+                class="nav-link"
+                href="#services"
+                style="margin-right: 20px"
+                >회원가입</router-link
+              >
+            </div>
+            <div v-else>
+              <router-link
+                to="/mypage"
+                class="nav-link"
+                href="#services"
+                @click="toggle"
+                style="margin-right: 20px"
+                >마이 페이지</router-link
+              >
+              <a class="nav-link" style="margin-right: 20px"
+                >{{ getNickname }} 님 환영합니다.</a
+              >
+              <a
+                @click="logoutHandler"
+                class="nav-link"
+                style="margin-right: 20px"
+                >로그아웃</a
+              >
+            </div>
+            <a href="#" class="nav-link"
+              ><img
+                src="../assets/img/steam.svg"
+                @click="toggle"
+                class="steamlogo"
+              />스팀 연동하기</a
+            >
             <div class="social-links"></div>
           </nav>
           <!-- .navbar -->
@@ -121,6 +130,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'SwBanner',
   data() {
@@ -130,6 +141,9 @@ export default {
       show: true,
     };
   },
+  computed: {
+    ...mapGetters(['getUserid', 'getNickname']),
+  },
   methods: {
     toggle() {
       this.headerShow = true;
@@ -138,6 +152,16 @@ export default {
     toggleBanner() {
       this.bannerShow = true;
       this.headerShow = false;
+    },
+    logoutHandler() {
+      this.$store
+        .dispatch('logout')
+        .then(() =>
+          this.$router.push({
+            path: '/',
+          })
+        )
+        .catch(() => {});
     },
   },
 };
