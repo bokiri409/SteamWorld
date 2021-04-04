@@ -10,9 +10,11 @@ pipeline {
             }
             options { skipDefaultCheckout(false) }
             steps {
+		dir("frontend"){
 				sh 'npm -v'
-				sh 'npm install ./frontend'
+				sh 'npm install'
 				sh 'npm run build ./frontend'
+		}
             }
         }
         stage('Docker build') {
