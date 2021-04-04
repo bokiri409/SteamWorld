@@ -18,7 +18,7 @@
              <div class="col-md-2"></div>
             <div class="col-md-4">
               <div style="display:flex; justify-content:flex-end; border-color:#36e888; border-width:3px; border-radius:20px; height:250px; width:250px; display:block; overflow: hidden;">
-                <img src="../assets/img/poster.png" style="display:block; max-width:100%; min-width:100%;">
+                <!-- <img src="../assets/img/poster.png" style="display:block; max-width:100%; min-width:100%;"> -->
                 </div>
             </div>
             <div class="col-md-6" style="">
