@@ -12,6 +12,9 @@ pipeline {
             steps {
 				sh 'npm -v'
 				sh 'npm install'
+				sh 'pwd'
+				sh 'cd frontend'
+				sh 'pwd'
 				sh 'npm run build'
             }
         }
