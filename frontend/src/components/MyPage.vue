@@ -56,12 +56,12 @@
             <input
               type="hidden"
               name="openid.realm"
-              value="http://localhost:8081"
+              value="http://localhost:8080"
             />
             <input
               type="hidden"
               name="openid.return_to"
-              value="http://localhost:8081/mypage"
+              value="http://localhost:8080/mypage"
             />
             <button type="submit">Log in through Steam</button>
           </form>
