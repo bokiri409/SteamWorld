@@ -28,87 +28,77 @@
     </b-collapse>
   </b-navbar> -->
 
-    <transition name="slide" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <!-- <transition name="slide" mode="out-in"> -->
+    <!-- <router-view></router-view> -->
+    <!-- </transition> -->
 
     <transition>
-      <header v-if="show" id="header">
+      <header id="header">
         <div class="container">
           <h1>Steam World!</h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html" class="mr-auto"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a> -->
           <h2>세상에서 가장 <span>편리한</span> 게임 추천 서비스</h2>
-          <i class="addBtn fas fa-plus" aria-hidden="true"></i>
+          <!-- <i class="addBtn fas fa-plus" aria-hidden="true"></i> -->
 
           <nav id="navbarMain" class="navbarMain">
-            <router-link
-              to="/"
-              class="nav-link active"
-              href="#header"
-              @click="toggleBanner"
-              style="margin-right: 20px"
-              >Home</router-link
-            >
-            <router-link
-              to="/survey"
-              class="nav-link"
-              href="#about"
-              @click="show = !show"
-              style="margin-right: 20px"
-              >내게 맞는 게임 찾기</router-link
-            >
-            <router-link
-              to="/recommend"
-              class="nav-link"
-              href="#portfolio"
-              @click="toggle"
-              style="margin-right: 20px"
-              >게임 추천</router-link
-            >
-            <div v-if="!getUserid">
-              <router-link
-                to="/user/login"
-                class="nav-link"
-                href="#services"
-                @click="toggle"
-                style="margin-right: 20px"
-                >로그인</router-link
-              >
-              <router-link
-                to="/user/signup"
-                class="nav-link"
-                href="#services"
-                style="margin-right: 20px"
-                >회원가입</router-link
-              >
-            </div>
-            <div v-else>
-              <router-link
-                to="/mypage"
-                class="nav-link"
-                href="#services"
-                @click="toggle"
-                style="margin-right: 20px"
-                >마이 페이지</router-link
-              >
-              <a class="nav-link" style="margin-right: 20px"
-                >{{ getNickname }} 님 환영합니다.</a
-              >
-              <a
-                @click="logoutHandler"
-                class="nav-link"
-                style="margin-right: 20px"
-                >로그아웃</a
-              >
-            </div>
-            <a href="#" class="nav-link"
-              ><img
-                src="../assets/img/steam.svg"
-                @click="toggle"
-                class="steamlogo"
-              />스팀 연동하기</a
-            >
+            <ul>
+              <li @click="toggleBanner">
+                <router-link to="/" class="nav-link active" href="#header"
+                  >Home</router-link
+                >
+              </li>
+              <li @click="clickHandler()">
+                <router-link
+                  to="/survey"
+                  class="nav-link"
+                  href="#about"
+                  id="menu-game"
+                  >내게 맞는 게임 찾기</router-link
+                >
+              </li>
+              <li @click="clickHandler()">
+                <router-link
+                  to="/mypage"
+                  class="nav-link"
+                  href="#services"
+                  id="menu-mypage"
+                  >마이 페이지</router-link
+                >
+              </li>
+              <li @click="clickHandler()">
+                <router-link
+                  to="/recommend"
+                  class="nav-link"
+                  href="#portfolio"
+                  id="menu-recomm"
+                  >게임 추천</router-link
+                >
+              </li>
+              <li @click="clickHandler()">
+                <router-link
+                  to="/user/login"
+                  class="nav-link"
+                  href="#services"
+                  id="menu-login"
+                  >로그인</router-link
+                >
+              </li>
+              <li @click="clickHandler2()">
+                <router-link
+                  to="/user/signup"
+                  class="nav-link"
+                  href="#signup"
+                  id="menu-signup"
+                  >회원가입</router-link
+                >
+              </li>
+              <li @click="clickHandler()">
+                <a href="#" class=""
+                  ><img src="../assets/img/steam.svg" />스팀 연동하기</a
+                >
+              </li>
+            </ul>
             <div class="social-links"></div>
           </nav>
           <!-- .navbar -->
@@ -126,42 +116,118 @@
       </header>
       <!-- End Banner -->
     </transition>
+    <!-- <keep-alive> -->
+    <transition name="slide" mode="out-in">
+      <router-view></router-view>
+    </transition>
+    <!-- </keep-alive> -->
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'SwBanner',
+  mounted() {
+    const select = (el, all = false) => {
+      el = el.trim();
+      if (all) {
+        return [...document.querySelectorAll(el)];
+      } else {
+        return document.querySelector(el);
+      }
+    };
+
+    var header = select('#header');
+    if (this.$route.matched[0].path == '') {
+      header.classList.remove('header-top');
+    } else {
+      header.classList.add('header-top');
+    }
+  },
   data() {
     return {
       bannerShow: true,
       headerShow: true,
       show: true,
+      lineshow: '',
     };
   },
-  computed: {
-    ...mapGetters(['getUserid', 'getNickname']),
-  },
   methods: {
-    toggle() {
-      this.headerShow = true;
-      this.bannerShow = false;
+    clickHandler: function() {
+      // setTimeout(function() {
+      const scrollto = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      };
+      const select = (el, all = false) => {
+        el = el.trim();
+        if (all) {
+          return [...document.querySelectorAll(el)];
+        } else {
+          return document.querySelector(el);
+        }
+      };
+      var header = select('#header');
+      console.log(header);
+      if (!header.classList.contains('header-top')) {
+        header.classList.add('header-top');
+      }
+
+      var greenline = select('.nav-link');
+      if (!this.lineshow === '') {
+        greenline.classList.add('active');
+      } else {
+        greenline.contains.remove('active');
+      }
+      //var menu = select('#menu-login');
+      var menu = select('.nav-link');
+      // console.log(menu.substring('#', -1));
+      // console.log(menu.split('#'));
+      console.log(menu);
+
+      scrollto();
+      // }, 0);
     },
-    toggleBanner() {
-      this.bannerShow = true;
-      this.headerShow = false;
+    clickHandler2: function() {
+      const scrollto = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      };
+      const select = (el, all = false) => {
+        el = el.trim();
+        if (all) {
+          return [...document.querySelectorAll(el)];
+        } else {
+          return document.querySelector(el);
+        }
+      };
+      var header = select('#header');
+      if (!header.classList.contains('header-top')) {
+        header.classList.add('header-top');
+      }
+      var menu = select('.nav-link');
+      // console.log(menu.substring('#', -1));
+      // console.log(menu.split('#'));
+      console.log(menu);
+
+      scrollto();
     },
-    logoutHandler() {
-      this.$store
-        .dispatch('logout')
-        .then(() =>
-          this.$router.push({
-            path: '/',
-          })
-        )
-        .catch(() => {});
+    toggleBanner: function() {
+      const select = (el, all = false) => {
+        el = el.trim();
+        if (all) {
+          return [...document.querySelectorAll(el)];
+        } else {
+          return document.querySelector(el);
+        }
+      };
+      console.log('home');
+      var header = select('#header');
+      header.classList.remove('header-top');
     },
   },
 };
@@ -200,7 +266,6 @@ export default {
     transform: translateY(0);
   }
 }
-
 v-enter-active,
 v-leave-active {
   transition: 0.5s;
