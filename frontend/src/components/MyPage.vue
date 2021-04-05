@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="section-show">
     <div class="row"></div>
     <div class="row" style="width:100%">
       <div class="col-md-1"></div>
@@ -15,11 +15,16 @@
           <br />
 
           <div class="profile-row row">
-             <div class="col-md-2"></div>
+            <div class="col-md-2"></div>
             <div class="col-md-4">
-              <div style="display:flex; justify-content:flex-end; border-color:#36e888; border-width:3px; border-radius:20px; height:250px; width:250px; display:block; overflow: hidden;">
-                <!-- <img src="../assets/img/poster.png" style="display:block; max-width:100%; min-width:100%;"> -->
-                </div>
+              <div
+                style="display:flex; justify-content:flex-end; border-color:#36e888; border-width:3px; border-radius:20px; height:250px; width:250px; display:block; overflow: hidden;"
+              >
+                <img
+                  src="../assets/img/poster.png"
+                  style="display:block; max-width:100%; min-width:100%;"
+                />
+              </div>
             </div>
             <div class="col-md-6" style="">
               <div class="section-title">
@@ -31,12 +36,16 @@
                 <h2>이메일</h2>
               </div>
               <h3>steamworld@hello.world</h3>
-              
+              <div class="section-title">
+                <h2>스팀 아이디</h2>
+              </div>
+              <h3>{{sid}}</h3>
             </div>
           </div>
 
-          <b-button class="btn-lg">스팀 연동하기</b-button>
-                        <form action="https://steamcommunity.com/openid/login" method="post">
+          <b-button class="btn-lg" style="border-radius: 10rem" @click="getUrl()">스팀 연동하기</b-button>
+
+          <form action="https://steamcommunity.com/openid/login" method="post">
             <input
               type="hidden"
               name="openid.identity"
@@ -56,17 +65,16 @@
             <input
               type="hidden"
               name="openid.realm"
-              value="http://localhost:8081"
+              value="http://localhost:8080"
             />
             <input
               type="hidden"
               name="openid.return_to"
-              value="http://localhost:8081/mypage"
+              value="http://localhost:8080/mypage"
             />
-            <button type="submit">Log in through Steam</button>
+            <b-button type="submit btn-large" style="border-radius: 10rem"><img src="../assets/img/steam.svg" class="steamlogo"/>스팀 로그인</b-button>
           </form>
-              <b-button class="btn-lg">프로필 수정</b-button>
-              <b-icon icon="exclamation-circle-fill" variant="danger"></b-icon>
+
 
           <div class="counts container">
             <div class="row">
@@ -129,7 +137,7 @@
           </div>
 
           <div style="background-color:none">
-            <b-card title="Card Title" no-body >
+            <b-card title="Card Title" no-body>
               <b-card-header header-tag="nav" style="background-color:none">
                 <b-nav card-header tabs>
                   <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
@@ -420,8 +428,6 @@
             <div class="owl-carousel testimonials-carousel"></div>
           </div>
 
-          
-
           <!-- 임시로 해주는 구간 -->
         </div>
       </div>
@@ -466,6 +472,7 @@ getHTML()
 import UpdateUser from "./myPage/UpdateUser";
 import MyGame from "./myPage/MyGame";
 import RecGame from "./myPage/RecGame";
+
 const axios = require("axios");
 const cheerio = require("cheerio");
 
@@ -481,6 +488,7 @@ export default {
         region: "",
         phone: "",
       },
+      sid: "",
       active: 0,
       slide: 0,
       sliding: null,
@@ -498,6 +506,12 @@ export default {
     },
     onSlideEnd(slide) {
       this.sliding = false;
+    },
+    getUrl() {
+      var link = document.location.href.split("&");
+      console.log(link[3]);
+      this.sid=link[3].slice(67,link[3].length);
+      
     },
 
     componentLoading() {
@@ -641,7 +655,6 @@ export default {
   height: 100px;
   margin: 0 15px 0 36px;
   position: relative;
- 
 }
 .gradation_animate {
   position: absolute;
@@ -650,8 +663,9 @@ export default {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: url(https://k.kakaocdn.net/dn/BQFZF/btqzu7xZvy9/p3qATq2IbK4edXbUm76pTK/img.png) no-repeat;
-    /*  background: url("../assets/img/colorGra.png") no-repeat; */
+  background: url(https://k.kakaocdn.net/dn/BQFZF/btqzu7xZvy9/p3qATq2IbK4edXbUm76pTK/img.png)
+    no-repeat;
+  /*  background: url("../assets/img/colorGra.png") no-repeat; */
   animation: spin 1s linear infinite;
 }
 .image_wrapper {
@@ -675,57 +689,51 @@ export default {
   min-height: 100%;
 }
 
-nav.card-header{
-  background-color:none;
+nav.card-header {
+  background-color: none;
 }
 
-a.nav-link{
-  color:rgba(255, 255, 255, 0.945);
+a.nav-link {
+  color: rgba(255, 255, 255, 0.945);
   border-color: none;
   border-width: 3px;
   border-bottom: none;
-  border-radius: 12px 12px 0px  0px;
+  border-radius: 12px 12px 0px 0px;
   background-color: rgba(88, 88, 88, 0.678);
 }
 
-a.nav-link:hover{
-  color:white;
+a.nav-link:hover {
+  color: white;
   border-color: white;
   border-width: 3px;
   border-bottom: none;
-  border-radius: 12px 12px 0px  0px;
-
+  border-radius: 12px 12px 0px 0px;
 }
 
-a.nav-link:focus{
-   color:#35e888;
+a.nav-link:focus {
+  color: #35e888;
   border-color: #35e888;
   border-width: 3px;
   border-bottom: none;
-  border-radius: 12px 12px 0px  0px;
+  border-radius: 12px 12px 0px 0px;
 }
 
-
-div.card{
+div.card {
   background-color: #00000000;
-  
 }
 
-div.card-body{
+div.card-body {
   background-color: rgba(255, 255, 255, 0.08);
-   border-width: 15px;
+  border-width: 15px;
   border-color: #35e888;
-
 }
 
-
-h2.section-title{
+h2.section-title {
   line-height: 0px;
   margin: 0 0 10px 0;
 }
 
-
-div.profile-container{
+div.profile-container {
   background-color: rgba(255, 255, 255, 0.08);
 }
 </style>

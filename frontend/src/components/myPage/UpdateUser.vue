@@ -2,15 +2,12 @@
 <div>
 
     <h1>프로필 상세</h1>
-
-
     <p> nickname </p>
     <p> email </p>
 
-    <h4>ddddd</h4>
 
 
-    <b-button>수정하기</b-button>
+    <b-button>프로필 수정</b-button>
        <div id="all_info" style="margin-left:80px">
     <div id="user_info">
       <div id="login_info">
@@ -30,10 +27,10 @@
         <b-button
           type="primary"
           @click.prevent="show_update_pw()"
-          style="margin-left: 40px ;margin-top:-6px;font-size:0.5rem;border-radius: 10rem"
+          style="margin-left: 40px ;margin-top:-6px;font-size:1rem;border-radius: 10rem"
           v-if="!show"
         >
-          변경
+          비밀번호 변경
         </b-button>
       </div>
     </div>
@@ -54,7 +51,7 @@
           <input class="ml-5 pl-5 mb-5" type="file" id="img"><br />
 
           <span style="margin-left:175px ;font-size: 20px ;">
-            휴대폰 번호
+            이메일 주소
           </span>
   
 
