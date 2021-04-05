@@ -14,6 +14,7 @@
     "bootstrap-vue": "^2.21.2",
     "cheerio": "^1.0.0-rc.5",
     "core-js": "^3.10.0",
+    "dotenv": "^8.2.0",
     "glightbox": "^3.0.7",
     "isotope-layout": "^3.0.6",
     "jquery": "^3.6.0",
