@@ -127,6 +127,23 @@
 <script>
 export default {
   name: 'SwBanner',
+  mounted() {
+    const select = (el, all = false) => {
+      el = el.trim();
+      if (all) {
+        return [...document.querySelectorAll(el)];
+      } else {
+        return document.querySelector(el);
+      }
+    };
+
+    var header = select('#header');
+    if (this.$route.matched[0].path == '') {
+      header.classList.remove('header-top');
+    } else {
+      header.classList.add('header-top');
+    }
+  },
   data() {
     return {
       bannerShow: true,
@@ -153,6 +170,7 @@ export default {
         }
       };
       var header = select('#header');
+      console.log(header);
       if (!header.classList.contains('header-top')) {
         header.classList.add('header-top');
       }
