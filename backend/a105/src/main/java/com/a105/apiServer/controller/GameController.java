@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,32 @@ public class GameController {
 		Map result = new HashMap();
 		try {
 			List<GamesDto> games = gameService.gameList();
+			if (games != null) {
+				result.put("success", "success");
+				result.put("data", games);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
+	@GetMapping(value = "/popular")
+	private ResponseEntity popularList(@RequestBody String size) {
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		try {
+			List<GamesDto> games = gameService.popularList(size);
 			if (games != null) {
 				result.put("success", "success");
 				result.put("data", games);
