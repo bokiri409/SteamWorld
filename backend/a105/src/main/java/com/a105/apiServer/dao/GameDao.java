@@ -11,6 +11,7 @@ import com.a105.apiServer.dto.GamesDto;
 @Mapper
 public interface GameDao {
 	public List<GamesDto> getGameList() throws Exception;
+	public List<GamesDto> getGamePopular(String size) throws Exception;
 	public GamesDto getGame(String appid) throws Exception;
 	
 	public List<GameTagsDto> getGameTagAll() throws Exception;
@@ -20,5 +21,6 @@ public interface GameDao {
 	public List<GameLinksDto> getGameLinkAll() throws Exception;
 	public List<GameLinksDto> getGameLinkList(String appid) throws Exception;
 	public GameLinksDto getGameLink(String linkid) throws Exception;
+	
 	
 }

@@ -6,6 +6,13 @@
 		select * from a105.games
 	</select>
 	
+	<select id="getGamePupular" parameterType="String" resultType="GamesDto">
+		select * from a105.games
+		where vote > 20000
+		order by score DESC
+		limit #{size}
+	</select>
+	
 	<select id="getGame" parameterType="String" resultType="GamesDto">
 		select * from a105.games
 		where appid = #{appid}

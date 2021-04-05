@@ -9,6 +9,7 @@ import com.a105.apiServer.dto.GamesDto;
 
 public interface GameService {
 	public List<GamesDto> gameList() throws Exception;
+	public List<GamesDto> popularList(String size) throws Exception;
 	public GamesDto gameSearch(String appid) throws Exception;
 	
 	public List<GameTagsDto> gameTagAll() throws Exception;
