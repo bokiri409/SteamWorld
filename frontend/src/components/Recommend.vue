@@ -16,43 +16,28 @@
 
 
   <b-card
+  v-b-modal.modal-1
     no-body
     style="max-width: 20rem; background-color:black; border-width:1px; border-color:white"
-    img-src="https://placekitten.com/380/200"
+    img-src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
     img-alt="Image"
     img-top
   >
-    <template #header>
-      <h4 class="mb-0">Hello World</h4>
-    </template>
-
     <b-card-body>
       <b-card-title>Card Title</b-card-title>
-      <b-card-sub-title class="mb-2">Card Sub Title</b-card-sub-title>
+      <b-card-sub-title class="mb-2"><b-badge variant="primary">경쟁</b-badge>
+      <b-badge variant="danger">멀티플레이</b-badge>
+      <b-badge variant="success">파티플레이</b-badge></b-card-sub-title>
       <b-card-text>
-        Some quick example text to build on the card title and make up the bulk of the card's
-        content.
+        간단 설명간단 설명간단 설명간단 설명간단 설명간단 설명
       </b-card-text>
     </b-card-body>
 
     <b-card-body>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+      <a href="https://store.steampowered.com/app/477160/Human_Fall_Flat/" class="card-link">상점 바로가기</a>
     </b-card-body>
-
-    <b-card-footer>This is a footer</b-card-footer>
-
-    <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom></b-card-img>
   </b-card>
 </div>
-
-
-      <div>
-  <b-button v-b-modal.modal-1>Launch demo modal</b-button>
-
-</div>
-
-
 
       <div class="row portfolio-container"  style="width:100%">
         <!--477160-->

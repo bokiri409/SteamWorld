@@ -511,6 +511,7 @@ export default {
       var link = document.location.href.split("&");
       console.log(link[3]);
       this.sid=link[3].slice(67,link[3].length);
+      
     },
 
     componentLoading() {
