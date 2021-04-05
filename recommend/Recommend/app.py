@@ -24,7 +24,7 @@ info = recomm.model('info', {  # Model 객체 생성
     'steamid' : fields.Integer,
 })
 
-@recomm.route('/wish')
+@recomm.route('/wish/')
 class wish(Resource):
     @recomm.expect(info)
     def post(self):
