@@ -11,7 +11,7 @@ import com.a105.apiServer.dto.GamesDto;
 @Mapper
 public interface GameDao {
 	public List<GamesDto> getGameList() throws Exception;
-	public List<GamesDto> getGamePopular(String size) throws Exception;
+	public List<GamesDto> getGamePopular(int size) throws Exception;
 	public GamesDto getGame(String appid) throws Exception;
 	
 	public List<GameTagsDto> getGameTagAll() throws Exception;
