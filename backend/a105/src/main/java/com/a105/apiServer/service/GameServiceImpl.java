@@ -132,4 +132,10 @@ public class GameServiceImpl implements GameService{
 		return info;
 	}
 
+	@Override
+	public List<GamesDto> popularList(String size) throws Exception {
+		// TODO Auto-generated method stub
+		return gameDao.getGamePopular(size);
+	}
+
 }
