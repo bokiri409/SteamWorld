@@ -54,7 +54,7 @@ public class GameController {
 	}
 	
 	@GetMapping(value = "/popular")
-	private ResponseEntity popularList(@RequestBody String size) {
+	private ResponseEntity popularList(@RequestParam String size) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {

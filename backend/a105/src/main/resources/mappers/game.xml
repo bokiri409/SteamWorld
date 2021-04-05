@@ -6,7 +6,7 @@
 		select * from a105.games
 	</select>
 	
-	<select id="getGamePupular" parameterType="String" resultType="GamesDto">
+	<select id="getGamePopular" parameterType="int" resultType="GamesDto">
 		select * from a105.games
 		where vote > 20000
 		order by score DESC
