@@ -20,7 +20,8 @@ class CollaborativeFiltering:
         self.appList = ReadData.appList
         self.userId = user_id
         self.searchData = pd.DataFrame(columns=['appid', 'playtime_forever', 'playtime_2weeks', 'steamid'])
-        self.searchUser = ""
+        self.searchUser = pd.DataFrame(
+            columns=['appid', 'playtime_forever', 'steamid', 'newsteamid', 'playtime_2weeks'])
         self.svd_preds = ""
         self.newSteamId = ""
 
@@ -47,7 +48,6 @@ class CollaborativeFiltering:
         self.searchUser = self.searchUser.drop(['playtime_windows_forever', 'playtime_mac_forever',
                                                 'playtime_linux_forever'], axis='columns')
         self.searchUser['steamid'] = self.userId
-        self.newSteamId = self.searchUser['steamid']
         self.newSteamId = self.userData['steamid'].unique().size
         self.searchUser['newsteamid'] = self.newSteamId
 
@@ -55,6 +55,15 @@ class CollaborativeFiltering:
             self.searchUser['playtime_2weeks'] = 0
 
         return 'success'
+
+    def addData(self, appids, steamid):
+        if self.searchUser.empty:
+            self.newSteamId = self.userData['steamid'].unique().size
+
+        for appid in appids:
+            self.searchUser = self.searchUser.append(
+                {'appid': int(appid), 'playtime_forever': 600.0, 'steamid': steamid, 'newsteamid': self.newSteamId,
+                 'playtime_2weeks': 0}, ignore_index=True)
 
     # weight 할당 def
     def refine(self):
@@ -120,7 +129,7 @@ class CollaborativeFiltering:
         svd_user_predicted_weight = np.dot(np.dot(U, sigma), Vt) + weightMean.reshape(-1, 1)
         self.svd_preds = pd.DataFrame(svd_user_predicted_weight, columns=pivotUserApp.columns)
 
-    def recommend_games(self, num_recommendations=10):
+    def recommend_games(self, num_recommendations=10, n=3):
 
         user_row_number = self.newSteamId
         # 최종적으로 만든 pred_df에서 사용자 index에 따라 게임 데이터 정렬 -> 게임 weight가 높은 순으로 정렬 됌
@@ -128,7 +137,6 @@ class CollaborativeFiltering:
 
         # 원본 데이터에서 user_id 해당하는 데이터를 뽑아낸다.
         user_data = self.userData[self.userData.newsteamid == user_row_number]
-
         # 위에서 뽑은 user_data와 게임 데이터를 합친다.
         user_history = user_data.merge(self.appList, on='appid').sort_values(['weight'], ascending=False)
 
@@ -150,8 +158,9 @@ class CollaborativeFiltering:
             data.refine()
             data.makePoint()
             data.simEval()
-            predictions = predictions.append(data.result(3))
+            predictions = predictions.append(data.result(n))
         recommendations['score'] = scores
+        print(recommendations.append(predictions))
         recommendations = recommendations.append(predictions).drop(['score', 'name'], axis='columns')
         recommendations = recommendations.drop_duplicates()
         recommendations = recommendations[~recommendations['appid'].isin(user_history['appid'])]

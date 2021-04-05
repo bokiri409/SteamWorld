@@ -1,11 +1,10 @@
-from flask import Flask
-from flask import Response
+from flask import Flask, Response, request
 from CBF.CBF import ContentsBasedFiltering
 from CF.CF import CollaborativeFiltering
 from flask_cors import CORS
 import werkzeug
 werkzeug.cached_property = werkzeug.utils.cached_property
-from flask_restplus import Api, Resource
+from flask_restplus import Api, Resource, fields
 import json
 
 app = Flask(__name__)
@@ -20,11 +19,43 @@ api = Api(app, version='1.0', title='Recommendation API',
 recomm = api.namespace('rec', description='게임추천 API 목록')
 app.config.SWAGGER_UI_DOC_EXPANSION = 'list'
 
+info = recomm.model('info', {  # Model 객체 생성
+    'appids': fields.List(fields.Integer),
+    'steamid' : fields.Integer,
+})
 
-@app.route('/')
-def index():
-    return "hello, world!"
+@recomm.route('/wish')
+class wish(Resource):
+    @recomm.expect(info)
+    def post(self):
+        params = json.loads(request.get_data(), encoding='utf-8')
+        appids = params['appids']
+        steamid = params['steamid']
+        data = CollaborativeFiltering(steamid)
 
+        reason = ''
+        if steamid != 0:
+            reason = data.getUserData()
+
+        if reason == 'success' or reason == '':
+            data.addData(appids, steamid)
+            data.refine()
+            already_rated, predictions = data.recommend_games(10 - len(appids))
+            for appid in appids:
+                predictions = predictions.append({'appid' : int(appid)}, ignore_index=True)
+            result = predictions.to_json(orient='records')
+            parsed = json.loads(result)
+            resp = {
+                'success': 'success',
+                'data': parsed
+            }
+            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+        else:
+            resp = {
+                'success': 'fail',
+                'data': reason,
+            }
+            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
 
 @recomm.route('/cbf/<int:appid>')
 class CBF(Resource):
@@ -60,7 +91,9 @@ class CF(Resource):
         else:
             resp = {
                 'success': 'fail',
-                'reason' : reason,
-                'data' : ''
+                'data' : reason,
             }
             return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
