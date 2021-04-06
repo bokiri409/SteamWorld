@@ -19,7 +19,6 @@ export default new Vuex.Store({
             token: localStorage.getItem("token"),
             userid: localStorage.getItem("userid"),
             nickname: localStorage.getItem("nickname"),
-            steamid: localStorage.getItem("steamid"),
         }
         
     },
@@ -86,26 +85,24 @@ export default new Vuex.Store({
 
     },
     actions: {
-        login: (context, user) => {
-            // return axios.post(api_url + `/a105/user/login`, user)
-            return axios.post(`${SERVER_URL}/user/login`, user)
-                .then(res => {
-                    console.log(SERVER_URL);
-                    context.commit('login', res.data)
-                    localStorage.setItem('token', res.data['x-access-token']);
-                    localStorage.setItem('userid', res.data.data.userid);
-                    localStorage.setItem('nickname', res.data.data.nickname);
-                    localStorage.setItem('steamid', res.data.steamid)
-                    console.log(res.data.data.userid)
-                    console.log(localStorage.getItem('userid'));
-                })
-        },
-        logout: (context) => {
-            context.commit('logout')
-            localStorage.removeItem('token');
-            localStorage.removeItem('userid');
-            localStorage.removeItem('nickname');
-            localStorage.removeItem('steamid');
-        }
+        // login: (context, user) => {
+        //     // return axios.post(api_url + `/a105/user/login`, user)
+        //     return axios.post(`${SERVER_URL}/user/login`, user)
+        //         .then(res => {
+        //             console.log(SERVER_URL);
+        //             localStorage.setItem('token', res.data['x-access-token']);
+        //             localStorage.setItem('userid', res.data.data.userid);
+        //             localStorage.setItem('nickname', res.data.data.nickname);
+        //             window.location.reload();
+                    
+        //         })
+        // },
+        // logout: (context) => {
+        //     context.commit('logout')
+        //     localStorage.removeItem('token');
+        //     localStorage.removeItem('userid');
+        //     localStorage.removeItem('nickname');
+        //     window.location.reload();
+        // }
     }
 })

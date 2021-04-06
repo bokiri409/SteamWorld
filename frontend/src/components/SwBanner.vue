@@ -66,7 +66,7 @@
                   >게임 추천</router-link
                 >
               </li>
-              <div class="menulogin" v-if="!getUserid">
+              <div class="menulogin" v-if="!this.token">
                 <li @click="clickHandler()">
                   <router-link
                     to="/user/login"
@@ -103,7 +103,7 @@
                   >
                 </li>
                 <li>
-                  <a class="nav-link">{{ getNickname }} 님 환영합니다.</a>
+                  <a class="nav-link">{{ this.nickname }} 님 환영합니다.</a>
                 </li>
                 <li>
                   <a @click="logoutHandler" class="nav-link">로그아웃</a>
@@ -137,7 +137,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-
+import { mapState } from 'vuex';
 export default {
   name: 'SwBanner',
   mounted() {
@@ -155,6 +155,13 @@ export default {
       header.classList.remove('header-top');
     } else {
       header.classList.add('header-top');
+    }
+  },
+  created(){
+    if(localStorage.getItem('token')){
+      this.token = localStorage.getItem('token');
+      this.nickname = localStorage.getItem('nickname');
+      this.steamid = localStorage.getItem('steamid');
     }
   },
   updated() {
@@ -181,10 +188,12 @@ export default {
       headerShow: true,
       show: true,
       lineshow: '',
+      token: '',
     };
   },
   computed: {
     ...mapGetters(['getUserid', 'getNickname']),
+    ...mapState(['loginStatus']),
   },
   methods: {
     // toggle() {
@@ -196,14 +205,24 @@ export default {
     //   this.headerShow = false;
     // },
     logoutHandler() {
-      this.$store
-        .dispatch('logout')
-        .then(() =>
-          this.$router.push({
-            path: '/',
-          })
-        )
-        .catch(() => {});
+      
+            localStorage.removeItem('token');
+            localStorage.removeItem('userid');
+            localStorage.removeItem('nickname');
+      // this.$store
+      //   .dispatch('logout')
+      //   .then(() =>
+      //     this.$router.replace({
+      //       path: '/',
+      //     })
+      //   )
+      //   .catch(() => {});
+      
+            window.location.reload();
+            this.$router.replace({path: '/'});
+            window.location.reload();
+
+        
     },
     clickHandler: function() {
       // setTimeout(function() {
