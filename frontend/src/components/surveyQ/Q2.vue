@@ -3,15 +3,17 @@
 <div class="container blueArea">
     <div clss="row">
 
+     
 
-        <h2 class="typing-txt">Q1. 적들이 마구 몰려오는 상황, 당신은 어떻게 하시겠습니까? </h2>
-        <p>와아오아아아아아아아</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <h2 class="typing-txt">Q2. 게임에서 상대방이 나의 캐릭터를 죽였다 나는 </h2>
+        <p>   {{this.$store.state.result}}</p>
+        <img src="../../assets/img/q2.gif"/>
         <hr>
-        <button @click='put1'>puteeeeee </button>
 
-        <router-link to="/q2" class="nav-link"><b-button @click="put1">돌격하여 적을 쳐부수자! e</b-button></router-link>
-        <router-link to="/q2" class="nav-link"><b-button @click="put2">일단 안전을 확보한다 i</b-button></router-link>
+
+
+        <router-link to="/q3" class="nav-link"><b-button @click="put1">너무 화가나고 어떻게든 복수하고 싶다 e </b-button></router-link>
+        <router-link to="/q3" class="nav-link"><b-button @click="put2">끔찍하다. 다시는 마주치지 않고 싶다 i</b-button></router-link>
 
 
 
@@ -19,6 +21,8 @@
 </div>
 </div>
 </template>
+
+
 
 <script>
 
@@ -32,13 +36,13 @@ export default {
     },
 
     put1(){
-      this.$store.commit('slice',0);
+          this.$store.commit('slice',1);
       this.$store.commit('putE');
 
 
     },
     put2(){
-      this.$store.commit('slice',0);
+                this.$store.commit('slice',1);
      this.$store.commit('putI');
     }
 
