@@ -93,6 +93,7 @@ public class UserController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
+			userid = userid.replace("%40", "@");
 			UserDto member = userService.info(userid);
 			if (member != null) {
 				result.put("success", "success");
