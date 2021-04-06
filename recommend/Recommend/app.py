@@ -25,7 +25,7 @@ info = recomm.model('info', {  # Model 객체 생성
 })
 
 @recomm.route('/wish/')
-class wishList(Resource):
+class wish(Resource):
     @recomm.expect(info)
     def post(self):
         params = json.loads(request.get_data(), encoding='utf-8')
