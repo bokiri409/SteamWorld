@@ -39,7 +39,7 @@
               <div class="section-title">
                 <h2>스팀 아이디</h2>
               </div>
-              <h3>{{ sid }}</h3>
+              <h3 v-if="user.steamid != 0">{{user.steamid}}</h3>
             </div>
           </div>
 
@@ -60,8 +60,8 @@
             />
             <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
             <input type="hidden" name="openid.mode" value="checkid_setup" />
-            <input type="hidden" name="openid.realm" value="http://localhost:8080" />
-            <input type="hidden" name="openid.return_to" value="http://localhost:8080/mypage" />
+            <input type="hidden" name="openid.realm" value="http://localhost:8081" />
+            <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" />
             <b-button type="submit btn-large" style="border-radius: 10rem"
               ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
             >
@@ -211,7 +211,8 @@ import { mapState } from 'vuex';
 
 const axios = require('axios');
 const cheerio = require('cheerio');
-const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 
 export default {
   data() {
@@ -249,18 +250,51 @@ export default {
       var link = document.location.href.split('&');
       console.log(link[3]);
       this.sid = link[3].slice(67, link[3].length);
+      this.updateSteamid();
     },
     getUserInfo(){
       axios
         .get(`${SERVER_URL}/user`,{
-          params:{
-            userid : this.login
-          }
+          headers: {
+            'x-access-token': localStorage.getItem('token'),
+          },
+            params:{
+              userid : this.loginStatus.userid
+            },
         })
         .then((res) => {
-          this.user.userid = res.data.data.userid;
-          this.user.nickname = res.data.data.nickname;
-          this.user.steamid = res.data.data.steamid;
+          if(res.data.success == 'fail'){
+            alert('유저 정보를 불러오는데 실패 했습니다.');
+          }
+          else{
+            this.user.userid = res.data.data.userid;
+            this.user.nickname = res.data.data.nickname;
+            this.user.steamid = res.data.data.steamid;
+          }
+        })
+        .catch((res) =>{
+          alert('error : ' + res);
+        })
+    },
+    updateSteamid(){
+      this.form = {
+        userid: this.user.userid,
+        steamid: this.sid,
+      };
+      axios
+        .post(`${SERVER_URL}/user/steam`, this.form,{
+          headers: {
+            'x-access-token': localStorage.getItem('token'),
+          },
+        }
+        )
+        .then((res) => {
+          if(res.data.success == 'fail'){
+            alert('steamid 연동에 실패했습니다.')
+          }
+        })
+        .catch((res) => {
+          alert('error : ' + res);
         })
     },
     componentLoading() {
