@@ -39,13 +39,13 @@
               <div class="section-title">
                 <h2>스팀 아이디</h2>
               </div>
-              <h3 v-if="user.steamid != 0">{{user.steamid}}</h3>
+              <h3 v-if="user.steamid != '0'">{{user.steamid}}</h3>
             </div>
           </div>
 
-          <b-button class="btn-lg" style="border-radius: 10rem" @click="getUrl()"
+          <!-- <b-button v-if="user.steamid == '0'" class="btn-lg" style="border-radius: 10rem" @click="getUrl()"
             >스팀 연동하기</b-button
-          >
+          > -->
 
           <form action="https://steamcommunity.com/openid/login" method="post">
             <input
@@ -62,6 +62,7 @@
             <input type="hidden" name="openid.mode" value="checkid_setup" />
             <input type="hidden" name="openid.realm" value="http://localhost:8081" />
             <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" />
+            <!-- <b-button v-if="user.steamid == '0' || !user.steamid" type="submit btn-large" style="border-radius: 10rem" -->
             <b-button type="submit btn-large" style="border-radius: 10rem"
               ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
             >
@@ -236,8 +237,20 @@ export default {
   computed:{
     ...mapState(['loginStatus'])
   },
-  created(){
-    this.getUserInfo();
+  async created(){
+    this.user.steamid = localStorage.getItem('steamid')
+    this.user.nickname = localStorage.getItem('nickname')
+    this.user.userid = localStorage.getItem('userid')
+    console.log("steamid: ",this.user.steamid)
+    if(!this.user.steamid || this.user.steamid == 0){
+      await this.getUrl();
+      console.log("localstorage steamid : ", localStorage.getItem('steamid'))
+      this.user.steamid = localStorage.getItem('steamid');
+    }
+  },
+  mounted() {
+    console.log("mounted steamid : ", localStorage.getItem('steamid'))
+    this.user.steamid = localStorage.getItem('steamid');
   },
   methods: {
     onSlideStart(slide) {
@@ -246,11 +259,21 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
     },
-    getUrl() {
+    async getUrl() {
+      if(!localStorage.getItem('steamid') || localStorage.getItem('steamid') == '0'){
       var link = document.location.href.split('&');
-      console.log(link[3]);
-      this.sid = link[3].slice(67, link[3].length);
-      this.updateSteamid();
+        console.log(link[3]);
+        if(link[3]){
+          this.sid = link[3].slice(67, link[3].length);
+          this.user.steamid = this.sid;
+          console.log("this.user.steamid : " , this.user.steamid);
+          console.log("update steamid start");
+          await this.updateSteamid();     
+          window.location.reload();
+        }
+      }
+        console.log("getUrl.steamid : ", localStorage.getItem('steamid'));
+      
     },
     getUserInfo(){
       axios
@@ -276,7 +299,7 @@ export default {
           alert('error : ' + res);
         })
     },
-    updateSteamid(){
+    async updateSteamid(){
       this.form = {
         userid: this.user.userid,
         steamid: this.sid,
@@ -291,6 +314,9 @@ export default {
         .then((res) => {
           if(res.data.success == 'fail'){
             alert('steamid 연동에 실패했습니다.')
+          }
+          else{
+            localStorage.setItem('steamid', this.form.steamid);
           }
         })
         .catch((res) => {
