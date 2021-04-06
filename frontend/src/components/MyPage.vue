@@ -39,11 +39,11 @@
               <div class="section-title">
                 <h2>스팀 아이디</h2>
               </div>
-              <h3 v-if="user.steamid != 0">{{user.steamid}}</h3>
+              <h3 v-if="user.steamid != '0'">{{user.steamid}}</h3>
             </div>
           </div>
 
-          <b-button class="btn-lg" style="border-radius: 10rem" @click="getUrl()"
+          <b-button v-if="user.steamid == '0'" class="btn-lg" style="border-radius: 10rem" @click="getUrl()"
             >스팀 연동하기</b-button
           >
 
@@ -237,7 +237,9 @@ export default {
     ...mapState(['loginStatus'])
   },
   created(){
-    this.getUserInfo();
+    this.user.steamid = localStorage.getItem('steamid')
+    this.user.nickname = localStorage.getItem('nickname')
+    this.user.userid = localStorage.getItem('userid')
   },
   methods: {
     onSlideStart(slide) {
@@ -250,7 +252,8 @@ export default {
       var link = document.location.href.split('&');
       console.log(link[3]);
       this.sid = link[3].slice(67, link[3].length);
-      this.updateSteamid();
+      this.updateSteamid();      
+      
     },
     getUserInfo(){
       axios
@@ -291,6 +294,9 @@ export default {
         .then((res) => {
           if(res.data.success == 'fail'){
             alert('steamid 연동에 실패했습니다.')
+          }
+          else{
+            localStorage.setItem('steamid', this.form.steamid);
           }
         })
         .catch((res) => {

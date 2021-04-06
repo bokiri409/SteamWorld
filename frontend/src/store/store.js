@@ -19,6 +19,7 @@ export default new Vuex.Store({
             token: localStorage.getItem("token"),
             userid: localStorage.getItem("userid"),
             nickname: localStorage.getItem("nickname"),
+            steamid: localStorage.getItem("steamid"),
         }
         
     },
@@ -94,6 +95,9 @@ export default new Vuex.Store({
                     localStorage.setItem('token', res.data['x-access-token']);
                     localStorage.setItem('userid', res.data.data.userid);
                     localStorage.setItem('nickname', res.data.data.nickname);
+                    localStorage.setItem('steamid', res.data.steamid)
+                    console.log(res.data.data.userid)
+                    console.log(localStorage.getItem('userid'));
                 })
         },
         logout: (context) => {
@@ -101,6 +105,7 @@ export default new Vuex.Store({
             localStorage.removeItem('token');
             localStorage.removeItem('userid');
             localStorage.removeItem('nickname');
+            localStorage.removeItem('steamid');
         }
     }
 })
