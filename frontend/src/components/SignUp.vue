@@ -133,7 +133,8 @@ export default {
     },
     checkid: function() {
       axios
-        .post(api_url + `/a105/user/checkid`, this.user)
+        //.post(api_url + `/a105/user/checkid`, this.user)
+        .post(`${SERVER_URL}/user/checkid`, this.user)
         .then((res) => {
           if (res.data.success == 'success') {
             axios
