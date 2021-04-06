@@ -25,43 +25,50 @@ info = recomm.model('info', {  # Model 객체 생성
 })
 
 @recomm.route('/wish/')
-class wish(Resource):
+class WISH(Resource):
     @recomm.expect(info)
     def post(self):
         params = json.loads(request.get_data(), encoding='utf-8')
         appids = params['appids']
         steamid = params['steamid']
+        if len(appids) == 0:
+            resp = {
+                'success': 'fail',
+                'data' : '',
+                'reason' : '관심목록에 추가된 게임이 없습니다.'
+            }
+            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
         data = CollaborativeFiltering(steamid)
-
         reason = ''
         if steamid != 0:
             reason = data.getUserData()
 
-        if reason == 'success' or reason == '':
-            data.addData(appids, steamid)
-            data.refine()
-            already_rated, predictions = data.recommend_games(10 - len(appids))
-            for appid in appids:
-                predictions = predictions.append({'appid' : int(appid)}, ignore_index=True)
-            result = predictions.to_json(orient='records')
-            parsed = json.loads(result)
-            resp = {
-                'success': 'success',
-                'data': parsed
-            }
-            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
-        else:
-            resp = {
-                'success': 'fail',
-                'data': reason,
-            }
-            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+        data.addData(appids, steamid)
+        data.refine()
+        already_rated, predictions = data.recommend_games()
+        for appid in appids:
+            predictions = predictions.append({'appid' : int(appid)}, ignore_index=True)
+        result = predictions.to_json(orient='records')
+        parsed = json.loads(result)
+        resp = {
+            'success': 'success',
+            'data': parsed,
+            'reason': reason
+        }
+        return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+
 
 @recomm.route('/cbf/<int:appid>')
 class CBF(Resource):
     def get(self, appid):
         data = ContentsBasedFiltering(appid)
         data.makePoint()
+        if not data.isAppidValid:
+            resp = {
+                'success': 'fail',
+                'data': '게임 조회에 오류가 발생했습니다.'
+            }
+            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
         data.refine()
         data.simEval()
         result = data.result(10).to_json(orient='records')
@@ -80,7 +87,7 @@ class CF(Resource):
         reason = data.getUserData()
         if reason == 'success':
             data.refine()
-            already_rated, predictions = data.recommend_games(10)
+            already_rated, predictions = data.recommend_games()
             result = predictions.to_json(orient='records')
             parsed = json.loads(result)
             resp = {

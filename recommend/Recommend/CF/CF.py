@@ -92,8 +92,7 @@ class CollaborativeFiltering:
             return weight
 
         self.searchUser['weight'] = self.searchUser.apply(lambda x: nonePlaying(x['playtime_forever'],
-                                                                                x['playtime_2weeks'], x['weight']),
-                                                          axis=1)
+                                                                            x['playtime_2weeks'], x['weight']),axis=1)
 
         file = 'CF/data/pivot.pickle'
 
@@ -102,6 +101,7 @@ class CollaborativeFiltering:
             with open(file, 'rb') as fr:
                 pivotUserApp = pickle.load(fr)
         else:
+            ## 피봇 테이블 저장
             pivotUserApp = self.userData.pivot(
                 index='newsteamid',
                 columns='appid',
@@ -118,9 +118,7 @@ class CollaborativeFiltering:
         ).fillna(0)
         pivotUserApp = pivotUserApp.append(pivotSearchUserApp, sort=False).fillna(0)
 
-        # 데이터 병합
-
-        ## 피봇 테이블을 저장해두자.
+        ## 추천을 위한 svd 수행
         matrix = pivotUserApp.values
         weightMean = np.mean(matrix, axis=1)
         matrixUserMean = matrix - weightMean.reshape(-1, 1)
@@ -148,21 +146,20 @@ class CollaborativeFiltering:
         recommendations = recommendations.rename(columns={user_row_number: 'Predictions'}).sort_values('Predictions',
                                                                                                        ascending=False).iloc[
                           :num_recommendations, :]
-
         recommendations = recommendations[['appid', 'name']]
         predictions = pd.DataFrame(columns=['appid', 'name', 'score'])
         scores = []
         for appid in recommendations['appid']:
             data = ContentsBasedFiltering(appid)
             scores.append(0)
-            data.refine()
             data.makePoint()
+            if not data.isAppidValid:
+                continue
+            data.refine()
             data.simEval()
             predictions = predictions.append(data.result(n))
         recommendations['score'] = scores
-        print(recommendations.append(predictions))
-        recommendations = recommendations.append(predictions).drop(['score', 'name'], axis='columns')
-        recommendations = recommendations.drop_duplicates()
+        recommendations = recommendations.append(predictions).drop(['score', 'name'], axis='columns').drop_duplicates()
         recommendations = recommendations[~recommendations['appid'].isin(user_history['appid'])]
         return user_history, recommendations
 
