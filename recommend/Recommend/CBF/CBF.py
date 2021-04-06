@@ -14,6 +14,7 @@ class ContentsBasedFiltering:
         self.pointList = []
         self.data = readData.gameData
         self.genreData = readData.genreData
+        self.isAppidValid = False
 
     # 점수표 제작
     def makePoint(self):
@@ -25,7 +26,16 @@ class ContentsBasedFiltering:
             for genre in target:
                 if genre == 'VR' or genre == 'Free to Play' or genre == 'Early Access':
                     continue
+                if genre == "Beat 'em up":
+                    genre = "Beat'em up"
+                if genre == "Dystopian ":
+                    genre = "Dystopian"
+                if genre == "Shoot 'Em Up":
+                    genre = "Shoot'Em Up"
+                if genre == "Parody ":
+                    genre = 'Parody'
                 self.pointDic[genre] += point
+                self.isAppidValid = True
                 point -= 1
 
     # 데이터 정제
