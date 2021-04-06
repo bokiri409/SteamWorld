@@ -23,6 +23,9 @@ export const LOCALHOST_URL = process.env.VUE_APP_LOCALHOST_URL;
 
 Vue.prototype.$api_url = api_url
 
+Vue.prototype.$SERVER_URL = SERVER_URL
+Vue.prototype.$LOCALHOST_URL = LOCALHOST_URL
+
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
