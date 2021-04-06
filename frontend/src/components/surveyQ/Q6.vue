@@ -49,7 +49,7 @@ h2.typing-txt{
   position:relative;
   display: inline-block;
   height: 40px; overflow: hidden;
-  animation: typingAni 2s steps(15, end) 1;
+ animation: typingAni 2s steps(15, end) 1;
 }
 
 h2.typing-txt::after{

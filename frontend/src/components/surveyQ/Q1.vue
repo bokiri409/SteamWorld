@@ -1,5 +1,6 @@
 <template>
 
+
 <div class="container blueArea">
     <div clss="row">
 
@@ -18,6 +19,7 @@
 
 </div>
 </div>
+
 </template>
 
 <script>
