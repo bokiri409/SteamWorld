@@ -12,8 +12,14 @@ import 'bootstrap-slider/dist/css/bootstrap-slider.css'
 import BootstrapIcons from './assets/vendor/bootstrap-icons//bootstrap-icons.json'
 import 'aos'
 import Aos from 'aos'
+// import Lightbox from 'vue-my-photos'
+// Vue.component('lightbox', Lightbox);
+
 export const api_url = "http://localhost:8080"
 // export const api_url = "http://j4a105.p.ssafy.io:8080/a105/"
+
+export const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+export const LOCALHOST_URL = process.env.VUE_APP_LOCALHOST_URL;
 
 Vue.prototype.$api_url = api_url
 
@@ -28,6 +34,8 @@ Vue.use(CarouselPlugin)
 Vue.use(BootstrapIcons)
 Vue.use(Aos)
 Vue.use(axios)
+
+// Vue.use(Lightbox)
 
 
 
