@@ -28,35 +28,40 @@ info = recomm.model('info', {  # Model 객체 생성
 class wish(Resource):
     @recomm.expect(info)
     def post(self):
-        params = json.loads(request.get_data(), encoding='utf-8')
-        appids = params['appids']
-        steamid = params['steamid']
-        if len(appids) == 0:
+        try:
+            params = json.loads(request.get_data(), encoding='utf-8')
+            appids = params['appids']
+            steamid = params['steamid']
+            if len(appids) == 0:
+                resp = {
+                    'success': 'fail',
+                    'data' : '',
+                    'reason' : '관심목록에 추가된 게임이 없습니다.'
+                }
+                return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+            data = CollaborativeFiltering(steamid)
+            reason = ''
+            if steamid != 0:
+                reason = data.getUserData()
+
+            data.addData(appids, steamid)
+            data.refine()
+            already_rated, predictions = data.recommend_games()
+            for appid in appids:
+                predictions = predictions.append({'appid' : int(appid)}, ignore_index=True)
+            result = predictions.to_json(orient='records')
+            parsed = json.loads(result)
             resp = {
-                'success': 'fail',
-                'data' : '',
-                'reason' : '관심목록에 추가된 게임이 없습니다.'
+                'success': 'success',
+                'data': parsed,
+                'reason': reason
             }
             return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
-        data = CollaborativeFiltering(steamid)
-        reason = ''
-        if steamid != 0:
-            reason = data.getUserData()
-
-        data.addData(appids, steamid)
-        data.refine()
-        already_rated, predictions = data.recommend_games()
-        for appid in appids:
-            predictions = predictions.append({'appid' : int(appid)}, ignore_index=True)
-        result = predictions.to_json(orient='records')
-        parsed = json.loads(result)
-        resp = {
-            'success': 'success',
-            'data': parsed,
-            'reason': reason
-        }
-        return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
-
+        except:
+            resp = {
+                'params' : str(request.get_data(), encoding='utf-8')
+            }
+            return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
 
 @recomm.route('/cbf/<int:appid>')
 class CBF(Resource):
