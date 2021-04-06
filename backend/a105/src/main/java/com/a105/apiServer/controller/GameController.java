@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import com.a105.apiServer.dto.GameInfoDto;
 import com.a105.apiServer.dto.GameLinksDto;
 import com.a105.apiServer.dto.GameTagsDto;
 import com.a105.apiServer.dto.GamesDto;
+import com.a105.apiServer.dto.SizeDto;
 import com.a105.apiServer.dto.UserDto;
 import com.a105.apiServer.service.GameService;
 
@@ -27,11 +29,37 @@ public class GameController {
 	GameService gameService;
 	
 	@GetMapping(value = "/list")
-	private ResponseEntity gameList() {
+	private ResponseEntity gameList(@RequestParam int start, @RequestParam int size) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			List<GamesDto> games = gameService.gameList();
+			List<GamesDto> games = gameService.gameList(new SizeDto(start, size));
+			if (games != null) {
+				result.put("success", "success");
+				result.put("data", games);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
+	@GetMapping(value = "/popular")
+	private ResponseEntity popularList(@RequestParam int start, @RequestParam int size) {
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		try {
+			List<GamesDto> games = gameService.popularList(new SizeDto(start, size));
 			if (games != null) {
 				result.put("success", "success");
 				result.put("data", games);
@@ -131,11 +159,11 @@ public class GameController {
 	}
 	
 	@GetMapping(value = "/tag/all")
-	private ResponseEntity gameTagAll() {
+	private ResponseEntity gameTagAll(@RequestParam int start, @RequestParam int size) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			List<GameTagsDto> tags = gameService.gameTagAll();
+			List<GameTagsDto> tags = gameService.gameTagAll(new SizeDto(start, size));
 			if (tags != null) {
 				result.put("success", "success");
 				result.put("data", tags);
@@ -209,11 +237,11 @@ public class GameController {
 	}
 	
 	@GetMapping(value = "/link/all")
-	private ResponseEntity gameLinkAll() {
+	private ResponseEntity gameLinkAll(@RequestParam int start, @RequestParam int size) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			List<GameLinksDto> links = gameService.gameLinkAll();
+			List<GameLinksDto> links = gameService.gameLinkAll(new SizeDto(start, size));
 			if (links != null) {
 				result.put("success", "success");
 				result.put("data", links);

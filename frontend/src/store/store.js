@@ -3,6 +3,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import '../main.js'
 import { api_url } from '../main.js'
+// import { SERVER_URL, LOCALHOST_URL } from '../main.js'
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const LOCALHOST_URL = process.env.VUE_APP_LOCALHOST_URL;
 
 Vue.use(Vuex)
 
@@ -77,9 +80,10 @@ export default new Vuex.Store({
     },
     actions: {
         login: (context, user) => {
-            return axios.post(api_url + `/a105/user/login`, user)
+            // return axios.post(api_url + `/a105/user/login`, user)
+            return axios.post(`${SERVER_URL}/user/login`, user)
                 .then(res => {
-                    // console.info(res.data)
+                    console.log(SERVER_URL);
                     context.commit('login', res.data)
                 })
         },

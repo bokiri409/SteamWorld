@@ -20,7 +20,8 @@ class CollaborativeFiltering:
         self.appList = ReadData.appList
         self.userId = user_id
         self.searchData = pd.DataFrame(columns=['appid', 'playtime_forever', 'playtime_2weeks', 'steamid'])
-        self.searchUser = ""
+        self.searchUser = pd.DataFrame(
+            columns=['appid', 'playtime_forever', 'steamid', 'newsteamid', 'playtime_2weeks'])
         self.svd_preds = ""
         self.newSteamId = ""
 
@@ -47,7 +48,6 @@ class CollaborativeFiltering:
         self.searchUser = self.searchUser.drop(['playtime_windows_forever', 'playtime_mac_forever',
                                                 'playtime_linux_forever'], axis='columns')
         self.searchUser['steamid'] = self.userId
-        self.newSteamId = self.searchUser['steamid']
         self.newSteamId = self.userData['steamid'].unique().size
         self.searchUser['newsteamid'] = self.newSteamId
 
@@ -55,6 +55,15 @@ class CollaborativeFiltering:
             self.searchUser['playtime_2weeks'] = 0
 
         return 'success'
+
+    def addData(self, appids, steamid):
+        if self.searchUser.empty:
+            self.newSteamId = self.userData['steamid'].unique().size
+
+        for appid in appids:
+            self.searchUser = self.searchUser.append(
+                {'appid': int(appid), 'playtime_forever': 600.0, 'steamid': steamid, 'newsteamid': self.newSteamId,
+                 'playtime_2weeks': 0}, ignore_index=True)
 
     # weight 할당 def
     def refine(self):
@@ -83,8 +92,7 @@ class CollaborativeFiltering:
             return weight
 
         self.searchUser['weight'] = self.searchUser.apply(lambda x: nonePlaying(x['playtime_forever'],
-                                                                                x['playtime_2weeks'], x['weight']),
-                                                          axis=1)
+                                                                            x['playtime_2weeks'], x['weight']),axis=1)
 
         file = 'CF/data/pivot.pickle'
 
@@ -93,6 +101,7 @@ class CollaborativeFiltering:
             with open(file, 'rb') as fr:
                 pivotUserApp = pickle.load(fr)
         else:
+            ## 피봇 테이블 저장
             pivotUserApp = self.userData.pivot(
                 index='newsteamid',
                 columns='appid',
@@ -109,9 +118,7 @@ class CollaborativeFiltering:
         ).fillna(0)
         pivotUserApp = pivotUserApp.append(pivotSearchUserApp, sort=False).fillna(0)
 
-        # 데이터 병합
-
-        ## 피봇 테이블을 저장해두자.
+        ## 추천을 위한 svd 수행
         matrix = pivotUserApp.values
         weightMean = np.mean(matrix, axis=1)
         matrixUserMean = matrix - weightMean.reshape(-1, 1)
@@ -120,7 +127,7 @@ class CollaborativeFiltering:
         svd_user_predicted_weight = np.dot(np.dot(U, sigma), Vt) + weightMean.reshape(-1, 1)
         self.svd_preds = pd.DataFrame(svd_user_predicted_weight, columns=pivotUserApp.columns)
 
-    def recommend_games(self, num_recommendations=10):
+    def recommend_games(self, num_recommendations=10, n=3):
 
         user_row_number = self.newSteamId
         # 최종적으로 만든 pred_df에서 사용자 index에 따라 게임 데이터 정렬 -> 게임 weight가 높은 순으로 정렬 됌
@@ -128,7 +135,6 @@ class CollaborativeFiltering:
 
         # 원본 데이터에서 user_id 해당하는 데이터를 뽑아낸다.
         user_data = self.userData[self.userData.newsteamid == user_row_number]
-
         # 위에서 뽑은 user_data와 게임 데이터를 합친다.
         user_history = user_data.merge(self.appList, on='appid').sort_values(['weight'], ascending=False)
 
@@ -140,20 +146,20 @@ class CollaborativeFiltering:
         recommendations = recommendations.rename(columns={user_row_number: 'Predictions'}).sort_values('Predictions',
                                                                                                        ascending=False).iloc[
                           :num_recommendations, :]
-
         recommendations = recommendations[['appid', 'name']]
         predictions = pd.DataFrame(columns=['appid', 'name', 'score'])
         scores = []
         for appid in recommendations['appid']:
             data = ContentsBasedFiltering(appid)
             scores.append(0)
-            data.refine()
             data.makePoint()
+            if not data.isAppidValid:
+                continue
+            data.refine()
             data.simEval()
-            predictions = predictions.append(data.result(3))
+            predictions = predictions.append(data.result(n))
         recommendations['score'] = scores
-        recommendations = recommendations.append(predictions).drop(['score', 'name'], axis='columns')
-        recommendations = recommendations.drop_duplicates()
+        recommendations = recommendations.append(predictions).drop(['score', 'name'], axis='columns').drop_duplicates()
         recommendations = recommendations[~recommendations['appid'].isin(user_history['appid'])]
         return user_history, recommendations
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section class="section-show">
     <div
       class="container"
       style="background-color:#00000077; margin-bottom:50px; align:center"
@@ -68,12 +68,15 @@
         </p>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 import axios from 'axios';
 import { api_url } from '../main.js';
+// import { SERVER_URL, LOCALHOST_URL } from '../main.js';
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const LOCALHOST_URL = process.env.VUE_APP_LOCALHOST_URL;
 
 export default {
   data() {
@@ -130,11 +133,13 @@ export default {
     },
     checkid: function() {
       axios
-        .post(api_url + `/a105/user/checkid`, this.user)
+        //.post(api_url + `/a105/user/checkid`, this.user)
+        .post(`${SERVER_URL}/user/checkid`, this.user)
         .then((res) => {
           if (res.data.success == 'success') {
             axios
-              .post(api_url + `/a105/mail/*`, '"' + this.user.userid + '"')
+              // .post(api_url + `/a105/mail/*`, '"' + this.user.userid + '"')
+              .post(`${SERVER_URL}/mail/*`, '"' + this.user.userid + '"')
               .then(() => {
                 var code = prompt(
                   '입력하신 메일로 인증코드가 발송되었습니다. 인증코드를 입력해주세요.'
@@ -154,7 +159,8 @@ export default {
         });
     },
     emailConfirm: function(code) {
-      axios.post(api_url + `/a105/mail/verify`, code).then((res) => {
+      // axios.post(api_url + `/a105/mail/verify`, code).then((res) => {
+      axios.post(`${SERVER_URL}/mail/verify`, code).then((res) => {
         if (res.data.success == 'success') {
           this.signUp();
         } else {
@@ -164,7 +170,8 @@ export default {
     },
     signUp: function() {
       axios
-        .post(api_url + `/a105/user/join`, this.user)
+        // .post(api_url + `/a105/user/join`, this.user)
+        .post(`${SERVER_URL}/user/join`, this.user)
         .then((res) => {
           if (res.data.success == 'success') {
             alert(

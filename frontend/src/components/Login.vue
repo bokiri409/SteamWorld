@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <section class="section-show">
     <!-- ======= About Section ======= -->
-
     <div
       class="container"
       style="background-color:#00000077; margin-bottom:50px;"
@@ -101,11 +100,12 @@
         </p>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
 export default {
+  created() {},
   computed: {
     // state() {
     //   return this.user.userid.length >= 4;
@@ -183,9 +183,7 @@ span {
 label {
   color: white;
 }
-.container {
-  margin: 100px;
-}
+
 .text-container {
   padding-left: 300px;
   padding-right: 300px;
