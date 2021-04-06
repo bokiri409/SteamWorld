@@ -14,7 +14,8 @@ export default new Vuex.Store({
     state: {
         userid: '',
         nickname: '',
-        result: '!',
+        result: '',
+        page: '',
         loginStatus: {
             token: localStorage.getItem("token"),
             userid: localStorage.getItem("userid"),
@@ -31,6 +32,9 @@ export default new Vuex.Store({
         },
         getResult: state => {
             return state.result
+        },
+        getPage: state => {
+            return state.page
         }
     },
     mutations: {
@@ -81,6 +85,10 @@ export default new Vuex.Store({
         },
         slice(state,index){
             state.result=state.result.substring(0,index);
+        },
+        putPage(state, page){
+            state.result = page;
+            console.log(state.result);
         }
 
     },

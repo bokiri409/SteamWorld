@@ -42,6 +42,7 @@ p {
 
 * {
   font-family: 'DungGeunMo';
+
 }
 
 p {
@@ -69,4 +70,5 @@ h2 {
   font-style: normal;
   font-weight: normal;
 }
+
 </style>
