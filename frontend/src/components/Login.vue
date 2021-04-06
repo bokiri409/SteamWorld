@@ -182,6 +182,8 @@ export default {
                     localStorage.setItem('token', res.data['x-access-token']);
                     localStorage.setItem('userid', res.data.data.userid);
                     localStorage.setItem('nickname', res.data.data.nickname);
+                    localStorage.setItem('steamid', res.data.data.steamid);
+                    
                     window.location.reload();
                     this.$router.replace(`/`);
                     window.location.reload();

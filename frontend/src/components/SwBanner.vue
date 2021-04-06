@@ -209,6 +209,7 @@ export default {
             localStorage.removeItem('token');
             localStorage.removeItem('userid');
             localStorage.removeItem('nickname');
+            localStorage.removeItem('steamid');
       // this.$store
       //   .dispatch('logout')
       //   .then(() =>
