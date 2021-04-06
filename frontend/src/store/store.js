@@ -3,7 +3,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import '../main.js'
 import { api_url } from '../main.js'
-import { SERVER_URL, LOCALHOST_URL } from '../main.js'
+// import { SERVER_URL, LOCALHOST_URL } from '../main.js'
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const LOCALHOST_URL = process.env.VUE_APP_LOCALHOST_URL;
 
 Vue.use(Vuex)
 
