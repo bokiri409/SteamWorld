@@ -8,7 +8,7 @@
     <button @click="showA">결과 확인하기</button>
 
     <h1>{{ this.result }}</h1>
-    <router-link></router-link>
+    <router-link to="/result/detail">detail</router-link>
   </div>
 </template>
 
@@ -63,6 +63,9 @@ export default {
         if(this.j>=2){
           this.result+='J'
       }else{  this.result+='P'}
+
+
+      this.$store.commit('putPage',this.result);
 
 
     },

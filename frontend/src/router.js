@@ -20,6 +20,7 @@ import Q10 from './components/surveyQ/Q10.vue'
 import Q11 from './components/surveyQ/Q11.vue'
 import Q12 from './components/surveyQ/Q12.vue'
 import MyGame from './components/myPage/MyGame.vue'
+import Detail from './components/Detail.vue'
 
 
 Vue.use(VueRouter);
@@ -111,6 +112,10 @@ export const router = new VueRouter({
             path: 'mypage/mygame',
             component: MyGame
 
+        },
+        {
+            path: '/result/detail',
+            component: Detail
         }
     ]
 })  
