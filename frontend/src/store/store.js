@@ -14,7 +14,13 @@ export default new Vuex.Store({
     state: {
         userid: '',
         nickname: '',
-        result: '!'
+        result: '!',
+        loginStatus: {
+            token: localStorage.getItem("token"),
+            userid: localStorage.getItem("userid"),
+            nickname: localStorage.getItem("nickname"),
+        }
+        
     },
     getters: {
         getUserid: state => {
@@ -85,10 +91,16 @@ export default new Vuex.Store({
                 .then(res => {
                     console.log(SERVER_URL);
                     context.commit('login', res.data)
+                    localStorage.setItem('token', res.data['x-access-token']);
+                    localStorage.setItem('userid', res.data.data.userid);
+                    localStorage.setItem('nickname', res.data.data.nickname);
                 })
         },
         logout: (context) => {
             context.commit('logout')
+            localStorage.removeItem('token');
+            localStorage.removeItem('userid');
+            localStorage.removeItem('nickname');
         }
     }
 })
