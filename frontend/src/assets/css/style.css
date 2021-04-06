@@ -1145,6 +1145,9 @@ section .container {
 }
 
 .blueArea{
+  margin-top:100px;
+  top: 100px;
+  bottom: auto;
   background-color: #1226d8c5;
   padding: 30px;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-bottom:100px">
+  <section class="section-show" style="margin-bottom:100px">
     <div class="row">
       <div class="col-md-1"></div>
       <div class="col-md-10 box" style="background-color:#00000099;">
@@ -23,7 +23,7 @@
         <router-view> </router-view>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script></script>
