@@ -104,6 +104,11 @@
 </template>
 
 <script>
+
+
+const axios = require('axios');
+// const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 export default {
   created() {},
   computed: {
@@ -161,16 +166,28 @@ export default {
       return re.test(email);
     },
     login: function() {
-      this.$store
-        .dispatch('login', this.user)
-        .then(() =>
-          this.$router.push({
-            path: '/',
-          })
-        )
-        .catch((error) => {
-          console.log(error);
-        });
+      // this.$store
+      //   .dispatch('login', this.user)
+      //   .then(() =>
+      //     this.$router.replace({
+      //       path: '/',
+      //     })
+      //   )
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      axios.post(`${SERVER_URL}/user/login`, this.user)
+                .then(res => {
+                    console.log(SERVER_URL);
+                    localStorage.setItem('token', res.data['x-access-token']);
+                    localStorage.setItem('userid', res.data.data.userid);
+                    localStorage.setItem('nickname', res.data.data.nickname);
+                    window.location.reload();
+                    this.$router.replace(`/`);
+                    window.location.reload();
+                    
+                })
+        
     },
   },
 };
