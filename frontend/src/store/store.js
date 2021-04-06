@@ -41,7 +41,7 @@ export default new Vuex.Store({
             // return axios.post(api_url + `/a105/user/login`, user)
             return axios.post(`${SERVER_URL}/user/login`, user)
                 .then(res => {
-                    // console.info(res.data)
+                    console.log(SERVER_URL);
                     context.commit('login', res.data)
                 })
         },
