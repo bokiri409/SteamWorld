@@ -10,7 +10,8 @@ export default new Vuex.Store({
     //data
     state: {
         userid: '',
-        nickname: ''
+        nickname: '',
+        result: '!'
     },
     getters: {
         getUserid: state => {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
         },
         getNickname: state => {
             return state.nickname
+        },
+        getResult: state => {
+            return state.result
         }
     },
     mutations: {
@@ -33,7 +37,43 @@ export default new Vuex.Store({
         logout(state) {
             state.userid = ''
             state.nickname = ''
+        },
+        putE(state){
+            state.result = state.result+'E'
+            console.log(state.result)
+        },
+        putI(state){
+            state.result = state.result+'I'
+            console.log(state.result)
+        },
+        putN(state){
+            state.result = state.result+'N'
+            console.log(state.result)
+        },
+        putS(state){
+            state.result = state.result+'S'
+            console.log(state.result)
+        },
+        putT(state){
+            state.result = state.result+'T'
+            console.log(state.result)
+        },
+        putJ(state){
+            state.result = state.result+'J'
+            console.log(state.result)
+        },
+        putP(state){
+            state.result = state.result+'P'
+            console.log(state.result)
+        },
+        putF(state){
+            state.result = state.result+'F'
+            console.log(state.result)
+        },
+        slice(state,index){
+            state.result=state.result.substring(0,index);
         }
+
     },
     actions: {
         login: (context, user) => {

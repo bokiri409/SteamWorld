@@ -3,15 +3,16 @@
 <div class="container blueArea">
     <div clss="row">
 
-
-        <h2 class="typing-txt">Q1. 적들이 마구 몰려오는 상황, 당신은 어떻게 하시겠습니까? </h2>
+        <h2 class="typing-txt">Q7.눈앞에 강해보이는 몬스터가 나타났다!  jp 나의 선택은?</h2>
         <p>와아오아아아아아아아</p>
+                 <p>   {{this.$store.state.result}}</p>
         <img src="../../assets/img/bg2.gif"/>
         <hr>
-        <button @click='put1'>puteeeeee </button>
 
-        <router-link to="/q2" class="nav-link"><b-button @click="put1">돌격하여 적을 쳐부수자! e</b-button></router-link>
-        <router-link to="/q2" class="nav-link"><b-button @click="put2">일단 안전을 확보한다 i</b-button></router-link>
+
+
+        <router-link to="/q8" class="nav-link"><b-button @click="put1">나보다 압도적으로 강할 것 같다. 자리를 피한다.  j</b-button></router-link>
+        <router-link to="/q8" class="nav-link"><b-button @click="put2">내가 이길 수 있다. 좋은 아이템을 위해 사냥한다. p</b-button></router-link>
 
 
 
@@ -20,26 +21,23 @@
 </div>
 </template>
 
+
 <script>
 
 
 export default {
 
   methods:{
-      updated(){
-      console.log(this.$store.state.result);
-      this.$store.dispatch('slice',0);
-    },
 
     put1(){
-      this.$store.commit('slice',0);
-      this.$store.commit('putE');
+           this.$store.commit('slice',6);
+      this.$store.commit('putJ');
 
 
     },
     put2(){
-      this.$store.commit('slice',0);
-     this.$store.commit('putI');
+           this.$store.commit('slice',6);
+     this.$store.commit('putP');
     }
 
   }
@@ -65,7 +63,7 @@ h2.typing-txt::after{
   top : 5px;
   right:0px; 
   border-right: 3px solid rgb(252, 252, 252);
-  animation: cursor 0.3s step-end infinite;
+  animation: cursor 0.5s step-end infinite;
 }
 @keyframes typingAni {
   0%{width:0%}
