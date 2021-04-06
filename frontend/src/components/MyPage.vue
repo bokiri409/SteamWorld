@@ -1,6 +1,5 @@
 <template>
-  <div class="section-show">
-    <div class="row"></div>
+  <section class="section-show">
     <div class="row" style="width:100%">
       <div class="col-md-1"></div>
       <div class="col-md-10 box" style="background-color:#00000077;">
@@ -432,7 +431,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script src="../assets/js/crawl.js"></script>
@@ -735,5 +734,13 @@ h2.section-title {
 
 div.profile-container {
   background-color: rgba(255, 255, 255, 0.08);
+}
+
+.section-show{
+  margin-top:40px;
+}
+
+.section-title{
+  margin-top:20px;
 }
 </style>
