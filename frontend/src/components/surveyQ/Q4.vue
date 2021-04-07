@@ -76,5 +76,9 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
+
+h2{
+  font-size:2vw;
+}
 </style>
 
