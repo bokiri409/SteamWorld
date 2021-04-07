@@ -3,6 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
+          <h1>{{$route.query.appId}}</h1>
           <h1 style="margin-left:15px;">{{ gameInfo.data.game.name }}</h1>
          
         </div>
@@ -104,14 +105,17 @@ export default {
      videoUrl: "",
      gameDes: "",
      genreList: [],
-     gameInfo: null 
+     gameInfo: null,
+     appId: ""
      };
   },
   created() {
-    this.getGameInfo(381210);
+    const appId=this.$route.query.appId;
+    console.log("!!!!!"+this.$route.query.appId);
+    this.getGameInfo(appId);
     var img = document.getElementById("headerImg");
 
-    img.src;
+ 
     console.log(this.headerUrl);
     document.getElementById("headerImg").innerHTML =
       "<img src=" + this.headerUrl + "/>";

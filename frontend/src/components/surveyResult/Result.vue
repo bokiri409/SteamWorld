@@ -1,15 +1,21 @@
 <template>
   <div class="container blueArea">
-    <h1>당신의 인생게임은...</h1>
-    <img src="../../assets/img/human.png" />
+    <h1>당신의 게임 성향을 분석하는 중입니다... 유저</h1>
+    <div class="row">
+        <img src="../../assets/img/human.png" height="400px" />
+          <button @click="showA">결과 확인하기</button>
+
+    </div>
+
 
     <p>{{ this.$store.state.result }}입니다.</p>
     <button @click="showA">결과 확인하기</button>
-    <button @click="getGameInfo(1046930)">게임 받아와라</button>
     <p>{{gameData}}</p>
+    <router-view></router-view>
 
     <h1>{{ this.result }}</h1>
-    <router-link to="/result/detail">detail</router-link>
+    <router-link to="/detail">detail</router-link>
+    <button @click="goDetail"> 디테일 가자</button>
   </div>
 </template>
 
@@ -18,7 +24,9 @@ import axios from "axios";
 const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
 export default {
   data() {
-    return { result: "" };
+    return { 
+        result: "" ,
+        resultUrl: ""};
   },
   methods: {
     showA() {
@@ -76,6 +84,8 @@ export default {
       }
 
       this.$store.commit("putPage", this.result);
+      this.resultUrl='/result'+this.result;
+      this.goResult()
     },
     getGameInfo(appid) {
       axios
@@ -129,9 +139,6 @@ export default {
       // const data = [item]
       this.$router.push({ path: "./GroupCreate" });
     },
-    goDetail: function(group) {
-      this.$router.push({ path: "./GroupDetail", query: { gId: group.gId } });
-    },
     goGroupPage: function(myGroup) {
       this.$router.push({ path: "./GroupPage", query: { gId: myGroup.gId } });
     },
@@ -168,6 +175,12 @@ export default {
     },
     goLogIn: function() {
       this.$router.push({ path: "./login" });
+    },
+    goResult: function() {
+      this.$router.push({ path: "/result/"+this.$store.state.result});
+    },
+    goDetail: function() {
+      this.$router.push({ path: "/detail" , query: { appId: 550 } });
     },
   },
 };
