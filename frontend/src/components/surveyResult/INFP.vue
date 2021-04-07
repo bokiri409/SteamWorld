@@ -56,7 +56,7 @@
             @click="goDetail(games.appid)"
             img-top
             tag="article"
-            style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png'); background-color:#00000077; height: 100%"
+        style="width: 100%; margin-left:10px; margin-right:10px; padding:0 0 0 0; text-align:center;  background-color:#00000077; height: 100%"      >
           >
           </b-card>
         </div>
@@ -95,7 +95,7 @@ export default {
 
     
     this.appId1="1057090";
-    this.appId2="433340";
+    this.appId2="638230";
 
     console.log(this.headerUrl);
     this.header1 ="https://cdn.cloudflare.steamstatic.com/steam/apps/"+this.appId1+"/header.jpg"

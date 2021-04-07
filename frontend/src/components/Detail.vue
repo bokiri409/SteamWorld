@@ -190,7 +190,8 @@ export default {
   mounted() {
     axios
       .get(
-        `${LOCALHOST_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
+        `${SERVER_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
+        // `${LOCALHOST_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
         {
           appid: this.$route.query.appId,
           userid: this.userid,
@@ -253,8 +254,8 @@ export default {
         });
         console.log(this.itemlist);
         await axios
-          // .post(`${SERVER_URL}/item/add`, { params: { appid: appid } })
-          .post(`${LOCALHOST_URL}/item/add`, this.itemlist)
+          .post(`${SERVER_URL}/item/add`, this.itemlist)
+          // .post(`${LOCALHOST_URL}/item/add`, this.itemlist)
           .then((res) => {
             if (res.data.success == 'success') {
               alert('관심목록에 추가되었습니다.');
@@ -290,8 +291,8 @@ export default {
                 },
               };
               axios
-                // .delete(`${SERVER_URL}/game/item/add`, { params: { appid: appid } })
-                .delete(`${LOCALHOST_URL}/item`, userinfo)
+                .delete(`${SERVER_URL}/item`, userinfo)
+                // .delete(`${LOCALHOST_URL}/item`, userinfo)
                 .then(() => {
                   alert('관심목록에서 삭제되었습니다.');
                   this.like = 0;

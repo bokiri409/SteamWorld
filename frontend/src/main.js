@@ -4,8 +4,6 @@ import { router } from './router.js'
 import store from './store/store.js'
 import axios from 'axios'
 import { BootstrapVue,  CarouselPlugin, BootstrapVueIcons  } from 'bootstrap-vue'
-//import bFormSlider from 'vue-bootstrap-slider';
-//import {Waypoint} from "./assets/vendor/waypoints/noframework.waypoints.js"
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-slider/dist/css/bootstrap-slider.css'
@@ -14,6 +12,7 @@ import 'aos'
 import Aos from 'aos'
 import VueSimpleAccordion from 'vue-simple-accordion';
 import 'vue-simple-accordion/dist/vue-simple-accordion.css';
+import VueTyperPlugin from 'vue-typer'
 
 Vue.use(VueSimpleAccordion);
 // import Lightbox from 'vue-my-photos'
@@ -41,6 +40,7 @@ Vue.use(CarouselPlugin)
 Vue.use(BootstrapIcons)
 Vue.use(Aos)
 Vue.use(axios)
+Vue.use(VueTyperPlugin)
 
 // Vue.use(Lightbox)
 
