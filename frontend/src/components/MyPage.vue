@@ -69,11 +69,11 @@
             />
             <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
             <input type="hidden" name="openid.mode" value="checkid_setup" />
-            <input type="hidden" name="openid.realm" value="http://localhost:8081" />
-            <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" />
+            <!-- <input type="hidden" name="openid.realm" value="http://localhost:8081" />
+            <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" /> -->
             <!-- server side -->
-            <!-- <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
-            <input type="hidden" name="openid.return_to" value="http://j4a105.p.ssafy.io/mypage" /> -->
+            <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
+            <input type="hidden" name="openid.return_to" value="http://j4a105.p.ssafy.io/mypage" />
             <!-- <b-button v-if="user.steamid == '0' || !user.steamid" type="submit btn-large" style="border-radius: 10rem" -->
             <b-button type="submit btn-large" style="border-radius: 10rem"
               ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
@@ -155,7 +155,7 @@
                   <b-nav-item @click.prevent="loadMyGame()" exact exact-active-class="active"
                     >보유 게임</b-nav-item
                   >
-                  <b-nav-item @click.prevent="loadRecGame()">추천 게임</b-nav-item>
+                  <b-nav-item @click.prevent="loadLikeGame()">관심 게임</b-nav-item>
                 </b-nav>
               </b-card-header>
 
@@ -218,16 +218,15 @@ getHTML()
 <script>
 import UpdateUser from './myPage/UpdateUser';
 import MyGame from './myPage/MyGame';
-import RecGame from './myPage/RecGame';
+import LikeGame from './myPage/LikeGame';
 // import { SERVER_URL } from '../main';
 import { mapState } from 'vuex';
 
 const axios = require('axios');
 const cheerio = require('cheerio');
 const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const REC_SERVER_URL = process.env.VUE_APP_REC_SERVER_URL;
 // const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
-const API_URL =
-  'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=90F5B0B48046ABC1FAB7888D79EF4D6A&steamid=';
 export default {
   data() {
     return {
@@ -253,7 +252,7 @@ export default {
   },
   components: {
     MyGame,
-    RecGame,
+    LikeGame,
     UpdateUser,
   },
   computed: {
@@ -346,11 +345,10 @@ export default {
         });
     },
     async getItem() {
-      const ITEM_URL = API_URL + this.user.steamid;
-      // console.log(ITEM_URL);
-      await axios.get(ITEM_URL).then((res) => {
-        // console.log(res.data.response);
-        for (var app of res.data.response.games) {
+      await axios.get(`${REC_SERVER_URL}/steamid/` + this.user.steamid).then((res) => {
+        console.log("response", res);
+        // console.log("response", res.data.data.response);
+        for (var app of res.data.data) {
           this.itemOutList.push({
             itemid: 0,
             userid: this.user.userid,
@@ -360,7 +358,7 @@ export default {
             issteam: '1',
           });
         }
-        // console.log(this.itemOutList);
+        console.log(this.itemOutList);
       });
       await this.additem();
     },
@@ -385,7 +383,7 @@ export default {
         case 1:
           return 'MyGame';
         case 2:
-          return 'RecGame';
+          return 'LikeGame';
       }
     },
 
@@ -395,7 +393,7 @@ export default {
     loadMyGame() {
       this.active = 1;
     },
-    loadRecGame() {
+    loadLikeGame() {
       this.active = 2;
     },
     getHTML(url) {
