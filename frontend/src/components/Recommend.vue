@@ -10,13 +10,17 @@
       </div>
 
       <div style="margin-top: 30px">
+        <h3>스팀 게임 검색하기</h3>
+      </div>
+
+      <div style="margin-top: 30px">
         <h3>인기 게임 목록</h3>
       </div>
 
       <div class="row">
         <div
           class="col-md-4"
-          v-for="games in this.gamedata"
+          v-for="(games, index) in this.gamedata"
           :key="games.title"
           style="margin-bottom: 20px"
         >
@@ -27,11 +31,32 @@
             img-alt="Image"
             img-top
             tag="article"
-            style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png');background-color:#00000077; height: 100%"
+            style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png'); background-color:#00000077; height: 100%"
+            @click="goDetail(games.appid)"
           >
-            <div style="padding-bottom: 20px">
+            <div
+              v-if="isLogin"
+              style="position: static; right: 0px; bottom:0px; padding-bottom: 20px; padding-right: 20px; text-align: right;"
+            >
               <!-- <b-card-text>
-            </b-card-text> -->
+                hi
+              </b-card-text> -->
+              <!-- <b-button> -->
+              <b-icon
+                icon="star"
+                scale="1.5"
+                style="color: yellow;"
+                v-if="like == 0"
+                @click="LikeHandler(index)"
+              ></b-icon>
+              <b-icon
+                icon="star-fill"
+                scale="1.5"
+                style="color: yellow;"
+                v-if="like == 1"
+                @click="LikeHandler()"
+              ></b-icon>
+              <!-- </b-button> -->
 
               <!--  <b-button href="#" variant="primary">상세보기</b-button> -->
             </div>
@@ -39,627 +64,46 @@
         </div>
       </div>
     </div>
-
-    <!-- <div class="row">
-      <div class="col-md-1"></div>
-      <div
-        class="col-md-10 box"
-        style="padding-left:50px; background-color:#000000cc;"
-      >
-        <div class="section-title">
-          <h2>Portfolio</h2>
-          <p>게임 추천</p>
-        </div>
-
-        <div>
-          <b-card
-            no-body
-            style="max-width: 20rem; background-color:black; border-width:1px; border-color:white"
-            img-src="https://placekitten.com/380/200"
-            img-alt="Image"
-            img-top
-          >
-            <template #header>
-              <h4 class="mb-0">Hello World</h4>
-            </template>
-
-            <b-card-body>
-              <b-card-title>Card Title</b-card-title>
-              <b-card-sub-title class="mb-2">Card Sub Title</b-card-sub-title>
-              <b-card-text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </b-card-text>
-            </b-card-body>
-
-            <b-card-body>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </b-card-body>
-
-            <b-card-footer>This is a footer</b-card-footer>
-
-            <b-card-img
-              src="https://placekitten.com/480/210"
-              alt="Image"
-              bottom
-            ></b-card-img>
-          </b-card>
-        </div>
-
-        <div>
-          <b-button v-b-modal.modal-1>Launch demo modal</b-button>
-        </div>
-
-        <div class="row portfolio-container" style="width:100%"> -->
-    <!--477160-->
-
-    <!-- <b-card-group deck>
-            <b-card
-              v-b-modal.modal-1
-              bg-variant="dark"
-              text-variant="white"
-              class="col-lg-4 col-md-6 text-center"
-            >
-              <img
-                src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                class="img-fluid"
-              />
-              <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>
-              <div class="portfolio-info">
-                <h4>Human Fall Flat</h4>
-                <p>경쟁, 파티, 멀티플레이!!</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-1.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="App 1"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-
-              <b-modal
-                modal-tall
-                id="modal-1"
-                size="xl"
-                title="Extra Large Modal"
-              >
-                <h1>게임 상세보기</h1>
-                <div class="row">
-                  <div class="col-md-8">
-                    <img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                      class="img-fluid"
-                      style="width:100%"
-                    />
-                  </div>
-                  <div class="col-md-4">
-                    <h1>휴먼 폴 플랫</h1>
-                    <h2>dddd 파티플레이 경쟁</h2>
-                  </div>
-
-                  <div class="interests container">
-                    <div class="section-title">
-                      <h2>Interests</h2>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4">
-                        <div class="icon-box">
-                          <i class="ri-store-line" style="color: #ffbb2c;"></i>
-                          <h3>Lorem Ipsum</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-                        <div class="icon-box">
-                          <i
-                            class="ri-bar-chart-box-line"
-                            style="color: #5578ff;"
-                          ></i>
-                          <h3>Dolor Sitema</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-                        <div class="icon-box">
-                          <i
-                            class="ri-calendar-todo-line"
-                            style="color: #e80368;"
-                          ></i>
-                          <h3>Sed perspiciatis</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
-                        <div class="icon-box">
-                          <i
-                            class="ri-paint-brush-line"
-                            style="color: #e361ff;"
-                          ></i>
-                          <h3>Magni Dolores</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-database-2-line"
-                            style="color: #47aeff;"
-                          ></i>
-                          <h3>Nemo Enim</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-gradienter-line"
-                            style="color: #ffa76e;"
-                          ></i>
-                          <h3>Eiusmod Tempor</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-file-list-3-line"
-                            style="color: #11dbcf;"
-                          ></i>
-                          <h3>Midela Teren</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-price-tag-2-line"
-                            style="color: #4233ff;"
-                          ></i>
-                          <h3>Pira Neve</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i class="ri-anchor-line" style="color: #b2904f;"></i>
-                          <h3>Dirada Pack</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i class="ri-disc-line" style="color: #b20969;"></i>
-                          <h3>Moton Ideal</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="bi-base-station-line"
-                            style="color: #ff5828;"
-                          ></i>
-                          <h3>Verdo Park</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-fingerprint-line"
-                            style="color: #29cc61;"
-                          ></i>
-                          <h3>Flavor Nivelanda</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="game_area_description" class="game_area_description">
-                    <h2>게임에 대해</h2>
-                    <img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/About_This_Game_1.gif?t=1617013849"
-                    /><br /><br />Fall Guys: Ultimate Knockout는 한 명의 승자가
-                    나올 때까지 혼란스러운 라운드를 이어가는 정신 나간 60인
-                    멀티플레이 파티 게임입니다. 기괴한 장애물과 싸우고, 무자비한
-                    경쟁자를 쓰러뜨리고, 대단한 물리 엔진을 극복하세요. 품위는
-                    내던지고 승자의 왕관을 위해 우스꽝스러운 실패에
-                    대비하세요!<br /><br /><br /><img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/Massive_Online_Pandemonium_1.gif?t=1617013849"
-                    /><br />거대한 온라인 수라장: 다른 온라인 경쟁자들과 함께
-                    우스꽝스러운 도전과 거친 장애물 코스에 빠져보세요.<br /><br /><br /><br /><img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/Competitive_Coopertative_1.gif?t=1617013849"
-                    /><br />경쟁 &amp; 협력: 패배하는 팀이 모두 제거되는
-                    경쟁적인 도전과 난투전 사이를 오고 가세요!!<br /><br /><br /><br /><img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/Comically_Physical.gif?t=1617013849"
-                    /><br />웃긴 물리 엔진: 경쟁자들이 우스꽝스러운 모습으로
-                    실패하고, 튀고, 부딪히는 걸 즐겁게 지켜보세요!<br /><br /><br /><br /><img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/Delightfully_Customizable.gif?t=1617013849"
-                    /><br />유쾌한 커스터마이징: 세련된 파인애플 쿠튀르부터 최신
-                    토끼모자까지. Fall Guys에는 다양한 디자인을 커스터마이징할
-                    수 있습니다.
-                  </div>
-                </div>
-              </b-modal>
-            </b-card> -->
-
-    <!-- <b-card
-              bg-variant="dark"
-              text-variant="white"
-              class="col-lg-4 col-md-6 text-center"
-            >
-              <div v-b-modal.modal-1>
-                <img
-                  src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                  class="img-fluid"
-                />
-                <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>
-                <div class="portfolio-info">
-                  <h4>Human Fall Flat</h4>
-                  <p>경쟁, 파티, 멀티플레이</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-1.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      data-gallery="portfolioDetailsGallery"
-                      data-glightbox="type: external"
-                      class="portfolio-details-lightbox"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </b-card> -->
-
-    <!-- <b-card
-              bg-variant="dark"
-              text-variant="white"
-              class="col-lg-4 col-md-6 text-center"
-            >
-              <div v-b-modal.modal-1>
-                <img
-                  src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                  class="img-fluid"
-                />
-                <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>
-                <div class="portfolio-info">
-                  <h4>Human Fall Flat</h4>
-                  <p>경쟁, 파티, 멀티플레이</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-1.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      data-gallery="portfolioDetailsGallery"
-                      data-glightbox="type: external"
-                      class="portfolio-details-lightbox"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </b-card> -->
-
-    <!-- <b-card
-              bg-variant="dark"
-              text-variant="white"
-              class="col-lg-4 col-md-6 text-center"
-            >
-              <div v-b-modal.modal-1>
-                <img
-                  src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                  class="img-fluid"
-                />
-                <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>
-                <div class="portfolio-info">
-                  <h4>Human Fall Flat</h4>
-                  <p>경쟁, 파티, 멀티플레이</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-1.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </b-card>
-          </b-card-group> -->
-
-    <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="../assets/img/portfolio/portfolio-2.jpg" alt="" />
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-2.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Web 3"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-3.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-3.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="App 2"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-    <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-4.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Card 2</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-4.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Card 2"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-5.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Web 2</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-5.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Web 2"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-6.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-6.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="App 3"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-7.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Card 1</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-7.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Card 1"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-8.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Card 3</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-8.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Card 3"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-9.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-9.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Web 3"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </section>
 </template>
 
 <script>
 import axios from 'axios';
-import { api_url } from '../main';
+// import { api_url } from '../main';
 import { SERVER_URL, LOCALHOST_URL } from '../main.js';
 
 export default {
   components: {},
   data() {
     return {
-      // gamelist: {
-      //   start: '0',
-      //   size: '5',
-      // },
-      // gamelist: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-      // gamedata: [{ title: [] }, { thumnail: [] }],
-      gamedata: [{ title: '', thumnail: '' }],
+      gamedata: [{ appid: '', title: '', thumnail: '' }],
+      select: (el, all = false) => {
+        el = el.trim();
+        if (all) {
+          return [...document.querySelectorAll(el)];
+        } else {
+          return document.querySelector(el);
+        }
+      },
+      like: '',
+      token: '',
     };
   },
+  created() {
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.nickname = localStorage.getItem('nickname');
+      this.steamid = localStorage.getItem('steamid');
+    }
+  },
   mounted() {
-    console.log('recomm mounted.');
     axios
       .get(
         `${SERVER_URL}/game/popular?size=12&start=0` //top10 고정값으로 받아옴
         // `/a105/game/popular?size=${this.gamelist.size}&start=${this.gamelist.start}`
       )
       .then((res) => {
-        console.log('요청 성공');
         var i = 0;
-        console.log(this.gamedata);
         for (i = 0; i < 12; i++) {
           // this.gamedata.title = res.data.data[i].name;
           // this.gamedata.thumnail = res.data.data[i].imgsrc;
@@ -667,6 +111,7 @@ export default {
             ...this.gamedata,
             ...[
               {
+                appid: res.data.data[i].appid,
                 title: res.data.data[i].name,
                 thumnail: res.data.data[i].imgsrc,
               },
@@ -674,11 +119,33 @@ export default {
           ];
         }
         this.gamedata.splice(0, 1);
-        console.log(this.gamedata);
+        // console.log(this.gamedata);
       })
       .catch((err) => {
         console.log(err);
       });
+  },
+  methods: {
+    isLogin: function() {
+      if (!this.token) {
+        alert('로그인 후 이용 가능합니다!');
+      } else {
+        console.log('로그인중');
+      }
+    },
+    LikeHandler: function(name) {
+      if (this.like == 0) {
+        this.like = 1;
+        // var game = this.select('.col-md-4');
+        console.log(name);
+      } else {
+        this.like = 0;
+      }
+    },
+    goDetail: function(appid) {
+      console.log(appid);
+      this.$router.push({ path: '/detail', query: { appId: appid } });
+    },
   },
 };
 </script>
