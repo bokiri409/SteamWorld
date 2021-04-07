@@ -35,14 +35,14 @@ class CollaborativeFiltering:
             soup = BeautifulSoup(html, 'html.parser')
             jsonData = pd.read_json(soup.text)
             if jsonData.empty:
-                return "스팀 프로필 및 게임 세부정보 설정을 공개로 바꿔주세요"
+                return "스팀 프로필 및 게임 세부정보 설정을 공개로 바꿔주세요", ''
             elif jsonData['response']['game_count'] == 0:
-                return "스팀 라이브러리에 게임이 없습니다."
+                return "스팀 라이브러리에 게임이 없습니다.", ''
         else:
             if response.status_code == 500:
-                return "입력하신 스팀 id를 확인해주세요"
+                return "입력하신 스팀 id를 확인해주세요", ''
             else:
-                return "스팀서버 통신 에러입니다. 잠시 후 다시 시도해주세요."
+                return "스팀서버 통신 에러입니다. 잠시 후 다시 시도해주세요.", ''
 
         self.searchUser = pd.DataFrame(jsonData['response']['games'])
         self.searchUser = self.searchUser.drop(['playtime_windows_forever', 'playtime_mac_forever',
@@ -54,7 +54,7 @@ class CollaborativeFiltering:
         if 'playtime_2weeks' not in self.searchUser.columns:
             self.searchUser['playtime_2weeks'] = 0
 
-        return 'success'
+        return 'success', self.searchUser
 
     def addData(self, appids, steamid):
         if self.searchUser.empty:
@@ -73,7 +73,6 @@ class CollaborativeFiltering:
             self.searchUser = self.searchUser.append(
                 {'appid': int(appid), 'playtime_forever': 600.0, 'steamid': steamid, 'newsteamid': self.newSteamId,
                  'playtime_2weeks': 0}, ignore_index=True)
-        return appids
 
     # weight 할당 def
     def refine(self):
