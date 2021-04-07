@@ -1,6 +1,46 @@
 <template>
   <section class="section-show">
-    <div class="row">
+    <div
+      class="container"
+      style="background-color:#00000077; margin-bottom:50px;"
+    >
+      <div class="section-title">
+        <h2>Game For You</h2>
+        <p>게임 추천</p>
+      </div>
+
+      <div style="margin-top: 30px">
+        <h3>인기 게임 목록</h3>
+      </div>
+
+      <div class="row">
+        <div
+          class="col-md-4"
+          v-for="games in this.gamedata"
+          :key="games.title"
+          style="margin-bottom: 20px"
+        >
+          <b-card
+            v-if="games.title != ''"
+            :title="games.title"
+            :img-src="games.thumnail"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png');background-color:#00000077; height: 100%"
+          >
+            <div style="padding-bottom: 20px">
+              <!-- <b-card-text>
+            </b-card-text> -->
+
+              <!--  <b-button href="#" variant="primary">상세보기</b-button> -->
+            </div>
+          </b-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row">
       <div class="col-md-1"></div>
       <div
         class="col-md-10 box"
@@ -51,10 +91,10 @@
           <b-button v-b-modal.modal-1>Launch demo modal</b-button>
         </div>
 
-        <div class="row portfolio-container" style="width:100%">
-          <!--477160-->
+        <div class="row portfolio-container" style="width:100%"> -->
+    <!--477160-->
 
-          <b-card-group deck>
+    <!-- <b-card-group deck>
             <b-card
               v-b-modal.modal-1
               bg-variant="dark"
@@ -65,7 +105,7 @@
                 src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
                 class="img-fluid"
               />
-              <!-- <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>-->
+              <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>
               <div class="portfolio-info">
                 <h4>Human Fall Flat</h4>
                 <p>경쟁, 파티, 멀티플레이!!</p>
@@ -242,9 +282,9 @@
                   </div>
                 </div>
               </b-modal>
-            </b-card>
+            </b-card> -->
 
-            <b-card
+    <!-- <b-card
               bg-variant="dark"
               text-variant="white"
               class="col-lg-4 col-md-6 text-center"
@@ -254,7 +294,7 @@
                   src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
                   class="img-fluid"
                 />
-                <!-- <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>-->
+                <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>
                 <div class="portfolio-info">
                   <h4>Human Fall Flat</h4>
                   <p>경쟁, 파티, 멀티플레이</p>
@@ -277,9 +317,9 @@
                   </div>
                 </div>
               </div>
-            </b-card>
+            </b-card> -->
 
-            <b-card
+    <!-- <b-card
               bg-variant="dark"
               text-variant="white"
               class="col-lg-4 col-md-6 text-center"
@@ -289,7 +329,7 @@
                   src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
                   class="img-fluid"
                 />
-                <!-- <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>-->
+                <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>
                 <div class="portfolio-info">
                   <h4>Human Fall Flat</h4>
                   <p>경쟁, 파티, 멀티플레이</p>
@@ -312,9 +352,9 @@
                   </div>
                 </div>
               </div>
-            </b-card>
+            </b-card> -->
 
-            <b-card
+    <!-- <b-card
               bg-variant="dark"
               text-variant="white"
               class="col-lg-4 col-md-6 text-center"
@@ -324,7 +364,7 @@
                   src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
                   class="img-fluid"
                 />
-                <!-- <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>-->
+                <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>
                 <div class="portfolio-info">
                   <h4>Human Fall Flat</h4>
                   <p>경쟁, 파티, 멀티플레이</p>
@@ -340,9 +380,9 @@
                 </div>
               </div>
             </b-card>
-          </b-card-group>
+          </b-card-group> -->
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+    <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
               <img src="../assets/img/portfolio/portfolio-2.jpg" alt="" />
               <div class="portfolio-info">
@@ -398,9 +438,9 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+    <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-card">
             <div class="portfolio-wrap">
               <img
                 src="../assets/img/portfolio/portfolio-4.jpg"
@@ -587,15 +627,58 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
+
 <script>
+import axios from 'axios';
+import { api_url } from '../main';
+import { SERVER_URL, LOCALHOST_URL } from '../main.js';
+
 export default {
   components: {},
-
+  data() {
+    return {
+      // gamelist: {
+      //   start: '0',
+      //   size: '5',
+      // },
+      // gamelist: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      // gamedata: [{ title: [] }, { thumnail: [] }],
+      gamedata: [{ title: '', thumnail: '' }],
+    };
+  },
   mounted() {
-    console.log('Component mounted.');
+    console.log('recomm mounted.');
+    axios
+      .get(
+        `${SERVER_URL}/game/popular?size=12&start=0` //top10 고정값으로 받아옴
+        // `/a105/game/popular?size=${this.gamelist.size}&start=${this.gamelist.start}`
+      )
+      .then((res) => {
+        console.log('요청 성공');
+        var i = 0;
+        console.log(this.gamedata);
+        for (i = 0; i < 12; i++) {
+          // this.gamedata.title = res.data.data[i].name;
+          // this.gamedata.thumnail = res.data.data[i].imgsrc;
+          this.gamedata = [
+            ...this.gamedata,
+            ...[
+              {
+                title: res.data.data[i].name,
+                thumnail: res.data.data[i].imgsrc,
+              },
+            ],
+          ];
+        }
+        this.gamedata.splice(0, 1);
+        console.log(this.gamedata);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>
@@ -605,12 +688,12 @@ export default {
 .card-body {
   padding: 0px;
 }
-card {
+/* card {
   margin-left: 20px;
   margin-right: 20px;
   border-bottom-color: red;
   background-color: #000000;
-}
+} */
 
 .modal-content h1 {
   color: #000000;
