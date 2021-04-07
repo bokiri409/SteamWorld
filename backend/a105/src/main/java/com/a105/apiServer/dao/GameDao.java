@@ -14,6 +14,7 @@ public interface GameDao {
 	public List<GamesDto> getGameList(SizeDto size) throws Exception;
 	public List<GamesDto> getGamePopular(SizeDto size) throws Exception;
 	public GamesDto getGame(String appid) throws Exception;
+	public List<GamesDto> searchName(String word) throws Exception;
 	
 	public List<GameTagsDto> getGameTagAll(SizeDto size) throws Exception;
 	public List<GameTagsDto> getGameTagList(String appid) throws Exception;

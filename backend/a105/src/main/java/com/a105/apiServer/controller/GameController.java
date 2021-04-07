@@ -106,6 +106,32 @@ public class GameController {
 		return entity;
 	}
 	
+	@GetMapping(value = "/search/name")
+	private ResponseEntity nameSearch(@RequestParam String word) {
+		ResponseEntity entity = null;
+		Map result = new HashMap();
+		try {
+			List<GamesDto> game = gameService.searchName(word);
+			if (game != null) {
+				result.put("success", "success");
+				result.put("data", game);
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+				
+			}
+			else {
+				result.put("success", "fail");
+				entity = new ResponseEntity<>(result, HttpStatus.OK);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "error");
+			entity = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
+	}
+	
 	@GetMapping(value = "/info/list")
 	private ResponseEntity gameInfoList() {
 		ResponseEntity entity = null;

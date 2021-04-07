@@ -31,6 +31,12 @@ public class GameServiceImpl implements GameService{
 		return gameDao.getGame(appid);
 	}
 
+
+	@Override
+	public List<GamesDto> searchName(String word) throws Exception{
+		return gameDao.searchName(word);
+	}
+	
 	@Override
 	public List<GameTagsDto> gameTagAll(SizeDto size) throws Exception {
 		// TODO Auto-generated method stub

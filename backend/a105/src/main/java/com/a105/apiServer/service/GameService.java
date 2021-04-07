@@ -13,6 +13,8 @@ public interface GameService {
 	public List<GamesDto> popularList(SizeDto size) throws Exception;
 	public GamesDto gameSearch(String appid) throws Exception;
 	
+	public List<GamesDto> searchName(String word) throws Exception;
+	
 	public List<GameTagsDto> gameTagAll(SizeDto size) throws Exception;
 	public List<GameTagsDto> gameTagList(String appid) throws Exception;
 	public GameTagsDto gameTagSearch(String gametagid) throws Exception;
