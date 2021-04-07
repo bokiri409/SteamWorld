@@ -1,7 +1,7 @@
 <template>
     <div class="container blueArea">
     <h1>당신의 게임 유형은</h1>
-    <h1>끈기있는 개인주의자입니다.</h1>
+    <h1>끈기있는 좀비입니다.</h1>
 
     <p>추천게임</p>
    
@@ -33,12 +33,14 @@
     </div>
     <div class="row" style="margin-top:50px; margin-bottom:50px; height:50px; background-color:">
       <div class="col-md-1"></div>
-      <button class="col-md-10" style="background-color:black; color:#18d26e;" @click="getSimilar(appId1)">Hades와 유사한 게임을 확인해보세요</button>
+      <button class="col-md-10" style="background-color:black; color:#18d26e;" @click="getSimilar(appId1)">
+        Hades와 유사한 게임을 확인해보세요</button>
       <div class="col-md-1"></div>
   </div>
       <div class="row" style="margin-top:50px; margin-bottom:50px; height:50px; background-color:">
       <div class="col-md-1"></div>
-      <button class="col-md-10" style="background-color:black; color:#18d26e;" @click="getSimilar(appId2)">Skul: The Hero Slayer와 유사한 게임을 확인해보세요</button>
+      <button class="col-md-10" style="background-color:black; color:#18d26e;" @click="getSimilar(appId2)">
+        Skul: The Hero Slayer와 유사한 게임을 확인해보세요</button>
       <div class="col-md-1"></div>
   </div>
   <div class="row">
@@ -110,6 +112,7 @@ export default {
       this.$router.push({ path: "/detail", query: { appId: appid } });
     },
     getSimilar: function(appid){
+      this.gamedata=[];
       console.log("비스무리");
        axios.get(`${REC_SERVER_URL}/cbf/`+appid)
       .then((res) => {

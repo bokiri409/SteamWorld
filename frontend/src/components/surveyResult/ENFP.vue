@@ -110,6 +110,7 @@ export default {
       this.$router.push({ path: "/detail", query: { appId: appid } });
     },
     getSimilar: function(appid){
+            this.gamedata=[];
       console.log("비스무리");
        axios.get(`${REC_SERVER_URL}/cbf/`+appid)
       .then((res) => {

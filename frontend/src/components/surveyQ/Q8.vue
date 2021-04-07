@@ -3,7 +3,7 @@
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q8. 게임에서 판매하는 아주 멋있는 캐시 아이템이 있다.</h2>
+        <h2 class="typing-txt">Q8. 상점에서 판매하는 아주 멋진 아이템이 있다.</h2>
         <hr>
         <img height=300px src="../../assets/img/q8.gif"/>
         <hr>

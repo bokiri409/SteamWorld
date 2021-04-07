@@ -5,15 +5,15 @@
 
      
 
-        <h2 class="typing-txt">Q2. 게임에서 상대방이 나의 캐릭터를 죽였다 나는 </h2>
+        <h2 class="typing-txt">Q2. 다른 플레이어가 초보자인 나의 캐릭터를 죽였다. 나는...</h2>
         <hr>
         <img height=300px src="../../assets/img/q2.gif"/>
         <hr>
 
 
 
-        <router-link to="/q3" class="nav-link"><b-button @click="put1">너무 화가나고 어떻게든 복수하고 싶다 e </b-button></router-link>
-        <router-link to="/q3" class="nav-link"><b-button @click="put2">끔찍하다. 다시는 마주치지 않고 싶다 i</b-button></router-link>
+        <router-link to="/q3" class="nav-link"><b-button @click="put1">너무 화가난다. 성장해서 어떻게든 복수하고 싶다.</b-button></router-link>
+        <router-link to="/q3" class="nav-link"><b-button @click="put2">끔찍하다. 다시는 마주치지 않고 싶다.</b-button></router-link>
 
 
 
@@ -32,7 +32,7 @@ export default {
   methods:{
       updated(){
       console.log(this.$store.state.result);
-      this.$store.dispatch('slice',0);
+      this.$store.dispatch('slice',1);
     },
 
     put1(){

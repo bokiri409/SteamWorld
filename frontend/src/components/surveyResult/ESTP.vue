@@ -1,7 +1,7 @@
 <template>
   <div class="container blueArea">
     <h1>당신의 게임 유형은</h1>
-    <h1>활동적인 헌터입니다.</h1>
+    <h1>대담한 사냥꾼입니다.</h1>
 
     <p>추천게임</p>
    
@@ -110,6 +110,7 @@ export default {
       this.$router.push({ path: "/detail", query: { appId: appid } });
     },
     getSimilar: function(appid){
+            this.gamedata=[];
       console.log("비스무리");
        axios.get(`${REC_SERVER_URL}/cbf/`+appid)
       .then((res) => {

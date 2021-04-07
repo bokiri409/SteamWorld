@@ -3,15 +3,15 @@
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q9. 게임을 하던 도중 너무 어려운 부분을 해결하지 못할 때 나는 </h2>
+        <h2 class="typing-txt">Q9. 게임오버 화면만 수십번째.... 어떻게 할까? </h2>
         <hr>
         <img height=300px  src="../../assets/img/q9.gif"/>
         <hr>
 
 
 
-        <router-link to="/q10" class="nav-link"><b-button @click="put1">인터넷에 검색해서 공략을 본다s</b-button></router-link>
-        <router-link to="/q10" class="nav-link"><b-button @click="put2">아직 시도해보지 않은 새로운 방법을 시도한다n</b-button></router-link>
+        <router-link to="/q10" class="nav-link"><b-button @click="put1">인터넷에 검색해서 공략을 본다</b-button></router-link>
+        <router-link to="/q10" class="nav-link"><b-button @click="put2">아직 시도해보지 않은 새로운 방법을 시도한다</b-button></router-link>
 
 
 

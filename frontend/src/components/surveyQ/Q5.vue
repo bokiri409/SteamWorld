@@ -30,13 +30,13 @@ export default {
 
     put1(){
            this.$store.commit('slice',4);
-      this.$store.commit('putF');
+      this.$store.commit('putT');
 
 
     },
     put2(){
            this.$store.commit('slice',4);
-     this.$store.commit('putT');
+     this.$store.commit('putF');
     }
 
   }

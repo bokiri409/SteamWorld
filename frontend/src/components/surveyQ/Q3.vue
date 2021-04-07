@@ -3,15 +3,15 @@
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q3. 팀과 함께하는 게임을 할 때 나는 </h2>
+        <h2 class="typing-txt">Q3.역시 혼자는 위험해! 파티를 맺고 던전을 돌때 나는 </h2>
         <hr>
         <img height=300px src="../../assets/img/q3.gif"/>
         <hr>
 
 
 
-        <router-link to="/q4" class="nav-link"><b-button @click="put1">앞에 나서서 적을 무찌르고 싶다 e </b-button></router-link>
-        <router-link to="/q4" class="nav-link"><b-button @click="put2">팀원들을 보조하며 힐을 해주고 싶다 i</b-button></router-link>
+        <router-link to="/q4" class="nav-link"><b-button @click="put1">앞에 나서서 적을 무찌르고 싶다.</b-button></router-link>
+        <router-link to="/q4" class="nav-link"><b-button @click="put2">팀원들을 보조하며 힐을 해주고 싶다.</b-button></router-link>
 
 
 
