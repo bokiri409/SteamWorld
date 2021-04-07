@@ -1,26 +1,24 @@
 <template>
 
+
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q4. 게임 캐릭터를 만들 때 나는 </h2>
-        <p>와아오아아아아아아아</p>
-         <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <h2 class="typing-txt">Q4.  적들이 마구 몰려온다, 나의 판단은... </h2>
+        <hr>
+        <img height=300px src="../../assets/img/q4.gif"/>
         <hr>
 
-
-
-        <router-link to="/q5" class="nav-link"><b-button @click="put1">외모 커스터마이징에 몇시간을 투자한다 f</b-button></router-link>
-        <router-link to="/q5" class="nav-link"><b-button @click="put2"> 대충 맘에 들면 넘어가는 편이다 t</b-button></router-link>
+        <router-link to="/q5" class="nav-link"><b-button @click="put1">돌격하여 적을 쳐부수자!</b-button></router-link>
+        <router-link to="/q5" class="nav-link"><b-button @click="put2">일단 안전한 곳으로 숨어 기회를 노린다.</b-button></router-link>
 
 
 
 
 </div>
 </div>
+
 </template>
-
 
 <script>
 
@@ -28,21 +26,26 @@
 export default {
 
   methods:{
+      updated(){
+      console.log(this.$store.state.result);
+      this.$store.dispatch('slice',3);
+    },
 
     put1(){
-           this.$store.commit('slice',3);
-      this.$store.commit('putF');
+      this.$store.commit('slice',3);
+      this.$store.commit('putE');
 
 
     },
     put2(){
-           this.$store.commit('slice',3);
-     this.$store.commit('putT');
+      this.$store.commit('slice',3);
+     this.$store.commit('putI');
     }
 
   }
 }
 </script>
+
 
 <style scoped>
 
@@ -62,7 +65,7 @@ h2.typing-txt::after{
   top : 5px;
   right:0px; 
   border-right: 3px solid rgb(252, 252, 252);
-  animation: cursor 0.5s step-end infinite;
+  animation: cursor 0.3s step-end infinite;
 }
 @keyframes typingAni {
   0%{width:0%}

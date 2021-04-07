@@ -4,9 +4,8 @@
     <div clss="row">
 
         <h2 class="typing-txt">Q10. 지도에 퀘스트와는 상관 없는 수상한 동굴이 보인다.</h2>
-        <p>와아오아아아아아아아</p>
-                 <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <hr>
+        <img height=300px  src="../../assets/img/q10.gif"/>
         <hr>
 
 

@@ -4,9 +4,8 @@
     <div clss="row">
 
         <h2 class="typing-txt">Q6. 내가 더 좋아하는 게임은</h2>
-        <p>와아오아아아아아아아</p>
-                 <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/bg2.gif"/>
+                <hr>
+        <img height=300px src="../../assets/img/q6.gif"/>
         <hr>
 
 

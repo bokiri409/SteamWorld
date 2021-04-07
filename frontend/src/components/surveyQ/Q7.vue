@@ -3,10 +3,9 @@
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q7.눈앞에 강해보이는 몬스터가 나타났다!  jp 나의 선택은?</h2>
-        <p>와아오아아아아아아아</p>
-                 <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <h2 class="typing-txt">Q7.눈앞에 강해보이는 몬스터가 나타났다! 나의 선택은?</h2>
+                <hr>
+        <img height=300px src="../../assets/img/q7.gif"/><img height=300px src="../../assets/img/q72.gif"/>
         <hr>
 
 

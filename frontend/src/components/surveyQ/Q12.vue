@@ -3,16 +3,15 @@
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q12. n이니 s니 </h2>
-        <p>와아오아아아아아아아</p>
-                 <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <h2 class="typing-txt">Q12. 출구를 찾다가 양갈래 길이 나왔다. 어디로 가야하지? </h2>
+        <hr>
+        <img height=300px src="../../assets/img/q12.gif"/>
         <hr>
 
 
 
-        <router-link to="/result" class="nav-link"><b-button @click="put1">ssss </b-button></router-link>
-        <router-link to="/result" class="nav-link"><b-button @click="put2">nnnn </b-button></router-link>
+        <router-link to="/result" class="nav-link"><b-button @click="put1">바람의 방향, 주변 환경, 지금까지의 패턴을 분석하여 결정한다. </b-button></router-link>
+        <router-link to="/result" class="nav-link"><b-button @click="put2">복잡한건 생각하지 말고 느낌이 좋은 쪽으로 가자! </b-button></router-link>
 
 
 
