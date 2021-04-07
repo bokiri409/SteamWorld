@@ -80,7 +80,7 @@
             >
           </form>
 
-          <div class="counts container">
+          <!-- <div class="counts container">
             <div class="row">
               <div class="col-lg-3 col-md-6">
                 <div class="count-box">
@@ -138,7 +138,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div style="background-color: none">
             <b-card title="Card Title" no-body>
