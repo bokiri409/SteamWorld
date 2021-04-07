@@ -69,6 +69,26 @@
             관심 게임 추가하기
           </button>
           <button
+            v-else-if="this.issteam == 1"
+            type="button"
+            class="btn btn-secondary"
+            style="width:100%; height: 50px; margin-bottom:20px;"
+            @click="LikeHandlerHave()"
+          >
+            <i
+              class="bi bi-star"
+              style="color:yellow; font-size: 1.3rem"
+              v-if="like == 0"
+            ></i>
+            <i
+              class="bi bi-star-fill"
+              style="color:yellow; font-size: 1.3rem"
+              v-if="like == 1"
+            ></i>
+            <!--컬러 회색 #6c757d하고 노란색 #ffc107-->
+            관심 게임 추가하기
+          </button>
+          <button
             v-else
             type="button"
             class="btn btn-secondary"
@@ -153,6 +173,7 @@ export default {
       like: '',
       userid: '',
       itemlist: [],
+      issteam: '',
     };
   },
   created() {
@@ -165,10 +186,6 @@ export default {
     document.getElementById('headerImg').innerHTML =
       '<img src=' + this.headerUrl + '/>';
     img.src = this.headerUrl;
-
-    // 로그인 안했을 때
-    // if (this.userid == '') {
-    // }
   },
   mounted() {
     axios
@@ -180,6 +197,7 @@ export default {
         }
       )
       .then((res) => {
+        console.log(res.data.data);
         if (res.data.success == 'success') {
           this.like = 1;
         } else {
@@ -249,28 +267,49 @@ export default {
             console.log(err);
           });
       } else {
-        var userinfo = {
-          headers: {
-            userid: this.userid,
-            appid: this.$route.query.appId,
-          },
-        };
-        await axios
-          // .delete(`${SERVER_URL}/game/item/add`, { params: { appid: appid } })
-          .delete(`${LOCALHOST_URL}/item`, userinfo)
-          .then(() => {
-            alert('관심목록에서 삭제되었습니다.');
-            this.like = 0;
-          })
-          .catch((err) => {
-            alert('관심목록 삭제가 실패했습니다.');
-            this.like = 1;
-            console.log(err);
+        // 관심 게임일 때
+        axios
+          .get(
+            `${LOCALHOST_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
+            {
+              appid: this.$route.query.appId,
+              userid: this.userid,
+            }
+          )
+          .then((res) => {
+            console.log('res');
+            console.log(res);
+            console.log(res.data.issteam);
+            if (res.data.data.issteam == '1') {
+              alert('이미 보유한 게임입니다!');
+            } else {
+              var userinfo = {
+                headers: {
+                  userid: this.userid,
+                  appid: this.$route.query.appId,
+                },
+              };
+              axios
+                // .delete(`${SERVER_URL}/game/item/add`, { params: { appid: appid } })
+                .delete(`${LOCALHOST_URL}/item`, userinfo)
+                .then(() => {
+                  alert('관심목록에서 삭제되었습니다.');
+                  this.like = 0;
+                })
+                .catch((err) => {
+                  alert('관심목록 삭제가 실패했습니다.');
+                  this.like = 1;
+                  console.log(err);
+                });
+            }
           });
       }
     },
     LikeHandlerNo: function() {
       alert('로그인 후 이용 가능합니다!');
+    },
+    LikeHandlerHave: function() {
+      alert('이미 보유한 게임입니다!');
     },
   },
 };
