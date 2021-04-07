@@ -19,6 +19,7 @@
             img-top
             tag="article"
             style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png');background-color:#00000077; height: 100%"
+            @click="goDetail(games.appid)"
           >
             <div style="padding-bottom: 20px">
               <!-- <b-card-text>
@@ -97,7 +98,11 @@ export default {
           console.log("err : " + res)
         })
       }
-    }
+    },
+    goDetail: function(appid) {
+      console.log(appid);
+      this.$router.push({ path: '/detail', query: { appId: appid } });
+    },
   }
 }
 </script>
