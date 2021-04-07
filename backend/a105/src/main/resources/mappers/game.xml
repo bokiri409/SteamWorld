@@ -4,14 +4,13 @@
 <mapper namespace="com.a105.apiServer.dao.GameDao">
 	<select id="getGameList" parameterType="SizeDto" resultType="GamesDto">
 		select * from a105.games
-		limit #{start}, #{end}
+		limit #{start}, #{size}
 	</select>
 	
 	<select id="getGamePopular" parameterType="SizeDto" resultType="GamesDto">
 		select * from a105.games
-		where vote > 20000
-		order by score DESC
-		limit #{start}, #{end}
+		order by vote DESC
+		limit #{start}, #{size}
 	</select>
 	
 	<select id="getGame" parameterType="String" resultType="GamesDto">
@@ -21,7 +20,7 @@
 	
 	<select id="getGameTagAll" parameterType="SizeDto" resultType="GameTagsDto">
 		select * from a105.gametags
-		limit #{start}, #{end}
+		limit #{start}, #{size}
 	</select>
 	
 	<select id="getGameTagList" parameterType="String" resultType="GameTagsDto">
@@ -36,7 +35,7 @@
 	
 	<select id="getGameLinkAll" parameterType="SizeDto" resultType="GameLinksDto">
 		select * from a105.gamelinks
-		limit #{start}, #{end}
+		limit #{start}, #{size}
 	</select>
 	
 	<select id="getGameLinkList" parameterType="String" resultType="GameLinksDto">

@@ -8,7 +8,6 @@ import lombok.Setter;
 public class SizeDto {
 	private int start;
 	private int size;
-	private int end;
 	
 	public SizeDto() {
 		// TODO Auto-generated constructor stub
@@ -18,11 +17,6 @@ public class SizeDto {
 		super();
 		this.start = start;
 		this.size = size;
-		this.end = calEnd(start, size);
-	}
-	
-	private int calEnd(int start, int size) {
-		return start + size;
 	}
 	
 	
