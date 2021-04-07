@@ -7,14 +7,14 @@
       <div class="row">
         <div
           class="col-md-4"
-          v-for="games in this.gamedata"
-          :key="games.title"
+          v-for="games in this.gameData"
+          :key="games.name"
           style="margin-bottom: 20px"
         >
           <b-card
-            v-if="games.title != ''"
-            :title="games.title"
-            :img-src="games.thumnail"
+            v-if="games.name != ''"
+            :title="games.name"
+            :img-src="games.imgsrc"
             img-alt="Image"
             img-top
             tag="article"
@@ -55,7 +55,8 @@ export default {
         playtime_2weeks: 0,
         isSteam: 0,
       },
-      itemList: []
+      itemList: [],
+      gameData: [],
 
     }
   },
@@ -64,23 +65,38 @@ export default {
     this.user.nickname = localStorage.getItem('nickname');
     this.user.userid = localStorage.getItem('userid');
     await this.getItem();
+    await this.getGame();
   },
   computed: {
     ...mapState(['loginStatus']),
   },
   methods:{
     async getItem(){
-      this.form={
-        userid:this.user.userid
-      }
-      console.log("userid : ", this.form.userid)
-      axios
-        .get(`${SERVER_URL}/item/list`, this.form)
+      await axios
+        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '1'} })
         .then((res) =>{
           this.itemList = res.data.data;
-          console.log("data @@: ",res.data.data)
-          console.log("itemList @@: ",this.itemList)
+          // console.log("itemList @@: ",this.itemList)
         })
+        .catch((res) => {
+          console.log("err : " + res)
+        })
+    },
+    async getGame(){
+          console.log("itemList @@: ",this.itemList)
+      for(var app of this.itemList){
+       await axios
+          .get(`${SERVER_URL}/game/search`, { params: { appid: app.appid} })
+          .then((res) => {
+            if(res.data.data != null){
+            console.log("data : ", res.data.data);
+            this.gameData.push(res.data.data);
+            }
+          })
+          .catch((res) => {
+          console.log("err : " + res)
+        })
+      }
     }
   }
 }
