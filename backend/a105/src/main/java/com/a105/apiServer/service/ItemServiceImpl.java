@@ -24,9 +24,9 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public ItemDto itemSearch(Map map) throws Exception {
+	public ItemDto itemSearch(String userid, String appid) throws Exception {
 		// TODO Auto-generated method stub
-		return itemDao.getItem(map);
+		return itemDao.getItem(userid, appid);
 	}
 
 	@Override

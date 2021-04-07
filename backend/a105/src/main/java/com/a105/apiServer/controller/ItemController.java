@@ -60,11 +60,11 @@ public class ItemController {
 	}
 	
 	@GetMapping(value = "search")
-	private ResponseEntity itemSearch(@RequestParam Map map) {
+	private ResponseEntity itemSearch(@RequestParam String userid, @RequestParam String appid) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
-			ItemDto itemDto = itemService.itemSearch(map);
+			ItemDto itemDto = itemService.itemSearch(userid, appid);
 			if (itemDto != null) {
 				result.put("success", "success");
 				result.put("data", itemDto);
