@@ -43,11 +43,12 @@ class wish(Resource):
         if steamid != 0:
             reason = data.getUserData()
 
-        data.addData(appids, steamid)
+        appids = data.addData(appids, steamid)
         data.refine()
         already_rated, predictions = data.recommend_games()
-        for appid in appids:
-            predictions = predictions.append({'appid' : int(appid)}, ignore_index=True)
+        if len(appids) != 0:
+            for appid in appids:
+                predictions = predictions.append({'appid' : int(appid)}, ignore_index=True)
         result = predictions.to_json(orient='records')
         parsed = json.loads(result)
         resp = {

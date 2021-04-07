@@ -59,11 +59,21 @@ class CollaborativeFiltering:
     def addData(self, appids, steamid):
         if self.searchUser.empty:
             self.newSteamId = self.userData['steamid'].unique().size
+        else:
+            list = []
+            for appid in appids:
+                for alreadyHave in self.searchUser['appid']:
+                    if appid == alreadyHave:
+                        list.append(appid)
+                        break
+            for appid in list:
+                appids.remove(appid)
 
         for appid in appids:
             self.searchUser = self.searchUser.append(
                 {'appid': int(appid), 'playtime_forever': 600.0, 'steamid': steamid, 'newsteamid': self.newSteamId,
                  'playtime_2weeks': 0}, ignore_index=True)
+        return appids
 
     # weight 할당 def
     def refine(self):
