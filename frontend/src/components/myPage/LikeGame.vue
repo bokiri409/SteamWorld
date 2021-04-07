@@ -73,7 +73,7 @@ export default {
   methods:{
     async getItem(){
       await axios
-        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '1'} })
+        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '0'} })
         .then((res) =>{
           this.itemList = res.data.data;
           // console.log("itemList @@: ",this.itemList)
@@ -83,7 +83,7 @@ export default {
         })
     },
     async getGame(){
-          // console.log("itemList @@: ",this.itemList)
+        //   console.log("itemList @@: ",this.itemList)
       for(var app of this.itemList){
        await axios
           .get(`${SERVER_URL}/game/search`, { params: { appid: app.appid} })
