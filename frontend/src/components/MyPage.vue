@@ -225,9 +225,8 @@ import { mapState } from 'vuex';
 const axios = require('axios');
 const cheerio = require('cheerio');
 const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const REC_SERVER_URL = process.env.VUE_APP_REC_SERVER_URL;
 // const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
-const API_URL =
-  'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=90F5B0B48046ABC1FAB7888D79EF4D6A&steamid=';
 export default {
   data() {
     return {
@@ -347,19 +346,10 @@ export default {
     },
     async getItem() {
       const ITEM_URL = API_URL + this.user.steamid;
-      // console.log(ITEM_URL);
-      await axios.get(ITEM_URL,{
-        headers:{
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
-          'Access-Control-Allow-Headers':
-            'Content-Type, Authorization, Content-Length, X-Requested-With',
-        
-        }
-      }).then((res) => {
-        // console.log(res.data.response);
-        for (var app of res.data.response.games) {
+      await axios.get(`${REC_SERVER_URL}/steamid/` + this.user.steamid).then((res) => {
+        console.log("response", res);
+        // console.log("response", res.data.data.response);
+        for (var app of res.data.data) {
           this.itemOutList.push({
             itemid: 0,
             userid: this.user.userid,
@@ -369,7 +359,7 @@ export default {
             issteam: '1',
           });
         }
-        // console.log(this.itemOutList);
+        console.log(this.itemOutList);
       });
       await this.additem();
     },
