@@ -173,11 +173,11 @@ export const router = new VueRouter({
         },
         {
             path: '/result/ISFJ',
-            component: ISTJ
+            component: ISFJ
         },
         {
             path: '/result/ISFP',
-            component: ISTJ
+            component: ISFP
         },
         {
             path: '/result/ENTP',
