@@ -18,7 +18,7 @@
 		where userid = #{userid}
 	</select>
 	
-	<update id="updateUser" parameterType="map">
+	<update id="updateUser" parameterType="UserDto">
 		update a105.user 
 		set nickname = #{nickname}
 		where userid = #{userid}

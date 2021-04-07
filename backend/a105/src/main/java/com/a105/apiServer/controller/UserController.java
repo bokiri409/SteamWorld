@@ -117,7 +117,7 @@ public class UserController {
 	}
 	
 	@PutMapping(value = "")
-	private ResponseEntity update(@RequestBody Map user) {
+	private ResponseEntity update(@RequestBody UserDto user) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
