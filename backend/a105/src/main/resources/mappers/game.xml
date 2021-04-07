@@ -18,6 +18,11 @@
 		where appid = #{appid}
 	</select>
 	
+	<select id="searchName" parameterType="String" resultType="GamesDto">
+		select * from a105.games
+		where name like CONCAT('%', #{word}, "%")
+	</select>
+	
 	<select id="getGameTagAll" parameterType="SizeDto" resultType="GameTagsDto">
 		select * from a105.gametags
 		limit #{start}, #{size}
