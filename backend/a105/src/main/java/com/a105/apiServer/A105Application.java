@@ -26,7 +26,7 @@ public class A105Application implements WebMvcConfigurer{
   public void addInterceptors(InterceptorRegistry registry) {
       registry
       .addInterceptor(jwtInterceptor).addPathPatterns("/user/**") // 기본 적용 경로
-      .excludePathPatterns(Arrays.asList("/user/login", "/user/join", "/user/checkid"));// 적용 제외 경로
+      .excludePathPatterns(Arrays.asList("/user/login", "/user/join", "/user/checkid","/user/password"));// 적용 제외 경로
 //              .excludePathPatterns(Arrays.asList("/user/confirm/**", "/board/list"));// 적용 제외 경로
   }
 

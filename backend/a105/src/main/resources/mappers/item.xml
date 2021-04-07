@@ -19,7 +19,7 @@
 	
 	<delete id="deleteItem" parameterType="map">
 		delete from a105.item
-		where userid = #{userid} and itemid = #{itemid}
+		where userid = #{userid} and appid = #{appid}
 	</delete>
 	
 	<select id="getUserItem" parameterType="map" resultType="UserItemDto">
