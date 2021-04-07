@@ -123,13 +123,17 @@ export default {
   },
   methods: {
     async recommendWish(){
+        for(var item of this.itemList){
+            this.appids.push(item.appid);
+        }
+
         this.inputList ={
-            itemList:this.itemList,
+            appids:this.appids,
             steamid:this.user.steamid
         }
-        console.log(this.inputList);
+        console.log("inputlist : ", this.inputList);
         await axios
-            .post(`${REC_SERVER_URL}/wish`, this.inputList)
+            .post(`${REC_SERVER_URL}/wish/`, this.inputList)
             .then((res)=>{
                 console.log(res);
                 // this.resultList = res.data;
@@ -192,6 +196,10 @@ export default {
             console.log('err : ' + res);
           });
       }
+    },
+    goDetail: function(appid) {
+      console.log(appid);
+      this.$router.push({ path: '/detail', query: { appId: appid } });
     },
   },
 };
