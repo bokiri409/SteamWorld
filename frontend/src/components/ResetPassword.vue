@@ -13,7 +13,7 @@
         <div class="form-group">
           <label>ID (Email address)</label>
           <input
-            type="userid"
+            type="email"
             class="form-control form-control-lg"
             v-model="user.userid"
             id="email"
