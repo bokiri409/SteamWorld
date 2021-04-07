@@ -6,10 +6,9 @@
 
 
         <h2 class="typing-txt">Q1. 적들이 마구 몰려오는 상황, 당신은 어떻게 하시겠습니까? </h2>
-        <p>와아오아아아아아아아</p>
-        <img src="../../assets/img/bg2.gif"/>
         <hr>
-        <button @click='put1'>puteeeeee </button>
+        <img height=300px src="../../assets/img/bg2.gif"/>
+        <hr>
 
         <router-link to="/q2" class="nav-link"><b-button @click="put1">돌격하여 적을 쳐부수자! e</b-button></router-link>
         <router-link to="/q2" class="nav-link"><b-button @click="put2">일단 안전을 확보한다 i</b-button></router-link>

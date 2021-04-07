@@ -6,8 +6,8 @@
      
 
         <h2 class="typing-txt">Q2. 게임에서 상대방이 나의 캐릭터를 죽였다 나는 </h2>
-        <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/q2.gif"/>
+        <hr>
+        <img height=300px src="../../assets/img/q2.gif"/>
         <hr>
 
 

@@ -4,9 +4,8 @@
     <div clss="row">
 
         <h2 class="typing-txt">Q9. 게임을 하던 도중 너무 어려운 부분을 해결하지 못할 때 나는 </h2>
-        <p>와아오아아아아아아아</p>
-                 <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <hr>
+        <img height=300px  src="../../assets/img/q9.gif"/>
         <hr>
 
 

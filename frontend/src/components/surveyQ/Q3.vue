@@ -4,9 +4,8 @@
     <div clss="row">
 
         <h2 class="typing-txt">Q3. 팀과 함께하는 게임을 할 때 나는 </h2>
-        <p>와아오아아아아아아아</p>
-         <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/q3.gif"/>
+        <hr>
+        <img height=300px src="../../assets/img/q3.gif"/>
         <hr>
 
 

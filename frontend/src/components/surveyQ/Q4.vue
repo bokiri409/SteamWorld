@@ -3,10 +3,9 @@
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q4. 게임 캐릭터를 만들 때 나는 </h2>
-        <p>와아오아아아아아아아</p>
-         <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <h2 class="typing-txt">Q4. 게임 캐릭터를 선택할 때 나는 </h2>
+                <hr>
+        <img height=300px src="../../assets/img/bg2.gif"/>
         <hr>
 
 
