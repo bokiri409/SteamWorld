@@ -345,7 +345,6 @@ export default {
         });
     },
     async getItem() {
-      const ITEM_URL = API_URL + this.user.steamid;
       await axios.get(`${REC_SERVER_URL}/steamid/` + this.user.steamid).then((res) => {
         console.log("response", res);
         // console.log("response", res.data.data.response);
