@@ -39,6 +39,7 @@ import ESTP from './components/surveyResult/ESTP.vue'
 import ESTJ from './components/surveyResult/ESTJ.vue'
 import ESFP from './components/surveyResult/ESFP.vue'
 import ESFJ from './components/surveyResult/ESFJ.vue'
+import LikeGame from './components/myPage/LikeGame.vue'
 
 Vue.use(VueRouter);
 
@@ -209,6 +210,11 @@ export const router = new VueRouter({
         {
             path: '/result/ESFP',
             component: ESTJ
+        },        
+        {
+            path: 'mypage/likeGame',
+            component: LikeGame
+
         },
     ]
 })  

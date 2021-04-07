@@ -155,7 +155,7 @@
                   <b-nav-item @click.prevent="loadMyGame()" exact exact-active-class="active"
                     >보유 게임</b-nav-item
                   >
-                  <b-nav-item @click.prevent="loadRecGame()">추천 게임</b-nav-item>
+                  <b-nav-item @click.prevent="loadLikeGame()">관심 게임</b-nav-item>
                 </b-nav>
               </b-card-header>
 
@@ -218,7 +218,7 @@ getHTML()
 <script>
 import UpdateUser from './myPage/UpdateUser';
 import MyGame from './myPage/MyGame';
-import RecGame from './myPage/RecGame';
+import LikeGame from './myPage/LikeGame';
 // import { SERVER_URL } from '../main';
 import { mapState } from 'vuex';
 
@@ -253,7 +253,7 @@ export default {
   },
   components: {
     MyGame,
-    RecGame,
+    LikeGame,
     UpdateUser,
   },
   computed: {
@@ -385,7 +385,7 @@ export default {
         case 1:
           return 'MyGame';
         case 2:
-          return 'RecGame';
+          return 'LikeGame';
       }
     },
 
@@ -395,7 +395,7 @@ export default {
     loadMyGame() {
       this.active = 1;
     },
-    loadRecGame() {
+    loadLikeGame() {
       this.active = 2;
     },
     getHTML(url) {
