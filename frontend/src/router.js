@@ -38,6 +38,8 @@ import ESTJ from './components/surveyResult/ESTJ.vue'
 import ESFP from './components/surveyResult/ESFP.vue'
 import ESFJ from './components/surveyResult/ESFJ.vue'
 import LikeGame from './components/myPage/LikeGame.vue'
+import Popular from './components/recommend/Popular.vue'
+import RecommendGame from './components/recommend/RecommendGame.vue'
 
 Vue.use(VueRouter);
 
@@ -204,7 +206,15 @@ export const router = new VueRouter({
         {
             path: 'mypage/likeGame',
             component: LikeGame
-
         },
+        {
+            path: 'recommend/popular',
+            component: Popular
+        },
+        {
+            path: 'recommend/recommendGame',
+            component: RecommendGame
+        },
+        
     ]
 })  
