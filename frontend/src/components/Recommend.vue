@@ -11,8 +11,41 @@
 
       <div style="margin-top: 30px">
         <h3>스팀 게임 검색하기</h3>
+        <div class="form-group">
+          <input
+            type="search"
+            class="form-control form-control-lg"
+            v-model="searchname"
+            id="searchname"
+            placeholder="게임 검색"
+            @keyup.13="searchData()"
+          />
+        </div>
       </div>
-
+      <div class="row">
+        <div
+          class="col-md-4"
+          v-for="games in this.searchshowdata"
+          :key="games.title"
+          style="margin-bottom: 20px"
+        >
+          <b-card
+            v-if="games.title != ''"
+            :title="games.title"
+            :img-src="games.thumnail"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png'); background-color:#00000077; height: 100%"
+            @click="goDetail(games.appid)"
+          >
+          </b-card>
+        </div>
+      </div>
+      <div style="text-align: center">
+        <a href="javascript:void(0)" @click="changeShow(false)" v-show="firstpage == false" ><i class="bi bi-chevron-double-left"></i></a>
+        <a href="javascript:void(0)" @click="changeShow(true)" v-show="resultleft == true" ><i class="bi bi-chevron-double-right"></i></a> 
+      </div>
       <div style="margin-top: 30px">
         <h3>인기 게임 목록</h3>
       </div>
@@ -87,6 +120,13 @@ export default {
       },
       like: '',
       token: '',
+      searchname:'',
+      searchtotaldata: [{appid:' ', title: '', thumnail: ''}],
+      searchshowdata: [{appid:' ', title: '', thumnail: ''}],
+      startindex: 0,
+      endindex: 0,
+      resultleft: false,
+      firstpage: true,
     };
   },
   created() {
@@ -146,6 +186,93 @@ export default {
       console.log(appid);
       this.$router.push({ path: '/detail', query: { appId: appid } });
     },
+    searchData: function(){
+      if(this.searchname.length < 2){
+        alert('최소 2글자 이상 검색이 가능합니다.');
+        return;
+      }
+      this.startindex = 0;
+      this.endindex = 0;
+      this.firstpage = true;
+      this.resultleft = false;
+      axios.get(
+        `${SERVER_URL}/game/search/name?word=` + this.searchname).then((res) => {
+            this.searchtotaldata = res.data.data;
+            this.searchshowdata = ''
+            if(this.searchtotaldata.length == 0){
+              alert('검색 결과가 없습니다.')
+            }
+            else{
+              if(this.searchtotaldata.length >= this.startindex + 9){
+                this.endindex += 9;
+                this.resultleft = true;
+              }
+              else
+                this.endindex = this.searchtotaldata.length;
+
+              for (var i = 0; i < this.endindex; i++) {
+                this.searchshowdata = [
+                  ...this.searchshowdata,
+                  ...[
+                    {
+                      appid: this.searchtotaldata[i].appid,
+                      title: this.searchtotaldata[i].name,
+                      thumnail: this.searchtotaldata[i].imgsrc,
+                    },
+                  ],
+                ];
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+        });
+    },
+    changeShow: function(flag){
+      this.searchshowdata = [];
+      if(flag){
+        if(this.searchtotaldata.length > this.endindex + 9){
+          this.endindex += 9;
+          this.startindex += 9;
+          this.resultleft = true;
+        }
+        else{
+          this.startindex += 9;
+          this.endindex = this.searchtotaldata.length;
+          this.resultleft = false;
+        }
+        this.firstpage = false;
+      }
+      else{
+        if(this.endindex == this.searchtotaldata.length){
+          var temp =  this.searchtotaldata.length;
+          if(temp == 0) temp = 9;
+          this.endindex = this.startindex;
+          this.startindex -= 9;
+        }
+        else{
+          if(this.startindex - 9 >= 0){
+            this.endindex = this.startindex;
+            this.startindex -= 9;
+            if(this.startindex == 0)
+              this.firstpage = true;
+          }
+        }
+        this.resultleft = true;
+      }
+      for (var i = this.startindex; i < this.endindex; i++) {
+        this.searchshowdata = [
+          ...this.searchshowdata,
+          ...[
+            {
+              appid: this.searchtotaldata[i].appid,
+              title: this.searchtotaldata[i].name,
+              thumnail: this.searchtotaldata[i].imgsrc,
+            },
+          ],
+        ];
+      }
+    }
   },
 };
 </script>
