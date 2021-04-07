@@ -7,7 +7,7 @@
 		where userid = #{userid} and issteam = #{issteam}
 	</select>
 	
-	<select id="getItem" parameterType="map" resultType="ItemDto">
+	<select id="getItem" parameterType="String" resultType="ItemDto">
 		select * from a105.item
 		where userid = #{userid} and appid = #{appid}
 	</select>

@@ -24,9 +24,9 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public ItemDto itemSearch(Map map) throws Exception {
+	public ItemDto itemSearch(String userid, String appid) throws Exception {
 		// TODO Auto-generated method stub
-		return itemDao.getItem(map);
+		return itemDao.getItem(userid, appid);
 	}
 
 	@Override
@@ -37,10 +37,11 @@ public class ItemServiceImpl implements ItemService{
 		}
 
 		Map map = new HashMap();
-		map.put("userid", list.get(0).getUserid());
+		String userid = list.get(0).getUserid();
+		map.put("userid", userid);
 		for(ItemDto item : list) {
 			map.put("appid", item.getAppid());
-			if(itemDao.getItem(map) != null) {
+			if(itemDao.getItem(userid, Integer.toString(item.getAppid())) != null) {
 				itemDao.deleteItem(map);
 			}
 			itemDao.addItem(item);
