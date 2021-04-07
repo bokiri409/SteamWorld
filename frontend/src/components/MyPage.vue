@@ -348,7 +348,16 @@ export default {
     async getItem() {
       const ITEM_URL = API_URL + this.user.steamid;
       // console.log(ITEM_URL);
-      await axios.get(ITEM_URL).then((res) => {
+      await axios.get(ITEM_URL,{
+        headers:{
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
+          'Access-Control-Allow-Headers':
+            'Content-Type, Authorization, Content-Length, X-Requested-With',
+        
+        }
+      }).then((res) => {
         // console.log(res.data.response);
         for (var app of res.data.response.games) {
           this.itemOutList.push({
