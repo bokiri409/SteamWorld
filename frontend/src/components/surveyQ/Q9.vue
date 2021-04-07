@@ -41,7 +41,9 @@ export default {
 }
 </script>
 <style scoped>
-
+h2{
+  font-size:2vw;
+}
 h2.typing-txt{
   position:relative;
   display: inline-block;

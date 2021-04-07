@@ -54,6 +54,23 @@ a:hover {
   text-decoration: none;
 }
 
+
+article:hover{
+  border: 2px solid;
+  border-image: linear-gradient(var(--angle), rgb(9, 226, 9), rgba(0, 0, 0, 0.473)) 1;
+  animation: 3s rotate linear infinite;
+}
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "DungGeunMo", sans-serif;
 }

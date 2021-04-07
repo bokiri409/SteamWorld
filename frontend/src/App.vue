@@ -70,5 +70,8 @@ h2 {
   font-style: normal;
   font-weight: normal;
 }
+span{
+  color: white !important;
+}
 
 </style>
