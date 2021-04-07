@@ -21,9 +21,28 @@ import Q11 from './components/surveyQ/Q11.vue'
 import Q12 from './components/surveyQ/Q12.vue'
 import MyGame from './components/myPage/MyGame.vue'
 import Detail from './components/Detail.vue'
-
+import INTP from './components/surveyResult/INTP.vue'
+import INTJ from './components/surveyResult/INTJ.vue'
+import INFP from './components/surveyResult/INFP.vue'
+import INFJ from './components/surveyResult/INFJ.vue'
+import ISTP from './components/surveyResult/ISTP.vue'
+import ISTJ from './components/surveyResult/ISTJ.vue'
+import ISFP from './components/surveyResult/ISFP.vue'
+import ISFJ from './components/surveyResult/ISFJ.vue'
+import ENTP from './components/surveyResult/ENTP.vue'
+import ENTJ from './components/surveyResult/ENTJ.vue'
+import ENFP from './components/surveyResult/ENFP.vue'
+import ENFJ from './components/surveyResult/ENFJ.vue'
+import ESTP from './components/surveyResult/ESTP.vue'
+import ESTJ from './components/surveyResult/ESTJ.vue'
+import ESFP from './components/surveyResult/ESFP.vue'
+import ESFJ from './components/surveyResult/ESFJ.vue'
 
 Vue.use(VueRouter);
+
+const User = {
+    template: `<div>Result {{ $route.params.result }}</div>`
+  }
 
 export const router = new VueRouter({
     mode: 'history',
@@ -114,8 +133,72 @@ export const router = new VueRouter({
 
         },
         {
-            path: '/result/detail',
+            path: '/detail',
             component: Detail
-        }
+        },
+        {
+            path: '/result/INTP',
+            component: INTP
+        },
+        {
+            path: '/result/INTJ',
+            component: INTJ
+        },
+        {
+            path: '/result/INFJ',
+            component: INFJ
+        },
+        {
+            path: '/result/INFP',
+            component: INFP
+        },
+        {
+            path: '/result/ISTP',
+            component: ISTP
+        },
+        {
+            path: '/result/ISTJ',
+            component: ISTJ
+        },
+        {
+            path: '/result/ISFJ',
+            component: ISTJ
+        },
+        {
+            path: '/result/ISFP',
+            component: ISTJ
+        },
+        {
+            path: '/result/ENTP',
+            component: ENTP
+        },
+        {
+            path: '/result/ENTJ',
+            component: ENTJ
+        },
+        {
+            path: '/result/ENFJ',
+            component: ENFJ
+        },
+        {
+            path: '/result/ENFP',
+            component: ENFP
+        },
+        {
+            path: '/result/ESTP',
+            component: ESTP
+        },
+        {
+            path: '/result/ESTJ',
+            component: ESTJ
+        },
+        {
+            path: '/result/ESFJ',
+            component: ESTJ
+        },
+        {
+            path: '/result/ESFP',
+            component: ESTJ
+        },
     ]
 })  

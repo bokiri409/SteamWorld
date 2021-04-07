@@ -12,6 +12,10 @@ import 'bootstrap-slider/dist/css/bootstrap-slider.css'
 import BootstrapIcons from './assets/vendor/bootstrap-icons//bootstrap-icons.json'
 import 'aos'
 import Aos from 'aos'
+import VueSimpleAccordion from 'vue-simple-accordion';
+import 'vue-simple-accordion/dist/vue-simple-accordion.css';
+
+Vue.use(VueSimpleAccordion);
 // import Lightbox from 'vue-my-photos'
 // Vue.component('lightbox', Lightbox);
 
