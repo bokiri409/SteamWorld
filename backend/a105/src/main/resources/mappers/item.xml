@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.a105.apiServer.dao.ItemDao">
-	<select id="getItemList" parameterType="map" resultType="ItemDto">
+	<select id="getItemList" parameterType="String" resultType="ItemDto">
 		select * from a105.item
-		where userid = #{userid}
+		where userid = #{userid} and issteam = #{issteam}
 	</select>
 	
 	<select id="getItem" parameterType="map" resultType="ItemDto">

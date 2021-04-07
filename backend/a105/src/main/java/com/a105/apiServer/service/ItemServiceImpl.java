@@ -18,9 +18,9 @@ public class ItemServiceImpl implements ItemService{
 	ItemDao itemDao;
 	
 	@Override
-	public List<ItemDto> itemList(Map map) throws Exception {
+	public List<ItemDto> itemList(String userid, String issteam) throws Exception {
 		// TODO Auto-generated method stub
-		return itemDao.getItemList(map);
+		return itemDao.getItemList(userid, issteam);
 	}
 
 	@Override
