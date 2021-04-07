@@ -34,28 +34,26 @@ class wish(Resource):
         if len(appids) == 0:
             resp = {
                 'success': 'fail',
-                'data' : '',
-                'reason' : '관심목록에 추가된 게임이 없습니다.'
+                'data': '',
+                'reason': '관심목록에 추가된 게임이 없습니다.'
             }
             return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
         data = CollaborativeFiltering(steamid)
         reason = ''
         if steamid != 0:
-            reason = data.getUserData()
+            reason, temp = data.getUserData()
 
-        appids = data.addData(appids, steamid)
+        data.addData(appids, steamid)
         data.refine()
         already_rated, predictions = data.recommend_games()
-        if len(appids) != 0:
-            for appid in appids:
-                predictions = predictions.append({'appid' : int(appid)}, ignore_index=True)
         result = predictions.to_json(orient='records')
         parsed = json.loads(result)
         resp = {
             'success': 'success',
             'data': parsed,
-            'reason': reason
+            'reason': reason,
         }
+
         return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
 
 
@@ -76,7 +74,7 @@ class CBF(Resource):
         parsed = json.loads(result)
         resp = {
             'success': 'success',
-            'data' : parsed
+            'data': parsed
         }
         return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
 
@@ -85,7 +83,7 @@ class CBF(Resource):
 class CF(Resource):
     def get(self, steamid):
         data = CollaborativeFiltering(steamid)
-        reason = data.getUserData()
+        reason, temp = data.getUserData()
         if reason == 'success':
             data.refine()
             already_rated, predictions = data.recommend_games()
@@ -93,13 +91,15 @@ class CF(Resource):
             parsed = json.loads(result)
             resp = {
                 'success': 'success',
-                'data': parsed
+                'data': parsed,
+                'reason': reason,
             }
             return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
         else:
             resp = {
                 'success': 'fail',
-                'data' : reason,
+                'data': '',
+                'reason': reason,
             }
             return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
 
