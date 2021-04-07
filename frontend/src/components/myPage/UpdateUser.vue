@@ -36,14 +36,14 @@
             <div style="margin-top:35px">
               <div class="inpbx" style="font-size: large">
                 <span v-if="!show_user" style="font-size: 20px ;">{{ user.nickname }}</span>
-              <b-input v-else style="font-size: 20px" :value=user.nickname> </b-input>
+              <b-input v-else style="font-size: 20px" v-bind:value=user.nickname v-model=user.nickname> </b-input>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="child1">
-        <b-button type="primary" @click.prevent="show_update_pw()" v-if="!show">
+        <b-button type="primary" @click.prevent="clickModal()" v-if="!show">
           비밀번호 변경
         </b-button>
         <br />
@@ -52,20 +52,23 @@
           >프로필 수정</b-button
         >
       <div v-if="show_user == true" style="margin-left:30px">
+        <div>
         <b-button 
         type="primary" 
-        @click.prevent="show_update_pw()"
+        @click.prevent="updateUser()"
         >
           수정 완료
         </b-button>
-      </div>
-       <div v-if="show_pw == true" style="margin-left:30px">
+        </div>
+        <br/><br/>
+        <div>
         <b-button 
         type="primary" 
-        @click.prevent="show_update_pw()"
+        @click.prevent="cancel()"
         >
-          변경 완료
+          취소
         </b-button>
+        </div>
       </div>
       </div>
     </div>
@@ -75,16 +78,21 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-const SERVER_URL = process.env.VUE_APP_SERVER_URL;
+// import UpdatePassword from "../UpdatePassword.vue"
+
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 export default {
   data() {
     return {
       show: false,
-      show_pw: false,
       show_user: false,
+      show_modal: false,
       visible: false,
+      modalText: '',
       user: {
         userid: '',
+        password:'',
         nickname: '',
         steamid: '',
       },
@@ -94,6 +102,9 @@ export default {
   //   [Button.name]: Button,
   //   FgInput
   // },
+  components: {
+    // UpdatePassword,
+  },
   computed: {
     ...mapState(['loginStatus']),
   },
@@ -103,101 +114,49 @@ export default {
     this.user.userid = localStorage.getItem('userid');
   },
   methods: {
-    show_update_pw() {
-      this.show_pw = true;
-      this.show = true;
-    },
     show_update_user() {
       this.show_user = true;
       this.show = true;
     },
 
     cancel() {
+      this.show_user = false;
       this.show = false;
     },
 
-    update() {
-      // console.log('토큰 : ' + localStorage.getItem('token'));
-      var img = document.getElementById('img');
-      if (img.files.length != 0) {
-        const frm = new FormData();
-        frm.append('file', img.files[0]);
-        axios
-          .post(`${SERVER_URL}/file/upload/`, frm)
-          .then((res) => {
-            console.log(res.data.message);
-            this.user.picture = SERVER_URL + '/file/read/' + res.data.message;
-            axios
-              .put(`${SERVER_URL}/user/update`, this.user, {
-                headers: {
-                  'x-access-token': localStorage.getItem('token'),
-                },
-              })
-              .then((response) => {
-                if (response.data.success === 'success') {
-                  console.log(this.user.region);
-                  alert('정보 수정에 성공하셨습니다.');
-                  localStorage.setItem('picture', this.user.picture);
-                  localStorage.setItem('region', this.user.region);
-                  localStorage.setItem('nickname', this.user.nickname);
-                  localStorage.setItem('phone', this.user.phone);
-                } else {
-                  alert('정보 수정에 실패하셨습니다.');
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-            this.$router.push('/');
+    updateUser(){      
+      console.log(localStorage.getItem('token'))
+      console.log(this.user)
+      axios
+        .put(`${SERVER_URL}/user`,this.user, {
+          headers: {
+            'x-access-token': localStorage.getItem('token'),
+          },
+        })
+        .then((res) =>{
+           if(res.data.success == 'fail'){
+            alert('유저 정보를 수정하는데 실패 했습니다.');
+          }
+          else{
+            alert('수정 완료')
+            localStorage.setItem('nickname', this.user.nickname);
             window.location.reload();
-          })
-          .catch((err) => {
-            console.log(err);
-            alert('이미지 용량이 너무 큽니다.');
-          });
-      } else {
-        axios
-          .put(`${SERVER_URL}/user/update`, this.user, {
-            headers: {
-              'x-access-token': localStorage.getItem('token'),
-            },
-          })
-          .then((response) => {
-            if (response.data.success === 'success') {
-              console.log(this.user.region);
-              alert('정보 수정에 성공하셨습니다.');
-              localStorage.setItem('region', this.user.region);
-              localStorage.setItem('nickname', this.user.nickname);
-              localStorage.setItem('phone', this.user.phone);
-            } else alert('정보 수정에 실패하셨습니다.');
-            this.$router.push('/');
-            window.location.reload();
-          })
-          .catch(function(error) {
-            alert('그룹장인 경우 닉네임 변경이 불가능합니다.');
-            console.log(error);
-          });
-      }
+          }
+        })
+        .catch((res) =>{
+          alert('error : ' + res);
+        })
+
     },
 
     handleClickButton() {
       this.visible = !this.visible;
     },
-    logout() {
-      console.log('로그아웃입니다');
-      this.$router.push('/');
-      window.location.reload();
-    },
-    setAddress(data) {
-      this.user.region = data;
-      console.log(this.user.region);
-      this.hideModal();
-    },
-    hideModal() {
-      this.$refs['addr-modal'].hide();
-    },
+    clickModal(){
+      this.show_modal = true;
+      // window.open('/updatepassword')
+    }
   },
-  components: {},
 };
 </script>
 <style scoped>
