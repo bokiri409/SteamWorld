@@ -1,5 +1,5 @@
 <template>
-  <div class="section-show">
+  <div class="section-show" style="margin-bottom:100px;">
     <div class="container" style="background-color:#00000077; margin-bottom:50px;">
       <div class="section-title">
         <h2>Game For You</h2>
@@ -19,13 +19,13 @@
                 >게임 추천</b-nav-item
               >
               <b-nav-item @click.prevent="loadSearchGame()" exact exact-active-class="active"
-                >게임 추천</b-nav-item
+                >게임 검색</b-nav-item
               >
               <!-- <b-nav-item @click.prevent="loadLikeGame()">관심 게임</b-nav-item> -->
             </b-nav>
           </b-card-header>
           <div v-if="this.active==2">
-          <div style="margin-top: 30px margin-bottom:30px">
+          <div style="margin-top: 30px margin-bottom:30px ">
             <h3>스팀 게임 검색하기</h3>
             <div class="form-group">
               <input
@@ -59,13 +59,13 @@
             </div>
           </div>
           </div>
-          <div style="text-align: center">
-            <div href="javascript:void(0)" @click="changeShow(false)" v-show="firstpage == false">
+          <div style="text-align: center;ppading-top:300px" >
+            <a href="javascript:void(0)" @click="changeShow(false)" v-show="firstpage == false">
               <i class="bi bi-chevron-double-left"></i>
-            </div>
-            <div href="javascript:void(0)" @click="changeShow(true)" v-show="resultleft == true">
+            </a>
+            <a href="javascript:void(0)" @click="changeShow(true)" v-show="resultleft == true">
               <i class="bi bi-chevron-double-right"></i>
-            </div>
+            </a>
           </div>
 
           <b-card-body justify-content style="background-color: none">
@@ -220,6 +220,10 @@ export default {
           ],
         ];
       }
+    },
+    goDetail: function(appid) {
+      console.log(appid);
+      this.$router.push({ path: '/detail', query: { appId: appid } });
     },
   },
 };
