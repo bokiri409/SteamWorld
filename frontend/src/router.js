@@ -2,8 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from './components/Main.vue'
 import Login from './components/Login.vue'
-import FindPassword from './components/FindPassword.vue'
-import ResetPassword from './components/ResetPassword.vue'
 import SignUp from './components/SignUp.vue'
 import Recommend from './components/Recommend.vue'
 import MyPage from './components/MyPage.vue'
@@ -57,14 +55,6 @@ export const router = new VueRouter({
         {
             path: '/user/login',
             component: Login
-        },
-        {
-            path: '/user/findpassword',
-            component: FindPassword
-        },
-        {
-            path: '/user/resetpassword',
-            component: ResetPassword
         },
         {
             path: '/user/signup',
@@ -173,11 +163,11 @@ export const router = new VueRouter({
         },
         {
             path: '/result/ISFJ',
-            component: ISTJ
+            component: ISFJ
         },
         {
             path: '/result/ISFP',
-            component: ISTJ
+            component: ISFP
         },
         {
             path: '/result/ENTP',
@@ -209,7 +199,7 @@ export const router = new VueRouter({
         },
         {
             path: '/result/ESFP',
-            component: ESTJ
+            component: ESFP
         },        
         {
             path: 'mypage/likeGame',

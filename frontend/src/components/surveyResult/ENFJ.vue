@@ -9,7 +9,7 @@
       <div class="col-md-1"></div>
       <b-card
         class="col-md-5"
-        title="스타듀밸리"
+        title="Stardew Valley"
         :img-src="this.header1"
         @click="goDetail(appId1)"
         img-alt="Image"
@@ -21,7 +21,7 @@
 
       <b-card
         class="col-md-5"
-        title="애스트로니어"
+        title="ASTRONEER"
         :img-src="this.header2"
         @click="goDetail(appId2)"
         img-alt="Image"
@@ -82,8 +82,6 @@ export default {
       gameDes: "",
       genreList: [],
       gameInfo: null,
-      appId: "361420",
-      appId2: "361420",
       header1: "",
       header2: "",
       gamedata: "",
@@ -93,10 +91,9 @@ export default {
   },
 
   created() {
-
     
-    this.appId1="361420";
     this.appId1="413150";
+    this.appId2="361420";
 
     console.log(this.headerUrl);
     this.header1 ="https://cdn.cloudflare.steamstatic.com/steam/apps/"+this.appId1+"/header.jpg"
@@ -110,6 +107,7 @@ export default {
       this.$router.push({ path: "/detail", query: { appId: appid } });
     },
     getSimilar: function(appid){
+            this.gamedata=[];
       console.log("비스무리");
        axios.get(`${REC_SERVER_URL}/cbf/`+appid)
       .then((res) => {

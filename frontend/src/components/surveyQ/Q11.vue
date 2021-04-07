@@ -4,9 +4,8 @@
     <div clss="row">
 
         <h2 class="typing-txt">Q11. 어쩌구 저쩌구 씨부렁씨부렁 </h2>
-        <p>와아오아아아아아아아</p>
-                 <p>   {{this.$store.state.result}}</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <hr>
+        <img height=300px  src="../../assets/img/bg2.gif"/>
         <hr>
 
 

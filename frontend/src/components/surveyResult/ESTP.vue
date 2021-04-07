@@ -1,12 +1,17 @@
 <template>
   <div class="container blueArea">
+    <h1>당신의 게임 유형은</h1>
+    <h1>대담한 사냥꾼입니다.</h1>
+
+    <p>추천게임</p>
+   
     <div class="row">
       <div class="col-md-1"></div>
       <b-card
         class="col-md-5"
-        :title="this.gamedata1.data.game.name"
-        :img-src="this.gamedata1.data.game.imgsrc"
-        @click="goDetail(gamedata1.data.appid)"
+        title="Horizon Zero Dawn"
+        :img-src="this.header1"
+        @click="goDetail(appId1)"
         img-alt="Image"
         img-top
         tag="article"
@@ -16,9 +21,9 @@
 
       <b-card
         class="col-md-5"
-        :title="this.gamedata2.data.game.name"
-        :img-src="this.gamedata2.data.game.imgsrc"
-        @click="goDetail(gamedata2.data.appid)"
+        title="Monster Hunter: World"
+        :img-src="this.header2"
+        @click="goDetail(appId2)"
         img-alt="Image"
         img-top
         tag="article"
@@ -26,12 +31,47 @@
       >
       </b-card>
     </div>
+    <div class="row" style="margin-top:50px; margin-bottom:50px; height:50px; background-color:">
+      <div class="col-md-1"></div>
+      <button class="col-md-10" style="background-color:black; color:#18d26e;" @click="getSimilar(appId1)">Horizon Zero Dawn과 유사한 게임을 확인해보세요</button>
+      <div class="col-md-1"></div>
+  </div>
+      <div class="row" style="margin-top:50px; margin-bottom:50px; height:50px; background-color:">
+      <div class="col-md-1"></div>
+      <button class="col-md-10" style="background-color:black; color:#18d26e;" @click="getSimilar(appId2)">Monster Hunter: World와 유사한 게임을 확인해보세요</button>
+      <div class="col-md-1"></div>
+  </div>
+  <div class="row">
+        <div
+          class="col-md-4"
+          v-for="games in this.gamedata"
+          :key="games.title"
+          style="margin-bottom: 20px"
+        >
+          <b-card
+            v-if="games.title != ''"
+            :title="games.title"
+            :img-src="games.imgsrc"
+            img-alt="Image"
+            @click="goDetail(games.appid)"
+            img-top
+            tag="article"
+            style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png'); background-color:#00000077; height: 100%"
+          >
+          </b-card>
+        </div>
+      </div>
+
+
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const REC_SERVER_URL = process.env.VUE_APP_REC_SERVER_URL;
+
 export default {
   data() {
     return {
@@ -42,65 +82,61 @@ export default {
       gameDes: "",
       genreList: [],
       gameInfo: null,
-      appId: "",
+      appId: "361420",
+      appId2: "361420",
+      header1: "",
+      header2: "",
+      gamedata: "",
       gamedata1: "",
       gamedata2: "",
     };
   },
 
   created() {
-    const appId = this.$route.query.appId;
-    console.log("!!!!!" + this.$route.query.appId);
-    this.getGameInfos(1151640, 582010);
-    var img = document.getElementById("headerImg");
+
+    
+    this.appId1="1151640";
+    this.appId2="582010";
 
     console.log(this.headerUrl);
-    document.getElementById("headerImg").innerHTML =
-      "<img src=" + this.headerUrl + "/>";
-    img.src = this.headerUrl;
+    this.header1 ="https://cdn.cloudflare.steamstatic.com/steam/apps/"+this.appId1+"/header.jpg"
+    this.header2 ="https://cdn.cloudflare.steamstatic.com/steam/apps/"+this.appId2+"/header.jpg"
+
   },
   methods: {
-    getGameInfo(appid) {
-      axios
-        .get(`${SERVER_URL}/game/info/search`, { params: { appid: appid } })
-        .then((res) => {
-          const gamedata = res.data;
-          this.gamedata = gamedata;
-          console.log(gamedata.data);
-          this.linkUrls = gamedata.data.gamelinks;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getGameInfos(appid1, appid2) {
-      axios
-        .get(`${SERVER_URL}/game/info/search`, { params: { appid: appid1 } })
-        .then((res) => {
-          const gamedata1 = res.data;
-          this.gamedata1 = gamedata1;
-          console.log(gamedata1.data);
-          this.linkUrls = gamedata1.data.gamelinks;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
 
-      axios
-        .get(`${SERVER_URL}/game/info/search`, { params: { appid: appid2 } })
-        .then((res) => {
-          const gamedata2 = res.data;
-          this.gamedata2 = gamedata2;
-          console.log(gamedata2.data);
-          this.linkUrls = gamedata2.data.gamelinks;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     goDetail: function(appid) {
+      console.log("가자가자"+appid)
       this.$router.push({ path: "/detail", query: { appId: appid } });
     },
+    getSimilar: function(appid){
+            this.gamedata=[];
+      console.log("비스무리");
+       axios.get(`${REC_SERVER_URL}/cbf/`+appid)
+      .then((res) => {
+        var i = 0;
+        for (i = 0; i < 9; i++) {
+          // this.gamedata.title = res.data.data[i].name;
+          // this.gamedata.thumnail = res.data.data[i].imgsrc;
+          this.gamedata = [
+            ...this.gamedata,
+            ...[
+              {
+                title: res.data.data[i].name,
+                appid: res.data.data[i].appid,
+                imgsrc: "https://cdn.cloudflare.steamstatic.com/steam/apps/"+res.data.data[i].appid+"/header.jpg"
+              },
+            ],
+          ];
+        }
+        // console.log(this.gamedata);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
+    }
   },
 };
 </script>
