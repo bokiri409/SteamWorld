@@ -32,7 +32,7 @@
               <h3> {{user.nickname}}</h3>
               <br />
               <div class="section-title">
-                <h2>이메일</h2>
+                <h2>아이디(이메일)</h2>
               </div>
               <h3> {{user.userid}}</h3>
               <div class="section-title">
