@@ -103,5 +103,20 @@ class CF(Resource):
             }
             return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
 
+
+@recomm.route('/steamid/<int:steamid>')
+class STEAMID(Resource):
+    def get(self, steamid):
+        data = CollaborativeFiltering(steamid)
+        reason, data = data.getUserData()
+        result = data.to_json(orient='records')
+        parsed = json.loads(result)
+        resp = {
+            'success': reason,
+            'data': parsed
+        }
+        return Response(json.dumps(resp, ensure_ascii=False), content_type='application/json; charset=utf-8')
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
