@@ -73,7 +73,6 @@ class CollaborativeFiltering:
             self.searchUser = self.searchUser.append(
                 {'appid': int(appid), 'playtime_forever': 600.0, 'steamid': steamid, 'newsteamid': self.newSteamId,
                  'playtime_2weeks': 0}, ignore_index=True)
-        return appids
 
     # weight 할당 def
     def refine(self):
