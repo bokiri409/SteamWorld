@@ -69,11 +69,11 @@
             />
             <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
             <input type="hidden" name="openid.mode" value="checkid_setup" />
-            <input type="hidden" name="openid.realm" value="http://localhost:8081" />
-            <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" />
+            <!-- <input type="hidden" name="openid.realm" value="http://localhost:8081" />
+            <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" /> -->
             <!-- server side -->
-            <!-- <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
-            <input type="hidden" name="openid.return_to" value="http://j4a105.p.ssafy.io/mypage" /> -->
+            <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
+            <input type="hidden" name="openid.return_to" value="http://j4a105.p.ssafy.io/mypage" />
             <!-- <b-button v-if="user.steamid == '0' || !user.steamid" type="submit btn-large" style="border-radius: 10rem" -->
             <b-button type="submit btn-large" style="border-radius: 10rem"
               ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
