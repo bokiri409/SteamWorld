@@ -214,8 +214,8 @@ import { mapState } from 'vuex';
 
 const axios = require('axios');
 const cheerio = require('cheerio');
-// const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
-const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 
 export default {
   data() {
