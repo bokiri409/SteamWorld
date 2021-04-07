@@ -107,8 +107,8 @@
 
 
 const axios = require('axios');
-// const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
-const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 export default {
   created() {},
   computed: {
