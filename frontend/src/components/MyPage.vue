@@ -271,7 +271,8 @@ export default {
           console.log("this.user.steamid : " , this.user.steamid);
           console.log("update steamid start");
           await this.updateSteamid();     
-          window.location.reload();
+          localStorage.setItem('steamid', this.sid);
+          // window.location.reload();
         }
       }
         console.log("getUrl.steamid : ", localStorage.getItem('steamid'));
