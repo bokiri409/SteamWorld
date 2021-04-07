@@ -1,3 +1,5 @@
+swbanner
+
 <template>
   <div>
     <!-- ======= Header ======= -->
@@ -39,9 +41,12 @@
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html" class="mr-auto"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a> -->
           <h2>세상에서 가장 <span>편리한</span> 게임 추천 서비스</h2>
-          <i class="addBtn fas fa-plus" aria-hidden="true"></i>
-
+          <!-- <i class="addBtn fas fa-plus" aria-hidden="true"></i> -->
           <nav id="navbarMain" class="navbarMain">
+            <i
+              class="bi bi-list mobile-nav-toggle"
+              @click="mobileHandler()"
+            ></i>
             <ul>
               <li @click="toggleBanner">
                 <router-link to="/" class="nav-link active" href="#header"
@@ -156,12 +161,36 @@ export default {
     } else {
       header.classList.add('header-top');
     }
+    let navbarMain = select('#navbarMain');
+    if (navbarMain.classList.contains('navbarMain-mobile')) {
+      navbarMain.classList.remove('navbarMain-mobile');
+      let navbarToggle = select('.mobile-nav-toggle');
+      navbarToggle.classList.toggle('bi-list');
+      navbarToggle.classList.toggle('bi-x');
+      console.log(navbarMain.classList.value);
+    }
   },
-  created(){
-    if(localStorage.getItem('token')){
+  created() {
+    if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
       this.nickname = localStorage.getItem('nickname');
       this.steamid = localStorage.getItem('steamid');
+    }
+    const select = (el, all = false) => {
+      el = el.trim();
+      if (all) {
+        return [...document.querySelectorAll(el)];
+      } else {
+        return document.querySelector(el);
+      }
+    };
+    let navbarMain = select('#navbarMain');
+    if (navbarMain.classList.contains('navbarMain-mobile')) {
+      navbarMain.classList.remove('navbarMain-mobile');
+      let navbarToggle = select('.mobile-nav-toggle');
+      navbarToggle.classList.toggle('bi-list');
+      navbarToggle.classList.toggle('bi-x');
+      console.log(navbarMain.classList.value);
     }
   },
   updated() {
@@ -179,6 +208,14 @@ export default {
       header.classList.remove('header-top');
     } else {
       header.classList.add('header-top');
+    }
+    let navbarMain = select('#navbarMain');
+    if (navbarMain.classList.contains('navbarMain-mobile')) {
+      navbarMain.classList.remove('navbarMain-mobile');
+      let navbarToggle = select('.mobile-nav-toggle');
+      navbarToggle.classList.toggle('bi-list');
+      navbarToggle.classList.toggle('bi-x');
+      console.log(navbarMain.classList.value);
     }
   },
 
@@ -205,11 +242,10 @@ export default {
     //   this.headerShow = false;
     // },
     logoutHandler() {
-      
-            localStorage.removeItem('token');
-            localStorage.removeItem('userid');
-            localStorage.removeItem('nickname');
-            localStorage.removeItem('steamid');
+      localStorage.removeItem('token');
+      localStorage.removeItem('userid');
+      localStorage.removeItem('nickname');
+      localStorage.removeItem('steamid');
       // this.$store
       //   .dispatch('logout')
       //   .then(() =>
@@ -218,12 +254,10 @@ export default {
       //     })
       //   )
       //   .catch(() => {});
-      
-            window.location.reload();
-            this.$router.replace({path: '/'});
-            window.location.reload();
 
-        
+      window.location.reload();
+      this.$router.replace({ path: '/' });
+      window.location.reload();
     },
     clickHandler: function() {
       // setTimeout(function() {
@@ -300,6 +334,27 @@ export default {
       console.log('home');
       var header = select('#header');
       header.classList.remove('header-top');
+    },
+    mobileHandler: function() {
+      console.log('모바일');
+      const select = (el, all = false) => {
+        el = el.trim();
+        if (all) {
+          return [...document.querySelectorAll(el)];
+        } else {
+          return document.querySelector(el);
+        }
+      };
+      console.log('모바일1');
+      let navbarMain = select('#navbarMain');
+      if (navbarMain.classList.contains('navbarMain-mobile')) {
+        // navbarMain.classList.value -= ' navbarMain-mobile';
+        navbarMain.classList.remove('navbarMain-mobile');
+      } else {
+        // navbarMain.classList.value += ' navbarMain-mobile';
+        navbarMain.classList.add('navbarMain-mobile');
+      }
+      console.log(navbarMain.classList.value);
     },
   },
 };
