@@ -1,5 +1,6 @@
 package com.a105.apiServer.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,18 +32,21 @@ public class ItemServiceImpl implements ItemService{
 	@Override
 	public int itemAdd(List<ItemDto> list) throws Exception {
 		// TODO Auto-generated method stub
-		int flag = 1;
 		if(list == null) {
-			return 2;
+			return -1;
 		}
+
+		Map map = new HashMap();
+		map.put("userid", list.get(0).getUserid());
 		for(ItemDto item : list) {
-			flag = itemDao.addItem(item);
-			if(flag == 0) {
-				break;
+			map.put("appid", item.getAppid());
+			if(itemDao.getItem(map) != null) {
+				itemDao.deleteItem(map);
 			}
+			itemDao.addItem(item);
 		}
 		
-		return flag;
+		return 1;
 	}
 
 	@Override
