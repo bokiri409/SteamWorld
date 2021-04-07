@@ -96,7 +96,7 @@
         </button>
 
         <p class="forgot-password text-right mt-2 mb-4">
-          <router-link to="/user/forgotpassword">Forgot password ?</router-link>
+          <router-link to="/user/findpassword">Forgot password ?</router-link>
         </p>
       </div>
     </div>
@@ -179,14 +179,20 @@ export default {
       axios.post(`${SERVER_URL}/user/login`, this.user)
                 .then(res => {
                     console.log(SERVER_URL);
-                    localStorage.setItem('token', res.data['x-access-token']);
-                    localStorage.setItem('userid', res.data.data.userid);
-                    localStorage.setItem('nickname', res.data.data.nickname);
-                    localStorage.setItem('steamid', res.data.data.steamid);
-                    
-                    window.location.reload();
-                    this.$router.replace(`/`);
-                    window.location.reload();
+                    if(res.data.success == 'success'){
+                      localStorage.setItem('token', res.data['x-access-token']);
+                      localStorage.setItem('userid', res.data.data.userid);
+                      localStorage.setItem('nickname', res.data.data.nickname);
+                      localStorage.setItem('steamid', res.data.data.steamid);
+
+                      window.location.reload();
+                      this.$router.replace(`/`);
+                      window.location.reload();
+                    }
+                    else{
+                      alert('ID 또는 비밀번호를 확인해주세요')
+                      this.user.password = ''
+                    }
                     
                 })
         
