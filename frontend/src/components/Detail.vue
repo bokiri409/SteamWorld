@@ -114,7 +114,7 @@
 
           <div class="col-md-12 section-title">
             <h2>관련 영상</h2>
-            <video :src="videoUrl" controls autoplay />
+            <video :src="videoUrl" controls/>
             <!--
           <div class="col-12 col-sm-6 col-md-4 col-lg-4"
            v-for="(gamelink, idx) in gameData.data.gamelinks"
@@ -177,7 +177,7 @@ export default {
     axios
       .get(
         `${SERVER_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
-        // `${LOCALHOST_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
+        // `${SERVER_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
         {
           appid: this.$route.query.appId,
           userid: this.userid,
