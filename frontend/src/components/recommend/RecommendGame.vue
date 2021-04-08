@@ -123,6 +123,7 @@ export default {
   },
   methods: {
     async recommendWish(){
+
         for(var item of this.itemList){
             this.appids.push(item.appid);
         }
@@ -169,13 +170,13 @@ export default {
             })
     },
     async getItem() {
-        // console.log("userid : ",this.user.userid)
+        console.log("userid : ",this.user.userid)
       await axios
-        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '1' } })
+        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '0' } })
         .then((res) => {
-            // console.log("res :", res)
+            console.log("res :", res)
           this.itemList = res.data.data;
-        //   console.log("itemList @@: ",this.itemList)
+          console.log("itemList @@: ",this.itemList)
         })
         .catch((res) => {
           console.log('err : ' + res);
