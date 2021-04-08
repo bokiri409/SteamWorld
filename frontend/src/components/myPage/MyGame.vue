@@ -1,7 +1,7 @@
 <template>
   <div class="container" style="background-color:#00000077; margin-bottom:50px;">
     <div v-if="isLoading == true">
-      <img src="../../assets/img/loading-87.gif" />
+      <img src="../../assets/img/loading-87.gif" style="opacity:0.5;" />
     </div>
     <div v-if="isLoading == false">
       <div class="row">

@@ -3,14 +3,17 @@
     <transition>
       <header id="header">
         <div class="container">
+          <a>
+             <router-link to="/" class="nav-link active" href="#header">
+              
           <h1>Steam World!</h1>
+          </router-link>
+          </a>
+          <h1></h1>
           <h2>세상에서 가장 <span>편리한</span> 게임 추천 서비스</h2>
           <nav id="navbarMain" class="navbarMain">
             <i class="bi bi-list mobile-nav-toggle" @click="mobileHandler()"></i>
             <ul>
-              <li @click="toggleBanner">
-                <router-link to="/" class="nav-link active" href="#header">Home</router-link>
-              </li>
               <li @click="clickHandler()">
                 <router-link to="/survey" class="nav-link" href="#about" id="menu-game"
                   >내게 맞는 게임 찾기</router-link
@@ -39,9 +42,9 @@
                     >마이 페이지</router-link
                   >
                 </li>
-                <li>
+                <!-- <li>
                   <a class="nav-link">{{ this.nickname }} 님 환영합니다.</a>
-                </li>
+                </li> -->
                 <li>
                   <a @click="logoutHandler" class="nav-link">로그아웃</a>
                 </li>
