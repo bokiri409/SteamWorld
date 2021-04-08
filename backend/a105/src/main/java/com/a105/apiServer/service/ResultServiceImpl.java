@@ -44,5 +44,11 @@ public class ResultServiceImpl implements ResultService{
 				
 				return flag;
 	}
+	
+	public int resultDelete(String userid) throws Exception{
+		System.out.println("impl userid : " + userid);
+//		System.out.println(resultDao.deleteResult(userid));
+		return resultDao.deleteResult(userid);
+	}
 
 }

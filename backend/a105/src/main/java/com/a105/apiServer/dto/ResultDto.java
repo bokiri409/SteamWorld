@@ -9,8 +9,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ResultDto {
 	private int resultid;
+	private String userid;
 	private int appid;
 	private String name;
-	private double predictions;
-	private String userid;
+	private int score;
+	private int vote;
+	private String storelink;
+	private String imgsrc;
+	private String shortDes;
+	private String dev;
+	private String fullDes;
 }
