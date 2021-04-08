@@ -264,6 +264,11 @@ export default {
       console.log('localstorage steamid : ', localStorage.getItem('steamid'));
       this.user.steamid = await localStorage.getItem('steamid');
     }
+    else{
+      if(this.itemOutList.length == 0){
+        await this.getUrl();
+      }
+    }
   },
   async mounted() {
     console.log('mounted steamid : ', localStorage.getItem('steamid'));

@@ -9,4 +9,5 @@ public interface ResultService {
 	public List<ResultDto> resultList(Map map) throws Exception;
 	public ResultDto resultSearch(Map map) throws Exception;
 	public int resultAdd(List<ResultDto> list) throws Exception;
+	public int resultDelete(String userid) throws Exception;
 }

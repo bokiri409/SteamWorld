@@ -20,8 +20,8 @@ public class ItemServiceImpl implements ItemService{
 	@Override
 	public List<ItemDto> itemList(String userid, String issteam) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(userid + issteam);
-		System.out.println(itemDao.getItemList(userid, issteam));
+//		System.out.println(userid + issteam);
+//		System.out.println(itemDao.getItemList(userid, issteam));
 		return itemDao.getItemList(userid, issteam);
 	}
 
