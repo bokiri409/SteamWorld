@@ -1,6 +1,5 @@
 <template>
   <div class="section-show" style="background-color:#00000077">
-    
     <div v-if="isLoading == true">
       <img src="../../assets/img/loading-87.gif" />
     </div>
@@ -25,34 +24,11 @@
             <div
               v-if="isLogin"
               style="position: static; right: 0px; bottom:0px; padding-bottom: 20px; padding-right: 20px; text-align: right;"
-            >
-              <!-- <b-card-text>
-                hi
-              </b-card-text> -->
-              <!-- <b-button> -->
-
-              <!-- <b-icon
-                icon="star"
-                scale="1.5"
-                style="color: yellow;"
-                v-if="like == 0"
-                @click="LikeHandler(index)"
-              ></b-icon>
-              <b-icon
-                icon="star-fill"
-                scale="1.5"
-                style="color: yellow;"
-                v-if="like == 1"
-                @click="LikeHandler()"
-              ></b-icon> -->
-
-              <!-- </b-button> -->
-
-              <!--  <b-button href="#" variant="primary">상세보기</b-button> -->
-            </div>
+            ></div>
           </b-card>
         </div>
       </div>
+    </div>
   </div>
 </template>
 

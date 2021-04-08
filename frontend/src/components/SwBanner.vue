@@ -1,109 +1,41 @@
-swbanner
-
 <template>
   <div>
-    <!-- ======= Header ======= -->
-    <!--
-    <b-navbar  v-if="show" toggleable="lg" type="dark" style="margin-top:0px; background-color:#00000099; ">
-    <b-navbar-brand href="/" style="color:white; font-size:30px; font-weight:bold">Steam World!</b-navbar-brand>
-
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-    <b-collapse id="nav-collapse" is-nav>
-
-      <b-navbar-nav class="ml-auto">
-
-
-         <b-navbar-nav right>        
-          <router-link to="/" class="nav-link active" href="#header" @click="show=!show">Home</router-link>
-          <router-link to="/survey" class="nav-link" href="#about" @click="toggle">내게 맞는 게임 찾기</router-link>
-          <router-link to="/mypage" class="nav-link" href="#services" @click="toggle">마이 페이지</router-link>
-          <router-link to="/recommend" class="nav-link" href="#portfolio" @click="toggle">게임 추천</router-link>
-          <router-link to="/user/login" class="nav-link" href="#services" @click="toggle">로그인</router-link>
-
-           <router-link to="/swiper" class="nav-link" href="#services" @click="toggle">스와이퍼</router-link>
-           <span><a href="#" class=""><img src="../assets/img/steam.svg"></a>스팀 연동하기</span>
-         
-        
-        </b-navbar-nav>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar> -->
-
-    <!-- <transition name="slide" mode="out-in">
-      <router-view></router-view>
-    </transition> -->
-
     <transition>
       <header id="header">
         <div class="container">
           <h1>Steam World!</h1>
-          <!-- Uncomment below if you prefer to use an image logo -->
-          <!-- <a href="index.html" class="mr-auto"><img src="../assets/img/logo.png" alt="" class="img-fluid"></a> -->
           <h2>세상에서 가장 <span>편리한</span> 게임 추천 서비스</h2>
-          <!-- <i class="addBtn fas fa-plus" aria-hidden="true"></i> -->
           <nav id="navbarMain" class="navbarMain">
-            <i
-              class="bi bi-list mobile-nav-toggle"
-              @click="mobileHandler()"
-            ></i>
+            <i class="bi bi-list mobile-nav-toggle" @click="mobileHandler()"></i>
             <ul>
               <li @click="toggleBanner">
-                <router-link to="/" class="nav-link active" href="#header"
-                  >Home</router-link
-                >
+                <router-link to="/" class="nav-link active" href="#header">Home</router-link>
               </li>
               <li @click="clickHandler()">
-                <router-link
-                  to="/survey"
-                  class="nav-link"
-                  href="#about"
-                  id="menu-game"
+                <router-link to="/survey" class="nav-link" href="#about" id="menu-game"
                   >내게 맞는 게임 찾기</router-link
                 >
               </li>
               <li @click="clickHandler()">
-                <router-link
-                  to="/recommend"
-                  class="nav-link"
-                  href="#portfolio"
-                  id="menu-recomm"
+                <router-link to="/recommend" class="nav-link" href="#portfolio" id="menu-recomm"
                   >게임 추천</router-link
                 >
               </li>
               <div class="menulogin" v-if="!this.token">
                 <li @click="clickHandler()">
-                  <router-link
-                    to="/user/login"
-                    class="nav-link"
-                    href="#services"
-                    id="menu-login"
+                  <router-link to="/user/login" class="nav-link" href="#services" id="menu-login"
                     >로그인</router-link
                   >
                 </li>
                 <li @click="clickHandler2()">
-                  <router-link
-                    to="/user/signup"
-                    class="nav-link"
-                    href="#signup"
-                    id="menu-signup"
+                  <router-link to="/user/signup" class="nav-link" href="#signup" id="menu-signup"
                     >회원가입</router-link
-                  >
-                </li>
-                <li @click="clickHandler()">
-                  <a href="#" class=""
-                    ><img src="../assets/img/steam.svg" width="20" />스팀
-                    연동하기</a
                   >
                 </li>
               </div>
               <div class="menulogin" v-else>
                 <li @click="clickHandler()">
-                  <router-link
-                    to="/mypage"
-                    class="nav-link"
-                    href="#services"
-                    id="menu-mypage"
+                  <router-link to="/mypage" class="nav-link" href="#services" id="menu-mypage"
                     >마이 페이지</router-link
                   >
                 </li>
@@ -119,7 +51,7 @@ swbanner
             <div class="social-links"></div>
           </nav>
           <!-- .navbar -->
-
+          <!-- 
           <div class="social-links">
             <a href="#" class="twitter"><b-icon-twitter></b-icon-twitter></a>
 
@@ -128,7 +60,7 @@ swbanner
             /></a>
             <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
+          </div> -->
         </div>
       </header>
       <!-- End Banner -->
