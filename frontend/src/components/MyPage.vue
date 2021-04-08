@@ -49,31 +49,34 @@
                 <h2>스팀 아이디</h2>
               </div>
               <h3 v-if="user.steamid != '0'">{{ user.steamid }}</h3>
+              <form action="https://steamcommunity.com/openid/login" method="post">
+                <input
+                  type="hidden"
+                  name="openid.identity"
+                  value="http://specs.openid.net/auth/2.0/identifier_select"
+                />
+                <input
+                  type="hidden"
+                  name="openid.claimed_id"
+                  value="http://specs.openid.net/auth/2.0/identifier_select"
+                />
+                <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
+                <input type="hidden" name="openid.mode" value="checkid_setup" />
+                <!-- <input type="hidden" name="openid.realm" value="http://localhost:8081" />
+            <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" /> -->
+                <!-- server side -->
+                <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
+                <input
+                  type="hidden"
+                  name="openid.return_to"
+                  value="http://j4a105.p.ssafy.io/mypage"
+                />
+                <b-button type="submit btn-large" style="border-radius: 10rem"
+                  ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
+                >
+              </form>
             </div>
           </div>
-
-          <form action="https://steamcommunity.com/openid/login" method="post">
-            <input
-              type="hidden"
-              name="openid.identity"
-              value="http://specs.openid.net/auth/2.0/identifier_select"
-            />
-            <input
-              type="hidden"
-              name="openid.claimed_id"
-              value="http://specs.openid.net/auth/2.0/identifier_select"
-            />
-            <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
-            <input type="hidden" name="openid.mode" value="checkid_setup" />
-            <!-- <input type="hidden" name="openid.realm" value="http://localhost:8081" />
-            <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" /> -->
-            <!-- server side -->
-            <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
-            <input type="hidden" name="openid.return_to" value="http://j4a105.p.ssafy.io/mypage" />
-            <b-button type="submit btn-large" style="border-radius: 10rem"
-              ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
-            >
-          </form>
 
           <div style="background-color: none">
             <b-card title="Card Title" no-body>
