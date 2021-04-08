@@ -3,7 +3,9 @@
     <h1>당신의 게임 유형은</h1>
     <h1>끈기있는 좀비입니다.</h1>
 
-    <p>추천게임</p>
+    <p>당신은 끈기있게 도전하고 절대 포기하지 않을 강인한 의지를 내면에 가지고 있습니다. 어떠한 시련이 있더라도 좀비처럼 일어나세요!</p>
+
+     <div class="text-center" style="margin-top:50px;"><h3>당신에게 추천하는 게임</h3></div>
    
     <div class="row">
       <div class="col-md-1"></div>

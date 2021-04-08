@@ -74,4 +74,9 @@ span{
   color: white !important;
 }
 
+hr{
+  color: white;
+  size: 2px;
+}
+
 </style>

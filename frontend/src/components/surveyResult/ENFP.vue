@@ -3,7 +3,11 @@
     <h1>당신의 게임 유형은</h1>
     <h1>호기심 많은 탐험가입니다.</h1>
 
-    <p>추천게임</p>
+                    <hr>
+
+     <p>당신은 타고난 호기심으로 모든 궁금증을 해결하고자 하는 사람입니다. 어둠속에 가려진 존재들을 밝혀가며 전진하세요.</p>
+
+    <div class="text-center" style="margin-top:50px;"><h3>당신에게 추천하는 게임</h3></div>
   
     <div class="row">
       <div class="col-md-1"></div>

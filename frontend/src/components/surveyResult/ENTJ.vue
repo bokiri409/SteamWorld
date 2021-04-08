@@ -1,9 +1,13 @@
 <template>
    <div class="container blueArea">
     <h1>당신의 게임 유형은</h1>
-    <h1>자신감 넘치는 파티장입니다.</h1>
+    <h1>자신감 넘치는 길드 마스터입니다.</h1>
 
-    <p>추천게임</p>
+                <hr>
+
+     <p>당신은 타고난 리더입니다. 자신을 따르는 사람들과 함께 당신의 왕국을 넓혀나가세요.</p>
+
+     <div class="text-center" style="margin-top:50px;"><h3>당신에게 추천하는 게임</h3></div>
    
     <div class="row">
       <div class="col-md-1"></div>

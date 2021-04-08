@@ -2,16 +2,23 @@
 
 <div class="container blueArea">
     <div clss="row">
-
-        <h2 class="typing-txt">Q7.눈앞에 강해보이는 몬스터가 나타났다! 나의 선택은?</h2>
-                <hr>
-        <img height=300px src="../../assets/img/q7.gif"/><img height=300px src="../../assets/img/q72.gif"/>
+        <vue-typer
+          :text="['Q7.눈앞에 강해보이는 몬스터가 나타났다! 나의 선택은?']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
+                       <hr>
+        <img height=300px src="../../assets/img/q7.gif"/>
+        <img height=300px src="../../assets/img/q72.gif"/>
         <hr>
 
 
 
-        <router-link to="/q8" class="nav-link"><b-button @click="put1">나보다 압도적으로 강할 것 같다. 자리를 피한다.  j</b-button></router-link>
-        <router-link to="/q8" class="nav-link"><b-button @click="put2">내가 이길 수 있다. 좋은 아이템을 위해 사냥한다. p</b-button></router-link>
+        <router-link to="/q8" class="nav-link"><b-button @click="put1">나보다 압도적으로 강할 것 같다. 자리를 피한다.</b-button></router-link>
+        <router-link to="/q8" class="nav-link"><b-button @click="put2">내가 이길 수 있다. 좋은 아이템을 위해 사냥한다.</b-button></router-link>
 
 
 
@@ -75,5 +82,21 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
+
 </style>
 

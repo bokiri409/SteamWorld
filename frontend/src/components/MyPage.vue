@@ -172,10 +172,6 @@
             </b-card>
           </div>
 
-          <button @click.prevent="getItem()">
-            <!--1046930-->
-            와우버튼
-          </button>
         </div>
       </div>
     </div>

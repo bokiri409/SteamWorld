@@ -2,16 +2,24 @@
 
 <div class="container blueArea">
     <div clss="row">
-
-        <h2 class="typing-txt">Q8. 상점에서 판매하는 아주 멋진 아이템이 있다.</h2>
+        <vue-typer
+          :text="['Q8. 상점에서 판매하는 아주 멋진 아이템이 있다.']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
         <hr>
+               <div class="text-center">
         <img height=300px src="../../assets/img/q8.gif"/>
+        </div>
         <hr>
 
 
 
-        <router-link to="/q9" class="nav-link"><b-button @click="put1">성능에 영향을 주지않으면 구매하지 않는다 t </b-button></router-link>
-        <router-link to="/q9" class="nav-link"><b-button @click="put2">가슴이 시켜서 구매한다 f</b-button></router-link>
+        <router-link to="/q9" class="nav-link"><b-button @click="put1">성능에 영향을 주지않으면 구매하지 않는다.</b-button></router-link>
+        <router-link to="/q9" class="nav-link"><b-button @click="put2">가슴이 시켜서 구매한다.</b-button></router-link>
 
 
 
@@ -73,5 +81,23 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
+
+
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
+
 </style>
 

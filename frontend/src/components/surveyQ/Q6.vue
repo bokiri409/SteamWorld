@@ -3,15 +3,25 @@
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q6. 내가 더 좋아하는 게임은</h2>
+
+        <vue-typer
+          :text="['Q6. 내가 더 좋아하는 게임은?']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
                 <hr>
+               <div class="text-center">
         <img height=300px src="../../assets/img/q6.gif"/>
+        </div>
         <hr>
 
 
 
-        <router-link to="/q7" class="nav-link"><b-button @click="put1">정해진 룰에 따라서 상대방과 경쟁하는 게임 j</b-button></router-link>
-        <router-link to="/q7" class="nav-link"><b-button @click="put2">자유롭게 탐험하며 나만의 시간을 즐기는 게임 p</b-button></router-link>
+        <router-link to="/q7" class="nav-link"><b-button @click="put1">정해진 룰에 따라서 상대방과 경쟁하는 게임</b-button></router-link>
+        <router-link to="/q7" class="nav-link"><b-button @click="put2">자유롭게 탐험하며 나만의 시간을 즐기는 게임</b-button></router-link>
 
 
 
@@ -73,5 +83,21 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
+
 </style>
 

@@ -8,20 +8,20 @@
   initial-action='typing'
   :pre-type-delay='70'
   :type-delay='70'
-  :erase-delay='250'
-  erase-style='select-all'
   caret-animation='blink'
 ></vue-typer>
         
                 <hr>
+                <div class="text-center">
         <img height=300px src="../../assets/img/q1.gif"/>
         <hr>
 
 
 
-        <router-link to="/q2" class="nav-link"><b-button @click="put1">성능보다 내가 좋아하는 캐릭터를 고른다</b-button></router-link>
-        <router-link to="/q2" class="nav-link"><b-button @click="put2">성능이 가장 좋은 캐릭터를 고른다</b-button></router-link>
+        <router-link to="/q2" class="nav-link"><b-button @click="put1">성능보다 내가 좋아하는 캐릭터를 고른다.</b-button></router-link>
+        <router-link to="/q2" class="nav-link"><b-button @click="put2">성능이 가장 좋은 캐릭터를 고른다.</b-button></router-link>
         <p id="demo"></p>
+        </div>
 
 
 
@@ -107,18 +107,18 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
-span{
-  text-decoration: none;
-}
+
 .vue-typer {
   font-family: "DungGeunMo";
   font-size: 2.2vw;
 }
 
-* >>> span{
-    color:white !important;
+button:hover{
+  background-color:#1f813f;
 }
-* >>> .char{
-    color:white;
+
+button{
+  width:100%;
 }
+
 </style>

@@ -13,6 +13,11 @@ import Aos from 'aos'
 import VueSimpleAccordion from 'vue-simple-accordion';
 import 'vue-simple-accordion/dist/vue-simple-accordion.css';
 import VueTyperPlugin from 'vue-typer'
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
+// Init plugin
+Vue.use(Loading);
 
 Vue.use(VueSimpleAccordion);
 // import Lightbox from 'vue-my-photos'

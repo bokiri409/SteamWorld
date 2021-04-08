@@ -1,6 +1,9 @@
 <template>
-  <section class="section-show">
+  <div class="section-show">
     <div class="container">
+          <div style="margin-top: 30px; margin-bottom:50px;">
+        <h5>스팀 보유 게임과 관심 게임을 기반으로 새로운 게임을 추천합니다.</h5>
+      </div>
       <b-button @click.prevent="recommendWish()">
         추천 시작!
       </b-button>
@@ -46,8 +49,8 @@
       </div>
     </div>
     
-    <div>
-      <div class="container">
+    <div style="height:100%;">
+      <div class="container" style="height:100%;">
         <div style="margin-top: 30px">
           <h3>보유 게임</h3>
         </div>
@@ -62,7 +65,7 @@
     </div>
 
     <div>
-      <div class="container">
+      <div class="container" style="height:100%;">
         <div style="margin-top: 30px">
           <h3>관심 게임</h3>
         </div>
@@ -75,7 +78,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 <script>
 import MyGame from '../myPage/MyGame';

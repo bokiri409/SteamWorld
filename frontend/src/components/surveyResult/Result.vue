@@ -3,19 +3,10 @@
     <h1>당신의 게임 성향을 분석하는 중입니다... 유저</h1>
     <div class="row">
         <img src="../../assets/img/human.png" height="400px" />
-          <button @click="showA">결과 확인하기</button>
+          <button style="width:100%; height:80px; font-size:40px;" @click="showA">결과 확인하기</button>
 
     </div>
 
-
-    <p>{{ this.$store.state.result }}입니다.</p>
-    <button @click="showA">결과 확인하기</button>
-    <p>{{gameData}}</p>
-    <router-view></router-view>
-
-    <h1>{{ this.result }}</h1>
-    <router-link to="/detail">detail</router-link>
-    <button @click="goDetail"> 디테일 가자</button>
   </div>
 </template>
 
@@ -103,78 +94,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },
-    searchGroup: function() {
-      console.log("searchGroup");
-      axios
-        .get(`${SERVER_URL}/group/list/`, { params: this.params })
-        .then((res) => {
-          for (let i = 0; i < res.data.list.length; i++) {
-            res.data.list[i].edate = res.data.list[i].edate.split(" ")[0];
-          }
-          this.groups = res.data.list;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    getPicture(email) {
-      axios
-        .get(`${SERVER_URL}/user/profile`, { params: { email: email } })
-        .then((res) => {
-          const picture = res.data.User.picture;
-          if (picture == null) {
-            this.picture =
-              "https://images.unsplash.com/photo-1519400197429-404ae1a1e184?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80";
-          } else {
-            this.picture = picture;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
-    goCreate: function() {
-      // const data = [item]
-      this.$router.push({ path: "./GroupCreate" });
-    },
-    goGroupPage: function(myGroup) {
-      this.$router.push({ path: "./GroupPage", query: { gId: myGroup.gId } });
-    },
-    myGroupList: function() {
-      axios
-        .get(`${SERVER_URL}/group/member/apply/user/list`, {
-          params: {
-            email: this.loginStatus.email,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          if (res.data.list.length != 0) {
-            this.existMyGroups = true;
-          }
-          this.myGroups = res.data.list;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    groupList: function() {
-      axios
-        .get(`${SERVER_URL}/group/list/`, { params: this.params })
-        .then((res) => {
-          for (let i = 0; i < res.data.list.length; i++) {
-            res.data.list[i].edate = res.data.list[i].edate.split(" ")[0];
-          }
-          this.groups = res.data.list;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    goLogIn: function() {
-      this.$router.push({ path: "./login" });
     },
     goResult: function() {
       this.$router.push({ path: "/result/"+this.$store.state.result});

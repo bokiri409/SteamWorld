@@ -2,10 +2,18 @@
 
 <div class="container blueArea">
     <div clss="row">
-
-        <h2 class="typing-txt">Q12. 출구를 찾다가 양갈래 길이 나왔다. 어디로 가야하지? </h2>
+                                <vue-typer
+          :text="['Q12. 출구를 찾다가 양갈래 길이 나왔다. 어디로 가야하지? ']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
         <hr>
+               <div class="text-center">
         <img height=300px src="../../assets/img/q12.gif"/>
+        </div>
         <hr>
 
 
@@ -73,5 +81,22 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
+
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
+
 </style>
 
