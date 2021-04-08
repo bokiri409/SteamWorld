@@ -1,6 +1,10 @@
 <template>
   <section class="section-show">
     <div class="row" style="width: 100%">
+      <div v-if="isLoading == true">
+      <img src="../assets/img/loading-87.gif" style="opacity:0.5;" />
+    </div>
+    <div v-if="isLoading == false">
       <div class="col-md-1"></div>
       <div class="col-md-10 box" style="background-color: #00000077">
         <div class="section-title">
@@ -93,6 +97,7 @@
             </b-card>
           </div>
         </div>
+        </div>
       </div>
     </div>
   </section>
@@ -164,6 +169,8 @@ export default {
         isSteam: 0,
       },
       itemOutList: [],
+      
+      isLoading: true,
     };
   },
   components: {
@@ -188,6 +195,8 @@ export default {
         await this.getUrl();
       }
     }
+    
+    this.isLoading = false;
   },
   async mounted() {
     // console.log('mounted steamid : ', localStorage.getItem('steamid'));
@@ -282,6 +291,8 @@ export default {
       await this.additem();
     },
     async additem() {
+      
+    this.isLoading = true;
       // console.log('outList: ', this.itemOutList);
       await axios
         .post(`${SERVER_URL}/item/add`, this.itemOutList)
@@ -293,6 +304,8 @@ export default {
         .catch((res) => {
           alert('error : ', res);
         });
+        
+    this.isLoading = false;
     },
     async updateItem() {},
     componentLoading() {
