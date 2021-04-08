@@ -96,7 +96,7 @@
         </button>
 
         <p class="forgot-password text-right mt-2 mb-4">
-          <router-link to="/user/forgotpassword">Forgot password ?</router-link>
+          <router-link to="/user/findpassword">Forgot password ?</router-link>
         </p>
       </div>
     </div>
