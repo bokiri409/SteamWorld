@@ -1,5 +1,5 @@
 <template>
-  <div class="section-show" style="margin-bottom:100px; margin-top:120px;">
+  <section class="section-show">
     <div v-if="isLoading == true">
       <img src="../assets/img/loading-87.gif" style="opacity:0.5;" />
     </div>
@@ -16,7 +16,10 @@
         <div class="container">
           <div style="">
             <b-card title="Card Title" no-body>
-              <b-card-header header-tag="nav" style="background-color:#00000077">
+              <b-card-header
+                header-tag="nav"
+                style="background-color:#00000077"
+              >
                 <b-nav card-header tabs>
                   <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
                   <b-nav-item
@@ -33,7 +36,10 @@
                     exact-active-class="active"
                     >게임 추천</b-nav-item
                   >
-                  <b-nav-item @click.prevent="loadSearchGame()" exact exact-active-class="active"
+                  <b-nav-item
+                    @click.prevent="loadSearchGame()"
+                    exact
+                    exact-active-class="active"
                     >게임 검색</b-nav-item
                   >
                   <!-- <b-nav-item @click.prevent="loadLikeGame()">관심 게임</b-nav-item> -->
@@ -82,7 +88,10 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 text-center" style="text-align: center; padding-top:30px  ">
+                <div
+                  class="col-md-12 text-center"
+                  style="text-align: center; padding-top:30px  "
+                >
                   <a
                     class=""
                     href="javascript:void(0)"
@@ -90,7 +99,10 @@
                     @click="changeShow(false)"
                     v-show="firstpage == false"
                   >
-                    <i class="bi bi-chevron-double-left" style="color:rgb(51 255 0)"></i>
+                    <i
+                      class="bi bi-chevron-double-left"
+                      style="color:rgb(51 255 0)"
+                    ></i>
                   </a>
                   <a
                     class=""
@@ -99,7 +111,10 @@
                     @click="changeShow(true)"
                     v-show="resultleft == true"
                   >
-                    <i class="bi bi-chevron-double-right" style="color:rgb(51 255 0)"></i>
+                    <i
+                      class="bi bi-chevron-double-right"
+                      style="color:rgb(51 255 0)"
+                    ></i>
                   </a>
                 </div>
               </div>
@@ -108,7 +123,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

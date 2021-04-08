@@ -10,14 +10,12 @@
           :type-delay="70"
           caret-animation="blink"
         ></vue-typer>
+      </div>
 
-        </div>
+      <hr />
 
-        <hr />
-
-        <div class="text-center">
-
-        <img height="300px" src="../../assets/img/q3.gif" />
+      <div class="text-center">
+        <img height="450px" src="../../assets/img/q3.gif" />
         <hr />
 
         <router-link to="/q4" class="nav-link"
@@ -39,12 +37,12 @@
 export default {
   methods: {
     put1() {
-      this.$store.commit("slice", 2);
-      this.$store.commit("putE");
+      this.$store.commit('slice', 2);
+      this.$store.commit('putE');
     },
     put2() {
-      this.$store.commit("slice", 2);
-      this.$store.commit("putI");
+      this.$store.commit('slice', 2);
+      this.$store.commit('putI');
     },
   },
 };
@@ -62,7 +60,7 @@ h2.typing-txt {
 h2.typing-txt::after {
   position: absolute;
   display: block;
-  content: "";
+  content: '';
   width: 5px;
   height: 30px;
   top: 5px;
@@ -92,7 +90,7 @@ h2.typing-txt::after {
 h2.typing-txt::after {
   position: absolute;
   display: block;
-  content: "";
+  content: '';
   width: 5px;
   height: 30px;
   top: 5px;
@@ -124,16 +122,15 @@ h2 {
 }
 
 .vue-typer {
-  font-family: "DungGeunMo";
+  font-family: 'DungGeunMo';
   font-size: 2.2vw;
 }
 
-button:hover{
-  background-color:#1f813f;
+button:hover {
+  background-color: #1f813f;
 }
 
-button{
-  width:100%;
+button {
+  width: 100%;
 }
-
 </style>
