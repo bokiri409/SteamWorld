@@ -1,73 +1,78 @@
 <template>
   <div>
-    <div class="parent">
-      <div class="child1-5">
-        <h3>프로필 상세</h3>
-      </div>
-      <div class="child2">
-        <br />
-        <div id="all_info">
-          <div id="user_info">
-            <div id="login_info">
-              <span style="font-size: 20px"> 아이디(이메일) </span>
-            </div>
-          </div>
-          <br />
-          <div>
-            <div style="margin-top:35px">
-              <div class="inpbx" style="font-size: large">
-                <span style="font-size: 20px ;"> 닉네임 </span>
-              </div>
-            </div>
-          </div>
+    <div class="container" style="background:none">
+      <h3 style=" font-weight:bold color:white;">프로필 상세</h3>
+
+      <div class="row" style="margin-top:100px;">
+        <div class="col-md-3 text-right"></div>
+        <div class="col-md-2 text-left">
+          <h4 style="font-size: 20px ;">닉네임</h4>
+          <h4 style="font-size: 20px; color:#ffffff00;">dd</h4>
+          <h4 style="font-size: 20px">아이디(이메일)</h4>
+
+          <div stlye="marging-top:50px;"></div>
+
+          <h4 style="font-size: 20px; marging-top:100px; ;">비밀번호</h4>
         </div>
-      </div>
-      <div class="child2">
-        <br />
-        <div id="all_info">
-          <div id="user_info">
-            <div id="login_info">
-              <span style="font-size: 20px">{{ user.userid }}</span>
-              <!-- <b-input style="font-size: 20px" :value=user.userid> </b-input> -->
-            </div>
-          </div>
-          <br />
+
+        <div class="col-md-4">
+          <div id="user_info"></div>
+
           <div>
-            <div style="margin-top:35px">
-              <div class="inpbx" style="font-size: large">
-                <span v-if="!show_user" style="font-size: 20px ;">{{ user.nickname }}</span>
-                <b-input
-                  v-else
-                  style="font-size: 20px"
-                  v-bind:value="user.nickname"
-                  v-model="user.nickname"
-                >
-                </b-input>
-              </div>
+            <div class="inpbx">
+              <h4 v-if="!show_user" style="font-size: 20px ;">
+                {{ user.nickname }}
+              </h4>
+              <b-button
+                type="primary"
+                @click.prevent="show_update_user()"
+                style="margin-bottom:65px; margin-left:30"
+                v-if="!show"
+                >닉네임 수정</b-button
+              >
+
+              <b-input
+                v-if="show_user"
+                style="font-size: 15px; margin-bottom:65px;"
+                v-bind:value="user.nickname"
+                v-model="user.nickname"
+              >
+              </b-input>
             </div>
           </div>
+
+          <h4 style="font-size: 20px">{{ user.userid }}</h4>
+          <h4 style="font-size: 20px">*******</h4>
+          <b-button
+            class="btn-md"
+            @click.prevent="goPassword()"
+            style="margin-bottom:50px;"
+          >
+            비밀번호 변경
+          </b-button>
+
+          <h4></h4>
         </div>
-      </div>
-      <div class="child1">
-        <b-button type="primary" @click.prevent="goPassword()" v-if="!show">
-          비밀번호 변경
-        </b-button>
-        <br />
-        <br />
-        <b-button type="primary" @click.prevent="show_update_user()" v-if="!show"
-          >프로필 수정</b-button
-        >
-        <div v-if="show_user == true" style="margin-left:30px">
-          <div>
-            <b-button type="primary" @click.prevent="updateUser()">
-              수정 완료
-            </b-button>
-          </div>
-          <br /><br />
-          <div>
-            <b-button type="primary" @click.prevent="cancel()">
-              취소
-            </b-button>
+        <div class="col-md-3">
+          <div v-if="show_user == true">
+            <table>
+              <tr>
+                <td>
+                  <b-button type="primary" @click.prevent="updateUser()">
+                    수정 완료
+                  </b-button>
+                </td>
+                <td>
+                  <b-button type="primary" @click.prevent="cancel()">
+                    취소
+                  </b-button>
+                </td>
+              </tr>
+            </table>
+
+            <span> </span>
+
+            <div></div>
           </div>
         </div>
       </div>
@@ -165,6 +170,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .parent {
   display: flex;
@@ -178,5 +184,9 @@ export default {
 
 .child2 {
   flex: 2;
+}
+
+h4 {
+  margin-bottom: 80px;
 }
 </style>
