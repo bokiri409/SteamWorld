@@ -6,7 +6,9 @@
     <div v-if="isLoading == false">
       <div class="container">
         <div style="margin-top: 30px; margin-bottom:50px;">
-          <h5>스팀 보유 게임과 관심 게임을 기반으로 새로운 게임을 추천합니다.</h5>
+          <h5>
+            스팀 보유 게임과 관심 게임을 기반으로 새로운 게임을 추천합니다.
+          </h5>
         </div>
         <b-button @click.prevent="recommendWish()">
           추천 시작!
@@ -227,7 +229,9 @@ export default {
     async getMyGame() {
       console.log('userid : ', this.user.userid);
       await axios
-        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '1' } })
+        .get(`${SERVER_URL}/item/list`, {
+          params: { userid: this.user.userid, issteam: '1' },
+        })
         .then((res) => {
           console.log('res :', res);
           this.gameList = res.data.data;
@@ -240,7 +244,9 @@ export default {
     async getItem() {
       console.log('userid : ', this.user.userid);
       await axios
-        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '0' } })
+        .get(`${SERVER_URL}/item/list`, {
+          params: { userid: this.user.userid, issteam: '0' },
+        })
         .then((res) => {
           console.log('res :', res);
           this.itemList = res.data.data;
@@ -321,7 +327,7 @@ body {
 } */
 
 #scrollRow .items div {
-  height: 300px;
+  height: 500px;
   overflow-y: scroll;
   /* text-align: left; */
 }

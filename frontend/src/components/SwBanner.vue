@@ -4,41 +4,63 @@
       <header id="header">
         <div class="container">
           <a>
-             <router-link to="/" class="nav-link active" href="#header">
-              
-          <h1>Steam World!</h1>
-          </router-link>
+            <router-link to="/" class="nav-link active" href="#header">
+              <h1>Steam World!</h1>
+            </router-link>
           </a>
           <h1></h1>
           <h2>세상에서 가장 <span>편리한</span> 게임 추천 서비스</h2>
           <nav id="navbarMain" class="navbarMain">
-            <i class="bi bi-list mobile-nav-toggle" @click="mobileHandler()"></i>
+            <i
+              class="bi bi-list mobile-nav-toggle"
+              @click="mobileHandler()"
+            ></i>
             <ul>
               <li @click="clickHandler()">
-                <router-link to="/survey" class="nav-link" href="#about" id="menu-game"
+                <router-link
+                  to="/survey"
+                  class="nav-link"
+                  href="#about"
+                  id="menu-game"
                   >내게 맞는 게임 찾기</router-link
                 >
               </li>
               <li @click="clickHandler()">
-                <router-link to="/recommend" class="nav-link" href="#portfolio" id="menu-recomm"
+                <router-link
+                  to="/recommend"
+                  class="nav-link"
+                  href="#portfolio"
+                  id="menu-recomm"
                   >게임 추천</router-link
                 >
               </li>
               <div class="menulogin" v-if="!this.token">
                 <li @click="clickHandler()">
-                  <router-link to="/user/login" class="nav-link" href="#services" id="menu-login"
+                  <router-link
+                    to="/user/login"
+                    class="nav-link"
+                    href="#services"
+                    id="menu-login"
                     >로그인</router-link
                   >
                 </li>
                 <li @click="clickHandler2()">
-                  <router-link to="/user/signup" class="nav-link" href="#signup" id="menu-signup"
+                  <router-link
+                    to="/user/signup"
+                    class="nav-link"
+                    href="#signup"
+                    id="menu-signup"
                     >회원가입</router-link
                   >
                 </li>
               </div>
               <div class="menulogin" v-else>
                 <li @click="clickHandler()">
-                  <router-link to="/mypage" class="nav-link" href="#services" id="menu-mypage"
+                  <router-link
+                    to="/mypage"
+                    class="nav-link"
+                    href="#services"
+                    id="menu-mypage"
                     >마이 페이지</router-link
                   >
                 </li>
