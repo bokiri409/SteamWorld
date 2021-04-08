@@ -257,7 +257,7 @@ export default {
         // 관심 게임일 때
         axios
           .get(
-            `${LOCALHOST_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
+            `${SERVER_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
             {
               appid: this.$route.query.appId,
               userid: this.userid,
