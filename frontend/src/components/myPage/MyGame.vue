@@ -1,102 +1,108 @@
 <template>
-<div>
+  <div
+      class="container"
+      style="background-color:#00000077; margin-bottom:50px;"
+    >
 
-
-       <div
-          class="box"
-          style="background-color:#00337777; border-radius:30px; height:500px"
+      <div class="row">
+        <div
+          class="col-md-4"
+          v-for="games in this.gameData"
+          :key="games.name"
+          style="margin-bottom: 20px"
         >
-          <h3 class="text-center" style="align:center;">보유 게임 목록</h3>
+          <b-card
+            v-if="games.name != ''"
+            :title="games.name"
+            :img-src="games.imgsrc"
+            img-alt="Image"
+            img-top
+            tag="article"
+            style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png');background-color:#00000077; height: 100%"
+            @click="goDetail(games.appid)"
+          >
+            <div style="padding-bottom: 20px">
+              <!-- <b-card-text>
+            </b-card-text> -->
 
-          <div>
-            <b-carousel
-              id="carousel-1"
-              v-model="slide"
-              :interval="4000"
-              controls
-              indicators
-              background="#ababab"
-              img-width="1024"
-              img-height="480"
-              style="text-shadow: 1px 1px 2px #333;"
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
-            >
-              <!-- Text slides with image -->
-              <b-carousel-slide
-                caption="First slide"
-                text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-                img-src="https://picsum.photos/1024/480/?image=52"
-              ></b-carousel-slide>
-
-              <!-- Slides with custom text -->
-              <b-carousel-slide
-                img-src="https://picsum.photos/1024/480/?image=54"
-              >
-                <h1>Hello world!</h1>
-              </b-carousel-slide>
-
-              <!-- Slides with image only -->
-              <b-carousel-slide
-                img-src="https://picsum.photos/1024/480/?image=58"
-              ></b-carousel-slide>
-
-              <!-- Slides with img slot -->
-              <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-              <b-carousel-slide>
-                <template #img>
-                  <img
-                    class="d-block img-fluid w-100"
-                    width="1024"
-                    height="480"
-                    src="https://picsum.photos/1024/480/?image=55"
-                    alt="image slot"
-                  />
-                </template>
-              </b-carousel-slide>
-
-              <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-              <b-carousel-slide
-                caption="Blank Image"
-                img-blank
-                img-alt="Blank image"
-              >
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse eros felis, tincidunt a tincidunt eget, convallis
-                  vel est. Ut pellentesque ut lacus vel interdum.
-                </p>
-              </b-carousel-slide>
-            </b-carousel>
-
-            <p class="mt-4">
-              Slide #: {{ slide }}<br />
-              Sliding: {{ sliding }}
-            </p>
-          </div>
+              <!--  <b-button href="#" variant="primary">상세보기</b-button> -->
+            </div>
+          </b-card>
         </div>
-</div>
-    
+      </div>
+    </div>
 </template>
 
-
-
 <script>
+
+import { mapState } from 'vuex';
+
+const axios = require('axios');
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 export default {
-  data() {
+  data(){
     return {
-      slide: 0,
-      sliding: null,
-    };
+      user: {
+        userid: '',
+        nickname: '',
+        steamid: '',
+      },
+      item:{
+        itemid: 0,
+        userid: '',
+        appid: '',
+        playtime_forever: 0,
+        playtime_2weeks: 0,
+        isSteam: 0,
+      },
+      itemList: [],
+      gameData: [],
+
+    }
   },
-  methods: {
-    onSlideStart(slide) {
-      this.sliding = true;
-    },
-    onSlideEnd(slide) {
-      this.sliding = false;
-    },
-    getUSer() {},
+  async created() {
+    this.user.steamid = localStorage.getItem('steamid');
+    this.user.nickname = localStorage.getItem('nickname');
+    this.user.userid = localStorage.getItem('userid');
+    await this.getItem();
+    await this.getGame();
   },
-};
+  computed: {
+    ...mapState(['loginStatus']),
+  },
+  methods:{
+    async getItem(){
+      await axios
+        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '1'} })
+        .then((res) =>{
+          this.itemList = res.data.data;
+          // console.log("itemList @@: ",this.itemList)
+        })
+        .catch((res) => {
+          console.log("err : " + res)
+        })
+    },
+    async getGame(){
+          // console.log("itemList @@: ",this.itemList)
+      for(var app of this.itemList){
+       await axios
+          .get(`${SERVER_URL}/game/search`, { params: { appid: app.appid} })
+          .then((res) => {
+            if(res.data.data != null){
+            // console.log("data : ", res.data.data);
+            this.gameData.push(res.data.data);
+            }
+          })
+          .catch((res) => {
+          console.log("err : " + res)
+        })
+      }
+    },
+    goDetail: function(appid) {
+      console.log(appid);
+      this.$router.push({ path: '/detail', query: { appId: appid } });
+    },
+  }
+}
 </script>

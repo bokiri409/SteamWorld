@@ -2,16 +2,26 @@
 
 <div class="container blueArea">
     <div clss="row">
-
-        <h2 class="typing-txt">Q1. 적들이 마구 몰려오는 상황, 당신은 어떻게 하시겠습니까? </h2>
-        <p>와아오아아아아아아아</p>
-        <img src="../../assets/img/bg2.gif"/>
+        <vue-typer
+  :text='["Q1. 게임을 시작하자! 캐릭터를 선택할 때 나는 "]'
+  :repeat='0'
+  initial-action='typing'
+  :pre-type-delay='70'
+  :type-delay='70'
+  :erase-delay='250'
+  erase-style='select-all'
+  caret-animation='blink'
+></vue-typer>
+        
+                <hr>
+        <img height=300px src="../../assets/img/q1.gif"/>
         <hr>
 
 
 
-        <b-button>맞서 싸운다 </b-button>
-          <router-link to="/survey" class="nav-link"><b-button>일단 안전을 확보한다 </b-button></router-link>
+        <router-link to="/q2" class="nav-link"><b-button @click="put1">성능보다 내가 좋아하는 캐릭터를 고른다</b-button></router-link>
+        <router-link to="/q2" class="nav-link"><b-button @click="put2">성능이 가장 좋은 캐릭터를 고른다</b-button></router-link>
+        <p id="demo"></p>
 
 
 
@@ -20,13 +30,61 @@
 </div>
 </template>
 
+
+<script>
+
+
+
+export default {
+  data(){
+    return{
+      i: 0,
+      txt: "dfdfdf df df d dfd ",
+      speed: 50
+    }
+  },
+  created(){
+    this.typeWriter();
+  },
+
+  methods:{
+   typeWriter() {
+     var i = 0;
+      var txt = 'Lorem ipsum typing effect!'; 
+     var speed = 50;
+      if (i < txt.length) {
+        this.document.getElementById("demo").innerHTML += txt.charAt(i);
+        i++;
+      setTimeout(this.typeWriter, speed);
+     }
+},
+
+    put1(){
+           this.$store.commit('slice',0);
+      this.$store.commit('putF');
+
+
+    },
+    put2(){
+           this.$store.commit('slice',0);
+     this.$store.commit('putT');
+    }
+
+  }
+}
+</script>
+
 <style scoped>
 
+
+h2{
+  font-size:2vw;
+}
 h2.typing-txt{
   position:relative;
   display: inline-block;
   height: 40px; overflow: hidden;
-  animation: typingAni 4s steps(30, end) 1;
+  animation: typingAni 2s steps(15, end) 1;
 }
 
 h2.typing-txt::after{
@@ -49,5 +107,18 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
-</style>
+span{
+  text-decoration: none;
+}
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
 
+* >>> span{
+    color:white !important;
+}
+* >>> .char{
+    color:white;
+}
+</style>

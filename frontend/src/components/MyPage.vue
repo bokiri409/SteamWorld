@@ -1,15 +1,14 @@
 <template>
-  <div class="section-show">
-    <div class="row"></div>
-    <div class="row" style="width:100%">
+  <section class="section-show">
+    <div class="row" style="width: 100%">
       <div class="col-md-1"></div>
-      <div class="col-md-10 box" style="background-color:#00000077;">
+      <div class="col-md-10 box" style="background-color: #00000077">
         <div class="section-title">
           <h2>마이페이지</h2>
           <p>My Page</p>
 
-          <h1 class=" typing-txt" style="margin-bottom:100px;">
-            가락동겜돌이 님의 마이페이지
+          <h1 class="typing-txt" style="margin-bottom: 100px">
+            {{ user.nickname }} 님의 마이페이지
           </h1>
 
           <br />
@@ -18,11 +17,21 @@
             <div class="col-md-2"></div>
             <div class="col-md-4">
               <div
-                style="display:flex; justify-content:flex-end; border-color:#36e888; border-width:3px; border-radius:20px; height:250px; width:250px; display:block; overflow: hidden;"
+                style="
+                  display: flex;
+                  justify-content: flex-end;
+                  border-color: #36e888;
+                  border-width: 3px;
+                  border-radius: 20px;
+                  height: 250px;
+                  width: 250px;
+                  display: block;
+                  overflow: hidden;
+                "
               >
                 <img
                   src="../assets/img/poster.png"
-                  style="display:block; max-width:100%; min-width:100%;"
+                  style="display: block; max-width: 100%; min-width: 100%"
                 />
               </div>
             </div>
@@ -30,20 +39,22 @@
               <div class="section-title">
                 <h2>닉네임</h2>
               </div>
-              <h3>가락동겜돌이</h3>
+              <h3>{{ user.nickname }}</h3>
               <br />
               <div class="section-title">
-                <h2>이메일</h2>
+                <h2>아이디(이메일)</h2>
               </div>
-              <h3>steamworld@hello.world</h3>
+              <h3>{{ user.userid }}</h3>
               <div class="section-title">
                 <h2>스팀 아이디</h2>
               </div>
-              <h3>{{sid}}</h3>
+              <h3 v-if="user.steamid != '0'">{{ user.steamid }}</h3>
             </div>
           </div>
 
-          <b-button class="btn-lg" style="border-radius: 10rem" @click="getUrl()">스팀 연동하기</b-button>
+          <!-- <b-button v-if="user.steamid == '0'" class="btn-lg" style="border-radius: 10rem" @click="getUrl()"
+            >스팀 연동하기</b-button
+          > -->
 
           <form action="https://steamcommunity.com/openid/login" method="post">
             <input
@@ -56,27 +67,20 @@
               name="openid.claimed_id"
               value="http://specs.openid.net/auth/2.0/identifier_select"
             />
-            <input
-              type="hidden"
-              name="openid.ns"
-              value="http://specs.openid.net/auth/2.0"
-            />
+            <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
             <input type="hidden" name="openid.mode" value="checkid_setup" />
-            <input
-              type="hidden"
-              name="openid.realm"
-              value="http://localhost:8080"
-            />
-            <input
-              type="hidden"
-              name="openid.return_to"
-              value="http://localhost:8080/mypage"
-            />
-            <b-button type="submit btn-large" style="border-radius: 10rem"><img src="../assets/img/steam.svg" class="steamlogo"/>스팀 로그인</b-button>
+            <!-- <input type="hidden" name="openid.realm" value="http://localhost:8081" />
+            <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" /> -->
+            <!-- server side -->
+            <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
+            <input type="hidden" name="openid.return_to" value="http://j4a105.p.ssafy.io/mypage" />
+            <!-- <b-button v-if="user.steamid == '0' || !user.steamid" type="submit btn-large" style="border-radius: 10rem" -->
+            <b-button type="submit btn-large" style="border-radius: 10rem"
+              ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
+            >
           </form>
 
-
-          <div class="counts container">
+          <!-- <div class="counts container">
             <div class="row">
               <div class="col-lg-3 col-md-6">
                 <div class="count-box">
@@ -134,11 +138,11 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
-          <div style="background-color:none">
+          <div style="background-color: none">
             <b-card title="Card Title" no-body>
-              <b-card-header header-tag="nav" style="background-color:none">
+              <b-card-header header-tag="nav" style="background-color: none">
                 <b-nav card-header tabs>
                   <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
                   <b-nav-item
@@ -148,19 +152,14 @@
                     style=""
                     >프로필 상세</b-nav-item
                   >
-                  <b-nav-item
-                    @click.prevent="loadMyGame()"
-                    exact
-                    exact-active-class="active"
+                  <b-nav-item @click.prevent="loadMyGame()" exact exact-active-class="active"
                     >보유 게임</b-nav-item
                   >
-                  <b-nav-item @click.prevent="loadRecGame()"
-                    >추천 게임</b-nav-item
-                  >
+                  <b-nav-item @click.prevent="loadLikeGame()">관심 게임</b-nav-item>
                 </b-nav>
               </b-card-header>
 
-              <b-card-body justify-content style="background-color:none">
+              <b-card-body justify-content style="background-color: none">
                 <!-- Child route gets rendered in <router-view> or <nuxt-child> -->
                 <div id="mypage-contents">
                   <!-- <UpdateUser id="update" style="margin-top:0px;margin-left:0px" /> -->
@@ -173,266 +172,14 @@
             </b-card>
           </div>
 
-          <button @click="test('store.steampowered.com/app/1046930')">
+          <button @click.prevent="getItem()">
             <!--1046930-->
             와우버튼
           </button>
-
-          <!-- 임시로 해주는 구간 -->
-
-          <h3>Jena Karlis</h3>
-
-          <div class="testimonials container">
-            <div class="section-title">
-              <h2>Testimonials</h2>
-            </div>
-
-            <div
-              class="testimonials-slider swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div
-                class="swiper-wrapper"
-                id="swiper-wrapper-46d2a11b91e9d2b2"
-                aria-live="off"
-                style="transform: translate3d(-2000px, 0px, 0px); transition-duration: 600ms;"
-              >
-                <div
-                  class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next"
-                  role="group"
-                  aria-label="8 / 11"
-                  data-swiper-slide-index="4"
-                  style="width: 480px; margin-right: 20px;"
-                >
-                  <div class="testimonial-item">
-                    <p>
-                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                      Quis quorum aliqua sint quem legam fore sunt eram irure
-                      aliqua veniam tempor noster veniam enim culpa labore duis
-                      sunt culpa nulla illum cillum fugiat legam esse veniam
-                      culpa fore nisi cillum quid.
-                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
-                    <img
-                      src="assets/img/testimonials/testimonials-5.jpg"
-                      class="testimonial-img"
-                      alt=""
-                    />
-                    <h3>John Larson</h3>
-                    <h4>Entrepreneur</h4>
-                  </div>
-                </div>
-
-                <div
-                  class="swiper-slide"
-                  role="group"
-                  aria-label="4 / 11"
-                  data-swiper-slide-index="0"
-                  style="width: 480px; margin-right: 20px;"
-                >
-                  <div class="testimonial-item">
-                    <p>
-                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                      Proin iaculis purus consequat sem cure digni ssim donec
-                      porttitora entum suscipit rhoncus. Accusantium quam,
-                      ultricies eget id, aliquam eget nibh et. Maecen aliquam,
-                      risus at semper.
-                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
-                    <img
-                      src="assets/img/testimonials/testimonials-1.jpg"
-                      class="testimonial-img"
-                      alt=""
-                    />
-                    <h3>Saul Goodman</h3>
-                    <h4>Ceo &amp; Founder</h4>
-                  </div>
-                </div>
-                <!-- End testimonial item -->
-
-                <div
-                  class="swiper-slide"
-                  role="group"
-                  aria-label="5 / 11"
-                  data-swiper-slide-index="1"
-                  style="width: 480px; margin-right: 20px;"
-                >
-                  <div class="testimonial-item">
-                    <p>
-                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                      Export tempor illum tamen malis malis eram quae irure esse
-                      labore quem cillum quid cillum eram malis quorum velit
-                      fore eram velit sunt aliqua noster fugiat irure amet legam
-                      anim culpa.
-                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
-                    <img
-                      src="assets/img/testimonials/testimonials-2.jpg"
-                      class="testimonial-img"
-                      alt=""
-                    />
-                    <h3>Sara Wilsson</h3>
-                    <h4>Designer</h4>
-                  </div>
-                </div>
-                <!-- End testimonial item -->
-
-                <div
-                  class="swiper-slide swiper-slide-prev"
-                  role="group"
-                  aria-label="6 / 11"
-                  data-swiper-slide-index="2"
-                  style="width: 480px; margin-right: 20px;"
-                >
-                  <div class="testimonial-item">
-                    <p>
-                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                      Enim nisi quem export duis labore cillum quae magna enim
-                      sint quorum nulla quem veniam duis minim tempor labore
-                      quem eram duis noster aute amet eram fore quis sint minim.
-                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
-                    <img
-                      src="assets/img/testimonials/testimonials-3.jpg"
-                      class="testimonial-img"
-                      alt=""
-                    />
-                    <h3>Jena Karlis</h3>
-                    <h4>Store Owner</h4>
-                  </div>
-                </div>
-                <!-- End testimonial item -->
-
-                <div
-                  class="swiper-slide swiper-slide-active"
-                  role="group"
-                  aria-label="7 / 11"
-                  data-swiper-slide-index="3"
-                  style="width: 480px; margin-right: 20px;"
-                >
-                  <div class="testimonial-item">
-                    <p>
-                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                      Fugiat enim eram quae cillum dolore dolor amet nulla culpa
-                      multos export minim fugiat minim velit minim dolor enim
-                      duis veniam ipsum anim magna sunt elit fore quem dolore
-                      labore illum veniam.
-                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
-                    <img
-                      src="assets/img/testimonials/testimonials-4.jpg"
-                      class="testimonial-img"
-                      alt=""
-                    />
-                    <h3>Matt Brandon</h3>
-                    <h4>Freelancer</h4>
-                  </div>
-                </div>
-                <!-- End testimonial item -->
-
-                <div
-                  class="swiper-slide swiper-slide-next"
-                  role="group"
-                  aria-label="8 / 11"
-                  data-swiper-slide-index="4"
-                  style="width: 480px; margin-right: 20px;"
-                >
-                  <div class="testimonial-item">
-                    <p>
-                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                      Quis quorum aliqua sint quem legam fore sunt eram irure
-                      aliqua veniam tempor noster veniam enim culpa labore duis
-                      sunt culpa nulla illum cillum fugiat legam esse veniam
-                      culpa fore nisi cillum quid.
-                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
-                    <img
-                      src="assets/img/testimonials/testimonials-5.jpg"
-                      class="testimonial-img"
-                      alt=""
-                    />
-                    <h3>John Larson</h3>
-                    <h4>Entrepreneur</h4>
-                  </div>
-                </div>
-                <!-- End testimonial item -->
-
-                <div
-                  class="swiper-slide swiper-slide-duplicate"
-                  role="group"
-                  aria-label="4 / 11"
-                  data-swiper-slide-index="0"
-                  style="width: 480px; margin-right: 20px;"
-                >
-                  <div class="testimonial-item">
-                    <p>
-                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                      Proin iaculis purus consequat sem cure digni ssim donec
-                      porttitora entum suscipit rhoncus. Accusantium quam,
-                      ultricies eget id, aliquam eget nibh et. Maecen aliquam,
-                      risus at semper.
-                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                    </p>
-                    <img
-                      src="assets/img/testimonials/testimonials-1.jpg"
-                      class="testimonial-img"
-                      alt=""
-                    />
-                    <h3>Saul Goodman</h3>
-                    <h4>Ceo &amp; Founder</h4>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"
-              >
-                <span
-                  class="swiper-pagination-bullet"
-                  tabindex="0"
-                  role="button"
-                  aria-label="Go to slide 1"
-                ></span
-                ><span
-                  class="swiper-pagination-bullet"
-                  tabindex="0"
-                  role="button"
-                  aria-label="Go to slide 2"
-                ></span
-                ><span
-                  class="swiper-pagination-bullet"
-                  tabindex="0"
-                  role="button"
-                  aria-label="Go to slide 3"
-                ></span
-                ><span
-                  class="swiper-pagination-bullet swiper-pagination-bullet-active"
-                  tabindex="0"
-                  role="button"
-                  aria-label="Go to slide 4"
-                ></span
-                ><span
-                  class="swiper-pagination-bullet"
-                  tabindex="0"
-                  role="button"
-                  aria-label="Go to slide 5"
-                ></span>
-              </div>
-              <span
-                class="swiper-notification"
-                aria-live="assertive"
-                aria-atomic="true"
-              ></span>
-            </div>
-
-            <div class="owl-carousel testimonials-carousel"></div>
-          </div>
-
-          <!-- 임시로 해주는 구간 -->
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script src="../assets/js/crawl.js"></script>
@@ -440,7 +187,7 @@
 // axios를 활용해 AJAX로 HTML 문서를 가져오는 함수 구현
 async function getHTML() {
   try {
-    return await axios.get("https://chaewonkong.github.io");
+    return await axios.get('https://chaewonkong.github.io');
   } catch (error) {
     console.error(error);
   }
@@ -454,13 +201,13 @@ getHTML()
     let titleList = [];
     const $ = cheerio.load(html.data);
     // ul.list--posts를 찾고 그 children 노드를 bodyList에 저장
-    const bodyList = $("ul.list--posts").children("li.item--post");
+    const bodyList = $('ul.list--posts').children('li.item--post');
 
     // bodyList를 순회하며 titleList에 h2 > a의 내용을 저장
     bodyList.each(function(i, elem) {
       titleList[i] = {
         title: $(this)
-          .find("h2 a")
+          .find('h2 a')
           .text(),
       };
     });
@@ -469,36 +216,62 @@ getHTML()
   .then((res) => console.log(res)); // 저장된 결과를 출력
 </script>
 <script>
-import UpdateUser from "./myPage/UpdateUser";
-import MyGame from "./myPage/MyGame";
-import RecGame from "./myPage/RecGame";
+import UpdateUser from './myPage/UpdateUser';
+import MyGame from './myPage/MyGame';
+import LikeGame from './myPage/LikeGame';
+// import { SERVER_URL } from '../main';
+import { mapState } from 'vuex';
 
-const axios = require("axios");
-const cheerio = require("cheerio");
-
+const axios = require('axios');
+const cheerio = require('cheerio');
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const REC_SERVER_URL = process.env.VUE_APP_REC_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 export default {
   data() {
-    const axios = require("axios");
-    const cheerio = require("cheerio");
     return {
       user: {
-        email: "",
-        nickname: "",
-        picture: "",
-        region: "",
-        phone: "",
+        userid: '',
+        nickname: '',
+        steamid: '',
       },
-      sid: "",
+      sid: '',
       active: 0,
       slide: 0,
       sliding: null,
+      itemOut: {
+        itemid: 0,
+        userid: '',
+        appid: '',
+        playtime_forever: 0,
+        playtime_2weeks: 0,
+        isSteam: 0,
+      },
+      itemOutList: [],
     };
   },
-
   components: {
     MyGame,
-    RecGame,
+    LikeGame,
     UpdateUser,
+  },
+  computed: {
+    ...mapState(['loginStatus']),
+  },
+  async created() {
+    this.user.steamid = localStorage.getItem('steamid');
+    this.user.nickname = localStorage.getItem('nickname');
+    this.user.userid = localStorage.getItem('userid');
+    console.log('steamid: ', this.user.steamid);
+    if (!this.user.steamid || this.user.steamid == 0) {
+      await this.getUrl();
+      console.log('localstorage steamid : ', localStorage.getItem('steamid'));
+      this.user.steamid = await localStorage.getItem('steamid');
+    }
+  },
+  async mounted() {
+    console.log('mounted steamid : ', localStorage.getItem('steamid'));
+    this.user.steamid = localStorage.getItem('steamid');
   },
   methods: {
     onSlideStart(slide) {
@@ -507,21 +280,110 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
     },
-    getUrl() {
-      var link = document.location.href.split("&");
-      console.log(link[3]);
-      this.sid=link[3].slice(67,link[3].length);
-      
+    async getUrl() {
+      if (!localStorage.getItem('steamid') || localStorage.getItem('steamid') == '0') {
+        var link = document.location.href.split('&');
+        console.log(link[3]);
+        if (link[3]) {
+          this.user.steamid = link[3].slice(67, link[3].length);
+          localStorage.setItem('steamid', this.user.steamid);
+          console.log('this.user.steamid : ', this.user.steamid);
+          console.log('update steamid start');
+          await this.updateSteamid();
+          await this.getItem();
+          console.log(this.itemOutList);
+          // window.location.reload();
+        }
+      }
+      console.log('getUrl.steamid : ', localStorage.getItem('steamid'));
     },
+    getUserInfo() {
+      axios
+        .get(`${SERVER_URL}/user`, {
+          headers: {
+            'x-access-token': localStorage.getItem('token'),
+          },
+          params: {
+            userid: this.loginStatus.userid,
+          },
+        })
+        .then((res) => {
+          if (res.data.success == 'fail') {
+            alert('유저 정보를 불러오는데 실패 했습니다.');
+          } else {
+            this.user.userid = res.data.data.userid;
+            this.user.nickname = res.data.data.nickname;
+            this.user.steamid = res.data.data.steamid;
+          }
+        })
+        .catch((res) => {
+          alert('error : ' + res);
+        });
+    },
+    async updateSteamid() {
+      this.form = {
+        userid: this.user.userid,
+        steamid: this.user.steamid,
+      };
+      console.log("updateSteamid")
+      await axios
+        .post(`${SERVER_URL}/user/steam`, this.form, {
+          headers: {
+            'x-access-token': localStorage.getItem('token'),
+          },
+        })
+        .then((res) => {
+          if (res.data.success == 'fail') {
+            alert('steamid 연동에 실패했습니다.');
+          } else {
+            localStorage.setItem('steamid', this.form.steamid);
 
+          }
+        })
+        .catch((res) => {
+          alert('error : ' + res);
+        });
+    },
+    async getItem() {
+      await axios.get(`${REC_SERVER_URL}/steamid/` + this.user.steamid).then((res) => {
+        console.log("response", res);
+        // console.log("response", res.data.data.response);
+        for (var app of res.data.data) {
+          this.itemOutList.push({
+            itemid: 0,
+            userid: this.user.userid,
+            appid: app.appid,
+            playtime_forever: app.playtime_forever,
+            playtime_2weeks: app.playtime_2weeks,
+            issteam: '1',
+          });
+        }
+        console.log(this.itemOutList);
+      });
+      await this.additem();
+    },
+    async additem() {
+      // console.log('outList: ', this.itemOutList);
+      await axios
+        .post(`${SERVER_URL}/item/add`, this.itemOutList)
+        .then((res) => {
+          if (res.data.success == 'fail') {
+            alert('스팀에 게임이 없습니다.');
+          }
+        })
+        .catch((res) => {
+          alert('error : ', res);
+        });
+    },
+    async updateItem() {},
     componentLoading() {
       switch (this.active) {
         case 0:
-          return "UpdateUser";
+          return 'UpdateUser';
         case 1:
-          return "MyGame";
+          return 'MyGame';
         case 2:
-          return "RecGame";
+          return 'LikeGame';
       }
     },
 
@@ -531,37 +393,35 @@ export default {
     loadMyGame() {
       this.active = 1;
     },
-    loadRecGame() {
+    loadLikeGame() {
       this.active = 2;
     },
     getHTML(url) {
       var optionAxios = {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Content-Type, Authorization, Content-Length, X-Requested-With",
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
+          'Access-Control-Allow-Headers':
+            'Content-Type, Authorization, Content-Length, X-Requested-With',
         },
       };
       try {
-        console.log(
-          axios.get("https://cors-anywhere.herokuapp.com/" + url, optionAxios)
-        );
+        console.log(axios.get('https://cors-anywhere.herokuapp.com/' + url, optionAxios));
         return axios
-          .get("https://cors-anywhere.herokuapp.com/" + url, optionAxios)
+          .get('https://cors-anywhere.herokuapp.com/' + url, optionAxios)
           .then((html) => {
             let titleList = [];
             const $ = cheerio.load(html.data);
             // ul.list--posts를 찾고 그 children 노드를 bodyList에 저장
-            const bodyList = $("ul.list--posts").children("li.item--post");
+            const bodyList = $('ul.list--posts').children('li.item--post');
             console.log(bodyList);
 
             // bodyList를 순회하며 titleList에 h2 > a의 내용을 저장
             bodyList.each(function(i, elem) {
               titleList[i] = {
                 title: $(this)
-                  .find("h2 a")
+                  .find('h2 a')
                   .text(),
               };
             });
@@ -575,29 +435,29 @@ export default {
     test(url) {
       var optionAxios = {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
-          "Access-Control-Allow-Headers":
-            "Content-Type, Authorization, Content-Length, X-Requested-With",
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
+          'Access-Control-Allow-Headers':
+            'Content-Type, Authorization, Content-Length, X-Requested-With',
         },
       };
       axios
-        .get("https://cors-anywhere.herokuapp.com/" + url, optionAxios)
+        .get('https://cors-anywhere.herokuapp.com/' + url, optionAxios)
         .then((response) => {
           var htmlText = response.data;
 
           let titleList = [];
           const $ = cheerio.load(htmlText);
 
-          const bodyList = $("div.game_description_snippet");
-          console.log("1" + bodyList);
+          const bodyList = $('div.game_description_snippet');
+          console.log('1' + bodyList);
 
           // bodyList를 순회하며 titleList에 h2 > a의 내용을 저장
           bodyList.each(function(i, elem) {
             titleList[i] = {
               title: $(this)
-                .find("div")
+                .find('div')
                 .text(),
             };
           });
@@ -621,7 +481,7 @@ export default {
 .typing-txt::after {
   position: absolute;
   display: block;
-  content: "";
+  content: '';
   width: 5px;
   height: 30px;
   top: 5px;
@@ -735,5 +595,13 @@ h2.section-title {
 
 div.profile-container {
   background-color: rgba(255, 255, 255, 0.08);
+}
+
+.section-show {
+  margin-top: 40px;
+}
+
+.section-title {
+  margin-top: 20px;
 }
 </style>

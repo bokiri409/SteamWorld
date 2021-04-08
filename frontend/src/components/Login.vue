@@ -104,6 +104,11 @@
 </template>
 
 <script>
+
+
+const axios = require('axios');
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+// const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 export default {
   created() {},
   computed: {
@@ -161,16 +166,36 @@ export default {
       return re.test(email);
     },
     login: function() {
-      this.$store
-        .dispatch('login', this.user)
-        .then(() =>
-          this.$router.push({
-            path: '/',
-          })
-        )
-        .catch((error) => {
-          console.log(error);
-        });
+      // this.$store
+      //   .dispatch('login', this.user)
+      //   .then(() =>
+      //     this.$router.replace({
+      //       path: '/',
+      //     })
+      //   )
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      axios.post(`${SERVER_URL}/user/login`, this.user)
+                .then(res => {
+                    console.log(SERVER_URL);
+                    if(res.data.success == 'success'){
+                      localStorage.setItem('token', res.data['x-access-token']);
+                      localStorage.setItem('userid', res.data.data.userid);
+                      localStorage.setItem('nickname', res.data.data.nickname);
+                      localStorage.setItem('steamid', res.data.data.steamid);
+
+                      window.location.reload();
+                      this.$router.replace(`/`);
+                      window.location.reload();
+                    }
+                    else{
+                      alert('ID 또는 비밀번호를 확인해주세요')
+                      this.user.password = ''
+                    }
+                    
+                })
+        
     },
   },
 };

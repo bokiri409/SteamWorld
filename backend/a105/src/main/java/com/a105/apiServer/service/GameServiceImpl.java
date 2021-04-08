@@ -11,6 +11,7 @@ import com.a105.apiServer.dto.GameInfoDto;
 import com.a105.apiServer.dto.GameLinksDto;
 import com.a105.apiServer.dto.GameTagsDto;
 import com.a105.apiServer.dto.GamesDto;
+import com.a105.apiServer.dto.SizeDto;
 
 @Service
 public class GameServiceImpl implements GameService{
@@ -19,9 +20,9 @@ public class GameServiceImpl implements GameService{
 	GameDao gameDao;
 	
 	@Override
-	public List<GamesDto> gameList() throws Exception {
+	public List<GamesDto> gameList(SizeDto size) throws Exception {
 		// TODO Auto-generated method stub
-		return gameDao.getGameList();
+		return gameDao.getGameList(size);
 	}
 
 	@Override
@@ -30,10 +31,16 @@ public class GameServiceImpl implements GameService{
 		return gameDao.getGame(appid);
 	}
 
+
 	@Override
-	public List<GameTagsDto> gameTagAll() throws Exception {
+	public List<GamesDto> searchName(String word) throws Exception{
+		return gameDao.searchName(word);
+	}
+	
+	@Override
+	public List<GameTagsDto> gameTagAll(SizeDto size) throws Exception {
 		// TODO Auto-generated method stub
-		return gameDao.getGameTagAll();
+		return gameDao.getGameTagAll(size);
 	}
 
 	@Override
@@ -49,9 +56,9 @@ public class GameServiceImpl implements GameService{
 	}
 
 	@Override
-	public List<GameLinksDto> gameLinkAll() throws Exception {
+	public List<GameLinksDto> gameLinkAll(SizeDto size) throws Exception {
 		// TODO Auto-generated method stub
-		return gameDao.getGameLinkAll();
+		return gameDao.getGameLinkAll(size);
 	}
 
 	@Override
@@ -68,9 +75,9 @@ public class GameServiceImpl implements GameService{
 
 	@Override
 	public List<GameInfoDto> gameInfoList() throws Exception {
-		List<GamesDto> games = gameDao.getGameList();
-		List<GameTagsDto> tags = gameDao.getGameTagAll();
-		List<GameLinksDto> links = gameDao.getGameLinkAll();
+		List<GamesDto> games = gameDao.getGameList(new SizeDto(0, 1000));
+		List<GameTagsDto> tags = gameDao.getGameTagAll(new SizeDto(0, 10000));
+		List<GameLinksDto> links = gameDao.getGameLinkAll(new SizeDto(0, 10000));
 		
 		List<GameInfoDto> infos = new ArrayList<GameInfoDto>();
 		for(GamesDto g : games) {
@@ -109,8 +116,8 @@ public class GameServiceImpl implements GameService{
 		info.setAppid(aid);
 		info.setGame(g);
 		
-		List<GameTagsDto> tags = gameDao.getGameTagAll();
-		List<GameLinksDto> links = gameDao.getGameLinkAll();
+		List<GameTagsDto> tags = gameDao.getGameTagAll(new SizeDto(0, 200000));
+		List<GameLinksDto> links = gameDao.getGameLinkAll(new SizeDto(0, 300000));
 		
 		List<GameTagsDto> gts = new ArrayList<GameTagsDto>();
 		List<GameLinksDto> gls = new ArrayList<GameLinksDto>();
@@ -133,9 +140,9 @@ public class GameServiceImpl implements GameService{
 	}
 
 	@Override
-	public List<GamesDto> popularList(String size) throws Exception {
+	public List<GamesDto> popularList(SizeDto size) throws Exception {
 		// TODO Auto-generated method stub
-		return gameDao.getGamePopular(Integer.parseInt(size));
+		return gameDao.getGamePopular(size);
 	}
 
 }

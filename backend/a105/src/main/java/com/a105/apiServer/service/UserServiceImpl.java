@@ -67,30 +67,19 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int modify(Map map) throws Exception {
-		String securePw = matchPassword((String) map.get("userid"),(String) map.get("password"));
-		if(securePw != null) {
-			map.put("password", securePw);
-			return userDao.updateUser(map);
-		}
-		else {
-			return -1;
-		}		
+	public int modify(UserDto user) throws Exception {
+		
+		return userDao.updateUser(user);
+		
 	}	
 	
 	@Override
 	public int modifyPassword(Map map) throws Exception {
-		// TODO Auto-generated method stub
-		String securePw = matchPassword((String) map.get("userid"),(String) map.get("password"));
-		if(securePw != null) {
-			map.put("password", securePw);
+		
 			String secureNewPw = passwordEncoder.encode((String) map.get("newpassword"));
 			map.put("newpassword", secureNewPw);
 			return userDao.updatePassword(map);
-		}
-		else {
-			return -1;
-		}
+		
 	}
 
 	@Override

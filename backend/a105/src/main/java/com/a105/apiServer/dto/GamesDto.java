@@ -14,4 +14,7 @@ public class GamesDto {
 	private int vote;
 	private String storelink;
 	private String imgsrc;
+	private String shortDes;
+	private String dev;
+	private String fullDes;
 }

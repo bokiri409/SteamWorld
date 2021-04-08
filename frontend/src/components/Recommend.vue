@@ -1,601 +1,230 @@
 <template>
-  <section class="section-show">
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div
-        class="col-md-10 box"
-        style="padding-left:50px; background-color:#000000cc;"
-      >
-        <div class="section-title">
-          <h2>Portfolio</h2>
-          <p>게임 추천</p>
-        </div>
-
-        <div>
-          <b-card
-            no-body
-            style="max-width: 20rem; background-color:black; border-width:1px; border-color:white"
-            img-src="https://placekitten.com/380/200"
-            img-alt="Image"
-            img-top
-          >
-            <template #header>
-              <h4 class="mb-0">Hello World</h4>
-            </template>
-
-            <b-card-body>
-              <b-card-title>Card Title</b-card-title>
-              <b-card-sub-title class="mb-2">Card Sub Title</b-card-sub-title>
-              <b-card-text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </b-card-text>
-            </b-card-body>
-
-            <b-card-body>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </b-card-body>
-
-            <b-card-footer>This is a footer</b-card-footer>
-
-            <b-card-img
-              src="https://placekitten.com/480/210"
-              alt="Image"
-              bottom
-            ></b-card-img>
-          </b-card>
-        </div>
-
-        <div>
-          <b-button v-b-modal.modal-1>Launch demo modal</b-button>
-        </div>
-
-        <div class="row portfolio-container" style="width:100%">
-          <!--477160-->
-
-          <b-card-group deck>
-            <b-card
-              v-b-modal.modal-1
-              bg-variant="dark"
-              text-variant="white"
-              class="col-lg-4 col-md-6 text-center"
-            >
-              <img
-                src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                class="img-fluid"
-              />
-              <!-- <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>-->
-              <div class="portfolio-info">
-                <h4>Human Fall Flat</h4>
-                <p>경쟁, 파티, 멀티플레이!!</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-1.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="App 1"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-
-              <b-modal
-                modal-tall
-                id="modal-1"
-                size="xl"
-                title="Extra Large Modal"
-              >
-                <h1>게임 상세보기</h1>
-                <div class="row">
-                  <div class="col-md-8">
-                    <img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                      class="img-fluid"
-                      style="width:100%"
-                    />
-                  </div>
-                  <div class="col-md-4">
-                    <h1>휴먼 폴 플랫</h1>
-                    <h2>dddd 파티플레이 경쟁</h2>
-                  </div>
-
-                  <div class="interests container">
-                    <div class="section-title">
-                      <h2>Interests</h2>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4">
-                        <div class="icon-box">
-                          <i class="ri-store-line" style="color: #ffbb2c;"></i>
-                          <h3>Lorem Ipsum</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-                        <div class="icon-box">
-                          <i
-                            class="ri-bar-chart-box-line"
-                            style="color: #5578ff;"
-                          ></i>
-                          <h3>Dolor Sitema</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
-                        <div class="icon-box">
-                          <i
-                            class="ri-calendar-todo-line"
-                            style="color: #e80368;"
-                          ></i>
-                          <h3>Sed perspiciatis</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
-                        <div class="icon-box">
-                          <i
-                            class="ri-paint-brush-line"
-                            style="color: #e361ff;"
-                          ></i>
-                          <h3>Magni Dolores</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-database-2-line"
-                            style="color: #47aeff;"
-                          ></i>
-                          <h3>Nemo Enim</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-gradienter-line"
-                            style="color: #ffa76e;"
-                          ></i>
-                          <h3>Eiusmod Tempor</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-file-list-3-line"
-                            style="color: #11dbcf;"
-                          ></i>
-                          <h3>Midela Teren</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-price-tag-2-line"
-                            style="color: #4233ff;"
-                          ></i>
-                          <h3>Pira Neve</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i class="ri-anchor-line" style="color: #b2904f;"></i>
-                          <h3>Dirada Pack</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i class="ri-disc-line" style="color: #b20969;"></i>
-                          <h3>Moton Ideal</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="bi-base-station-line"
-                            style="color: #ff5828;"
-                          ></i>
-                          <h3>Verdo Park</h3>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 col-md-4 mt-4">
-                        <div class="icon-box">
-                          <i
-                            class="ri-fingerprint-line"
-                            style="color: #29cc61;"
-                          ></i>
-                          <h3>Flavor Nivelanda</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="game_area_description" class="game_area_description">
-                    <h2>게임에 대해</h2>
-                    <img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/About_This_Game_1.gif?t=1617013849"
-                    /><br /><br />Fall Guys: Ultimate Knockout는 한 명의 승자가
-                    나올 때까지 혼란스러운 라운드를 이어가는 정신 나간 60인
-                    멀티플레이 파티 게임입니다. 기괴한 장애물과 싸우고, 무자비한
-                    경쟁자를 쓰러뜨리고, 대단한 물리 엔진을 극복하세요. 품위는
-                    내던지고 승자의 왕관을 위해 우스꽝스러운 실패에
-                    대비하세요!<br /><br /><br /><img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/Massive_Online_Pandemonium_1.gif?t=1617013849"
-                    /><br />거대한 온라인 수라장: 다른 온라인 경쟁자들과 함께
-                    우스꽝스러운 도전과 거친 장애물 코스에 빠져보세요.<br /><br /><br /><br /><img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/Competitive_Coopertative_1.gif?t=1617013849"
-                    /><br />경쟁 &amp; 협력: 패배하는 팀이 모두 제거되는
-                    경쟁적인 도전과 난투전 사이를 오고 가세요!!<br /><br /><br /><br /><img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/Comically_Physical.gif?t=1617013849"
-                    /><br />웃긴 물리 엔진: 경쟁자들이 우스꽝스러운 모습으로
-                    실패하고, 튀고, 부딪히는 걸 즐겁게 지켜보세요!<br /><br /><br /><br /><img
-                      src="https://cdn.cloudflare.steamstatic.com/steam/apps/1097150/extras/Delightfully_Customizable.gif?t=1617013849"
-                    /><br />유쾌한 커스터마이징: 세련된 파인애플 쿠튀르부터 최신
-                    토끼모자까지. Fall Guys에는 다양한 디자인을 커스터마이징할
-                    수 있습니다.
-                  </div>
-                </div>
-              </b-modal>
-            </b-card>
-
-            <b-card
-              bg-variant="dark"
-              text-variant="white"
-              class="col-lg-4 col-md-6 text-center"
-            >
-              <div v-b-modal.modal-1>
-                <img
-                  src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                  class="img-fluid"
-                />
-                <!-- <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>-->
-                <div class="portfolio-info">
-                  <h4>Human Fall Flat</h4>
-                  <p>경쟁, 파티, 멀티플레이</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-1.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      data-gallery="portfolioDetailsGallery"
-                      data-glightbox="type: external"
-                      class="portfolio-details-lightbox"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </b-card>
-
-            <b-card
-              bg-variant="dark"
-              text-variant="white"
-              class="col-lg-4 col-md-6 text-center"
-            >
-              <div v-b-modal.modal-1>
-                <img
-                  src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                  class="img-fluid"
-                />
-                <!-- <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>-->
-                <div class="portfolio-info">
-                  <h4>Human Fall Flat</h4>
-                  <p>경쟁, 파티, 멀티플레이</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-1.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                    <a
-                      href="portfolio-details.html"
-                      data-gallery="portfolioDetailsGallery"
-                      data-glightbox="type: external"
-                      class="portfolio-details-lightbox"
-                      title="Portfolio Details"
-                      ><i class="bx bx-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </b-card>
-
-            <b-card
-              bg-variant="dark"
-              text-variant="white"
-              class="col-lg-4 col-md-6 text-center"
-            >
-              <div v-b-modal.modal-1>
-                <img
-                  src="https://cdn.cloudflare.steamstatic.com/steam/apps/477160/header.jpg"
-                  class="img-fluid"
-                />
-                <!-- <video src="https://cdn.cloudflare.steamstatic.com/steam/apps/256821808/movie480_vp9.webm?t=1613037587" controls class="img-fluid" alt=""></video>-->
-                <div class="portfolio-info">
-                  <h4>Human Fall Flat</h4>
-                  <p>경쟁, 파티, 멀티플레이</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="assets/img/portfolio/portfolio-1.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bx bx-plus"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </b-card>
-          </b-card-group>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="../assets/img/portfolio/portfolio-2.jpg" alt="" />
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-2.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Web 3"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-3.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>App 2</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-3.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="App 2"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-4.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Card 2</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-4.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Card 2"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-5.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Web 2</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-5.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Web 2"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-6.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>App 3</h4>
-                <p>App</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-6.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="App 3"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-7.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Card 1</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-7.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Card 1"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-8.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Card 3</h4>
-                <p>Card</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-8.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Card 3"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img
-                src="../assets/img/portfolio/portfolio-9.jpg"
-                class="img-fluid"
-                alt=""
-              />
-              <div class="portfolio-info">
-                <h4>Web 3</h4>
-                <p>Web</p>
-                <div class="portfolio-links">
-                  <a
-                    href="assets/img/portfolio/portfolio-9.jpg"
-                    data-gallery="portfolioGallery"
-                    class="portfolio-lightbox"
-                    title="Web 3"
-                    ><i class="bx bx-plus"></i
-                  ></a>
-                  <a
-                    href="portfolio-details.html"
-                    data-gallery="portfolioDetailsGallery"
-                    data-glightbox="type: external"
-                    class="portfolio-details-lightbox"
-                    title="Portfolio Details"
-                    ><i class="bx bx-link"></i
-                  ></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="section-show" style="margin-bottom:100px;">
+    <div class="container" style="background-color:#00000077; margin-bottom:50px;">
+      <div class="section-title">
+        <h2>Game For You</h2>
+        <p>게임 추천</p>
       </div>
     </div>
-  </section>
-</template>
-<script>
-export default {
-  components: {},
+    <div class="container">
+      <div style="background-color: none">
+        <b-card title="Card Title" no-body>
+          <b-card-header header-tag="nav" style="background-color: none">
+            <b-nav card-header tabs>
+              <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
+              <b-nav-item @click.prevent="loadPopular()" exact exact-active-class="active" style=""
+                >인기 게임</b-nav-item
+              >
+              <b-nav-item @click.prevent="loadRecommendGame()" exact exact-active-class="active"
+                >게임 추천</b-nav-item
+              >
+              <b-nav-item @click.prevent="loadSearchGame()" exact exact-active-class="active"
+                >게임 검색</b-nav-item
+              >
+              <!-- <b-nav-item @click.prevent="loadLikeGame()">관심 게임</b-nav-item> -->
+            </b-nav>
+          </b-card-header>
+          <div v-if="this.active==2">
+          <div style="margin-top: 30px margin-bottom:30px ">
+            <h3>스팀 게임 검색하기</h3>
+            <div class="form-group">
+              <input
+                type="search"
+                class="form-control form-control-lg"
+                v-model="searchname"
+                id="searchname"
+                placeholder="게임 검색"
+                @keyup.13="searchData()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col-md-4"
+              v-for="games in this.searchshowdata"
+              :key="games.title"
+              style="margin-bottom: 20px"
+            >
+              <b-card
+                v-if="games.title != ''"
+                :title="games.title"
+                :img-src="games.thumnail"
+                img-alt="Image"
+                img-top
+                tag="article"
+                style="width: 100%; text-align:center; background-image: url('../../src/assets/img/gameboy.png'); background-color:#00000077; height: 100%"
+                @click="goDetail(games.appid)"
+              >
+              </b-card>
+            </div>
+          </div>
+          </div>
+          <div style="text-align: center;ppading-top:300px" >
+            <a href="javascript:void(0)" @click="changeShow(false)" v-show="firstpage == false">
+              <i class="bi bi-chevron-double-left"></i>
+            </a>
+            <a href="javascript:void(0)" @click="changeShow(true)" v-show="resultleft == true">
+              <i class="bi bi-chevron-double-right"></i>
+            </a>
+          </div>
 
-  mounted() {
-    console.log('Component mounted.');
+          <b-card-body justify-content style="background-color: none">
+            <div id="recommend-contents">
+              <component :is="componentLoading()"></component>
+            </div>
+          </b-card-body>
+        </b-card>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Popular from './recommend/Popular';
+import RecommendGame from './recommend/RecommendGame';
+
+import axios from 'axios';
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+
+export default {
+  data() {
+    return {
+      user: {
+        token: '',
+        nickname: '',
+        steamid: '',
+        userid: '',
+      },
+      active: 0,
+      like: '',
+      token: '',
+      searchname: '',
+      searchtotaldata: [{ appid: ' ', title: '', thumnail: '' }],
+      searchshowdata: [{ appid: ' ', title: '', thumnail: '' }],
+      startindex: 0,
+      endindex: 0,
+      resultleft: false,
+      firstpage: true,
+    };
+  },
+  components: {
+    Popular,
+    RecommendGame,
+  },
+  created() {
+    if (localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token');
+      this.nickname = localStorage.getItem('nickname');
+      this.steamid = localStorage.getItem('steamid');
+      this.userid = localStorage.getItem('userid');
+    }
+  },
+  mounted() {},
+  methods: {
+    componentLoading() {
+      switch (this.active) {
+        case 0:
+          return 'Popular';
+        case 1:
+          return 'RecommendGame';
+        // case 2:
+        //   return 'LikeGame';
+      }
+    },
+    loadPopular() {
+      this.active = 0;
+    },
+    loadRecommendGame() {
+      this.active = 1;
+    },
+    loadSearchGame() {
+      this.active = 2;
+    },
+    searchData: function() {
+      if (this.searchname.length < 2) {
+        alert('최소 2글자 이상 검색이 가능합니다.');
+        return;
+      }
+      this.startindex = 0;
+      this.endindex = 0;
+      this.firstpage = true;
+      this.resultleft = false;
+      axios
+        .get(`${SERVER_URL}/game/search/name?word=` + this.searchname)
+        .then((res) => {
+          this.searchtotaldata = res.data.data;
+          this.searchshowdata = '';
+          if (this.searchtotaldata.length == 0) {
+            alert('검색 결과가 없습니다.');
+          } else {
+            if (this.searchtotaldata.length >= this.startindex + 9) {
+              this.endindex += 9;
+              this.resultleft = true;
+            } else this.endindex = this.searchtotaldata.length;
+
+            for (var i = 0; i < this.endindex; i++) {
+              this.searchshowdata = [
+                ...this.searchshowdata,
+                ...[
+                  {
+                    appid: this.searchtotaldata[i].appid,
+                    title: this.searchtotaldata[i].name,
+                    thumnail: this.searchtotaldata[i].imgsrc,
+                  },
+                ],
+              ];
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    changeShow: function(flag) {
+      this.searchshowdata = [];
+      if (flag) {
+        if (this.searchtotaldata.length > this.endindex + 9) {
+          this.endindex += 9;
+          this.startindex += 9;
+          this.resultleft = true;
+        } else {
+          this.startindex += 9;
+          this.endindex = this.searchtotaldata.length;
+          this.resultleft = false;
+        }
+        this.firstpage = false;
+      } else {
+        if (this.endindex == this.searchtotaldata.length) {
+          var temp = this.searchtotaldata.length;
+          if (temp == 0) temp = 9;
+          this.endindex = this.startindex;
+          this.startindex -= 9;
+        } else {
+          if (this.startindex - 9 >= 0) {
+            this.endindex = this.startindex;
+            this.startindex -= 9;
+            if (this.startindex == 0) this.firstpage = true;
+          }
+        }
+        this.resultleft = true;
+      }
+      for (var i = this.startindex; i < this.endindex; i++) {
+        this.searchshowdata = [
+          ...this.searchshowdata,
+          ...[
+            {
+              appid: this.searchtotaldata[i].appid,
+              title: this.searchtotaldata[i].name,
+              thumnail: this.searchtotaldata[i].imgsrc,
+            },
+          ],
+        ];
+      }
+    },
+    goDetail: function(appid) {
+      console.log(appid);
+      this.$router.push({ path: '/detail', query: { appId: appid } });
+    },
   },
 };
 </script>
@@ -605,12 +234,12 @@ export default {
 .card-body {
   padding: 0px;
 }
-card {
+/* card {
   margin-left: 20px;
   margin-right: 20px;
   border-bottom-color: red;
   background-color: #000000;
-}
+} */
 
 .modal-content h1 {
   color: #000000;
@@ -618,5 +247,100 @@ card {
 
 .modal-content h2 {
   color: #000000;
+}
+.profile_wrapper {
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin: 0 15px 0 36px;
+  position: relative;
+}
+.gradation_animate {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: url(https://k.kakaocdn.net/dn/BQFZF/btqzu7xZvy9/p3qATq2IbK4edXbUm76pTK/img.png)
+    no-repeat;
+  /*  background: url("../assets/img/colorGra.png") no-repeat; */
+  animation: spin 1s linear infinite;
+}
+.image_wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+}
+.image {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  right: -100%;
+  bottom: -100%;
+  margin: auto;
+  height: 92px;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+nav.card-header {
+  background-color: none;
+}
+
+a.nav-link {
+  color: rgba(255, 255, 255, 0.945);
+  border-color: none;
+  border-width: 3px;
+  border-bottom: none;
+  border-radius: 12px 12px 0px 0px;
+  background-color: rgba(88, 88, 88, 0.678);
+}
+
+a.nav-link:hover {
+  color: white;
+  border-color: white;
+  border-width: 3px;
+  border-bottom: none;
+  border-radius: 12px 12px 0px 0px;
+}
+
+a.nav-link:focus {
+  color: #35e888;
+  border-color: #35e888;
+  border-width: 3px;
+  border-bottom: none;
+  border-radius: 12px 12px 0px 0px;
+}
+
+div.card {
+  background-color: #00000000;
+}
+
+div.card-body {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-width: 15px;
+  border-color: #35e888;
+}
+
+h2.section-title {
+  line-height: 0px;
+  margin: 0 0 10px 0;
+}
+
+div.profile-container {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.section-show {
+  margin-top: 40px;
+}
+
+.section-title {
+  margin-top: 20px;
 }
 </style>

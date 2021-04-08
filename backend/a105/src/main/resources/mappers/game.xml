@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.a105.apiServer.dao.GameDao">
-	<select id="getGameList" resultType="GamesDto">
+	<select id="getGameList" parameterType="SizeDto" resultType="GamesDto">
 		select * from a105.games
+		limit #{start}, #{size}
 	</select>
 	
-	<select id="getGamePopular" parameterType="int" resultType="GamesDto">
+	<select id="getGamePopular" parameterType="SizeDto" resultType="GamesDto">
 		select * from a105.games
-		where vote > 20000
-		order by score DESC
-		limit #{size}
+		order by vote DESC
+		limit #{start}, #{size}
 	</select>
 	
 	<select id="getGame" parameterType="String" resultType="GamesDto">
@@ -18,8 +18,14 @@
 		where appid = #{appid}
 	</select>
 	
-	<select id="getGameTagAll" resultType="GameTagsDto">
+	<select id="searchName" parameterType="String" resultType="GamesDto">
+		select * from a105.games
+		where name like CONCAT('%', #{word}, "%")
+	</select>
+	
+	<select id="getGameTagAll" parameterType="SizeDto" resultType="GameTagsDto">
 		select * from a105.gametags
+		limit #{start}, #{size}
 	</select>
 	
 	<select id="getGameTagList" parameterType="String" resultType="GameTagsDto">
@@ -32,8 +38,9 @@
 		where gametagid = #{gametagid}
 	</select>
 	
-	<select id="getGameLinkAll" resultType="GameLinksDto">
+	<select id="getGameLinkAll" parameterType="SizeDto" resultType="GameLinksDto">
 		select * from a105.gamelinks
+		limit #{start}, #{size}
 	</select>
 	
 	<select id="getGameLinkList" parameterType="String" resultType="GameLinksDto">

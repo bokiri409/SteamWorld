@@ -93,6 +93,7 @@ public class UserController {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {
+			userid = userid.replace("%40", "@");
 			UserDto member = userService.info(userid);
 			if (member != null) {
 				result.put("success", "success");
@@ -116,7 +117,7 @@ public class UserController {
 	}
 	
 	@PutMapping(value = "")
-	private ResponseEntity update(@RequestBody Map user) {
+	private ResponseEntity update(@RequestBody UserDto user) {
 		ResponseEntity entity = null;
 		Map result = new HashMap();
 		try {

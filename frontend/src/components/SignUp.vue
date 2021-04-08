@@ -52,7 +52,26 @@
             placeholder="비밀번호를 한 번 더 입력하세요"
           />
         </div>
-
+        <div class="form-group">
+        <label :hidden="flag == false">인증 코드 (Verification code)</label>
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            v-model="code"
+            id="code"
+            placeholder="이메일 인증 코드를 입력하세요"
+            :hidden="flag == false"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-dark btn-lg btn-block"
+          style="margin-bottom:30px"
+          @click="emailConfirm()"
+          :hidden="flag == false"
+        >
+        이메일 인증
+        </button>
         <button
           type="submit"
           class="btn btn-dark btn-lg btn-block"
@@ -74,6 +93,9 @@
 <script>
 import axios from 'axios';
 import { api_url } from '../main.js';
+// import { SERVER_URL, LOCALHOST_URL } from '../main.js';
+const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const LOCALHOST_URL = process.env.VUE_APP_LOCALHOST_URL;
 
 export default {
   data() {
@@ -84,6 +106,8 @@ export default {
         password: '',
       },
       passwordCheck: '',
+      code: '',
+      flag: false,
     };
   },
   methods: {
@@ -130,22 +154,21 @@ export default {
     },
     checkid: function() {
       axios
-        .post(api_url + `/a105/user/checkid`, this.user)
+        //.post(api_url + `/a105/user/checkid`, this.user)
+        .post(`${SERVER_URL}/user/checkid`, this.user)
         .then((res) => {
           if (res.data.success == 'success') {
             axios
-              .post(api_url + `/a105/mail/*`, '"' + this.user.userid + '"')
+              // .post(api_url + `/a105/mail/*`, '"' + this.user.userid + '"')
+              .post(`${SERVER_URL}/mail/*`, '"' + this.user.userid + '"')
               .then(() => {
-                var code = prompt(
-                  '입력하신 메일로 인증코드가 발송되었습니다. 인증코드를 입력해주세요.'
-                );
-                this.emailConfirm(code);
+                alert('입력하신 메일로 인증코드가 발송되었습니다. 인증코드를 입력해주세요.');
+                this.flag = true;
               })
               .catch((err) => {
                 console.dir(err);
               });
           } else {
-            console.log('이미 있는 아이디');
             alert('이미 등록된 아이디입니다!');
           }
         })
@@ -153,8 +176,9 @@ export default {
           console.dir(error);
         });
     },
-    emailConfirm: function(code) {
-      axios.post(api_url + `/a105/mail/verify`, code).then((res) => {
+    emailConfirm: function() {
+      // axios.post(api_url + `/a105/mail/verify`, code).then((res) => {
+      axios.post(`${SERVER_URL}/mail/verify`, this.code).then((res) => {
         if (res.data.success == 'success') {
           this.signUp();
         } else {
@@ -164,7 +188,8 @@ export default {
     },
     signUp: function() {
       axios
-        .post(api_url + `/a105/user/join`, this.user)
+        // .post(api_url + `/a105/user/join`, this.user)
+        .post(`${SERVER_URL}/user/join`, this.user)
         .then((res) => {
           if (res.data.success == 'success') {
             alert(

@@ -1,5 +1,6 @@
 package com.a105.apiServer.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,32 +18,38 @@ public class ItemServiceImpl implements ItemService{
 	ItemDao itemDao;
 	
 	@Override
-	public List<ItemDto> itemList(Map map) throws Exception {
+	public List<ItemDto> itemList(String userid, String issteam) throws Exception {
 		// TODO Auto-generated method stub
-		return itemDao.getItemList(map);
+		System.out.println(userid + issteam);
+		System.out.println(itemDao.getItemList(userid, issteam));
+		return itemDao.getItemList(userid, issteam);
 	}
 
 	@Override
-	public ItemDto itemSearch(Map map) throws Exception {
+	public ItemDto itemSearch(String userid, String appid) throws Exception {
 		// TODO Auto-generated method stub
-		return itemDao.getItem(map);
+		return itemDao.getItem(userid, appid);
 	}
 
 	@Override
 	public int itemAdd(List<ItemDto> list) throws Exception {
 		// TODO Auto-generated method stub
-		int flag = 1;
 		if(list == null) {
-			return 2;
+			return -1;
 		}
+
+		Map map = new HashMap();
+		String userid = list.get(0).getUserid();
+		map.put("userid", userid);
 		for(ItemDto item : list) {
-			flag = itemDao.addItem(item);
-			if(flag == 0) {
-				break;
+			map.put("appid", item.getAppid());
+			if(itemDao.getItem(userid, Integer.toString(item.getAppid())) != null) {
+				itemDao.deleteItem(map);
 			}
+			itemDao.addItem(item);
 		}
 		
-		return flag;
+		return 1;
 	}
 
 	@Override

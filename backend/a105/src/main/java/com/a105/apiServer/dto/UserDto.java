@@ -7,6 +7,6 @@ public class UserDto {
 	private String userid;
 	private String password;
 	private String nickname;
-	private int steamid;
+	private String steamid;
 	
 }
