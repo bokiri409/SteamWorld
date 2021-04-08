@@ -14,21 +14,11 @@
           <br />
 
           <div class="profile-row row">
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
+            <div></div>
+            <div class="col-md-6">
               <div
-                style="
-                  display: flex;
-                  justify-content: flex-end;
-                  border-color: #36e888;
-                  border-width: 3px;
-                  border-radius: 20px;
-                  height: 250px;
-                  width: 250px;
-                  display: block;
-                  overflow: hidden;
-                "
               >
+              <h5>스팀 프로필, 게임 세부 정부 공개 후 스팀 로그인을 해주세요!</h5>
                 <img
                   src="../assets/img/poster.png"
                   style="display: block; max-width: 100%; min-width: 100%"
@@ -40,7 +30,6 @@
                 <h2>닉네임</h2>
               </div>
               <h3>{{ user.nickname }}</h3>
-              <br />
               <div class="section-title">
                 <h2>아이디(이메일)</h2>
               </div>
