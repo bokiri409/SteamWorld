@@ -29,6 +29,7 @@
     "swiper": "^6.5.3",
     "vue": "^2.6.11",
     "vue-bootstrap-slider": "^2.1.8",
+    "vue-loading-overlay": "^3.4.2",
     "vue-router": "^3.5.1",
     "vue-simple-accordion": "^0.1.0",
     "vue-typer": "^1.2.0",

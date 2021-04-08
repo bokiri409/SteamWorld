@@ -3,7 +3,11 @@
     <h1>당신의 게임 유형은</h1>
     <h1>거침없는 검투사입니다.</h1>
 
-    <p>추천게임</p>
+                <hr>
+
+     <p>당신은 수많은 경쟁을 이겨온 강인한 사람입니다. 어떠한 도전에도 굴하지 않고 싸워 이기세요.</p>
+
+     <div class="text-center" style="margin-top:50px;"><h3>당신에게 추천하는 게임</h3></div>
  
     <div class="row">
       <div class="col-md-1"></div>

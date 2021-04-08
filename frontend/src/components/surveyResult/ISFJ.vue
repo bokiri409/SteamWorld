@@ -3,7 +3,12 @@
     <h1>당신의 게임 유형은</h1>
     <h1>이타적인 생존자입니다.</h1>
 
-    <p>추천게임</p>
+    
+        <hr>
+
+     <p>당신은 타인을 먼저 생각하는 따스한 마음을 지니고 있습니다! 훗날 찾아올 어려움이 있을때 그들이 언젠가 도움을 줄 것 입니다.</p>
+
+     <div class="text-center" style="margin-top:50px;"><h3>당신에게 추천하는 게임</h3></div>
  
     <div class="row">
       <div class="col-md-1"></div>

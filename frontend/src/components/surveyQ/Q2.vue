@@ -3,11 +3,20 @@
 <div class="container blueArea">
     <div clss="row">
 
-     
+                <vue-typer
+  :text='["Q2. 다른 플레이어가 초보자인 나의 캐릭터를 죽였다. 나는... "]'
+  :repeat='0'
+  initial-action='typing'
+  :pre-type-delay='70'
+  :type-delay='70'
+  caret-animation='blink'
+></vue-typer>
 
-        <h2 class="typing-txt">Q2. 다른 플레이어가 초보자인 나의 캐릭터를 죽였다. 나는...</h2>
+
         <hr>
+        <div class="text-center">
         <img height=300px src="../../assets/img/q2.gif"/>
+        </div>
         <hr>
 
 
@@ -82,5 +91,19 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
 </style>
 

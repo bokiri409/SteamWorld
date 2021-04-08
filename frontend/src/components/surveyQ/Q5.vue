@@ -3,15 +3,24 @@
 <div class="container blueArea">
     <div clss="row">
 
-        <h2 class="typing-txt">Q5. 모험 중 저 멀리 한 마을이 불타고 있다. 어떻게 할까...?</h2>
+        <vue-typer
+          :text="['Q5. 모험 중 저 멀리 한 마을이 불타고 있다. 어떻게 할까...?']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
         <hr>
+        <div class="text-center">
         <img height=300px src="../../assets/img/q5.gif"/>
+        </div>
         <hr>
 
 
 
-        <router-link to="/q6" class="nav-link"><b-button @click="put1">이미 저 곳은 틀렸다. 가던 길을 가자. </b-button></router-link>
-        <router-link to="/q6" class="nav-link"><b-button @click="put2">혹시라도 생존자가 남아 있을 수 있다. 도와주러 간다. </b-button></router-link>
+        <router-link to="/q6" class="nav-link"><b-button @click="put1">이미 저 곳은 틀렸다. 가던 길을 가자.</b-button></router-link>
+        <router-link to="/q6" class="nav-link"><b-button @click="put2">혹시라도 생존자가 남아 있을 수 있다. 도와주러 간다.</b-button></router-link>
 
 
 
@@ -76,6 +85,22 @@ h2.typing-txt::after{
 h2{
   font-size:2vw;
 }
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
+
 
 </style>
 

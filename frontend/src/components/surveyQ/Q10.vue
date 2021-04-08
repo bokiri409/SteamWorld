@@ -2,16 +2,25 @@
 
 <div class="container blueArea">
     <div clss="row">
+                <vue-typer
+          :text="['Q10. 지도에 퀘스트와는 상관 없는 수상한 동굴이 보인다.']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
 
-        <h2 class="typing-txt">Q10. 지도에 퀘스트와는 상관 없는 수상한 동굴이 보인다.</h2>
         <hr>
-        <img height=300px  src="../../assets/img/q10.gif"/>
+               <div class="text-center">
+        <img height=300px src="../../assets/img/q10.gif"/>
+        </div>
         <hr>
 
 
 
-        <router-link to="/q11" class="nav-link"><b-button @click="put1">뭐가 있을까? 일단 들어가본다 s</b-button></router-link>
-        <router-link to="/q11" class="nav-link"><b-button @click="put2">  퀘스트를 먼저 깨고나서 다시 와본다. n </b-button></router-link>
+        <router-link to="/q11" class="nav-link"><b-button @click="put1">뭐가 있을까? 일단 들어가본다.</b-button></router-link>
+        <router-link to="/q11" class="nav-link"><b-button @click="put2">  퀘스트를 먼저 깨고나서 다시 와본다.</b-button></router-link>
 
 
 
@@ -72,5 +81,19 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
+
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+button:hover{
+  background-color:#1f813f;
+}
+button{
+  width:100%;
+}
+
 </style>
 

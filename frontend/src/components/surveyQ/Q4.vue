@@ -2,12 +2,25 @@
 
 
 <div class="container blueArea">
-    <div clss="row">
+    <div class="row">
 
-        <h2 class="typing-txt">Q4.  적들이 마구 몰려온다, 나의 판단은... </h2>
-        <hr>
+        <vue-typer
+          :text="[' Q4. 적들이 마구 몰려온다, 나의 판단은...']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
+    </div>
+     <hr>
+    <div class="text-center">
+        
+       
         <img height=300px src="../../assets/img/q4.gif"/>
         <hr>
+    </div>
+    <div class="">
 
         <router-link to="/q5" class="nav-link"><b-button @click="put1">돌격하여 적을 쳐부수자!</b-button></router-link>
         <router-link to="/q5" class="nav-link"><b-button @click="put2">일단 안전한 곳으로 숨어 기회를 노린다.</b-button></router-link>
@@ -80,5 +93,20 @@ h2.typing-txt::after{
 h2{
   font-size:2vw;
 }
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
+
 </style>
 

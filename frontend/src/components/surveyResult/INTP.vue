@@ -3,7 +3,12 @@
     <h1>당신의 게임 유형은</h1>
     <h1>고독한 도적입니다.</h1>
 
-    <p>추천게임</p>
+    
+        <hr>
+
+     <p>당신은 인생은 혼자라는 생각으로 살아 가는 사람입니다. 자신을 믿고 어려움을 이겨내세요.</p>
+
+     <div class="text-center" style="margin-top:50px;"><h3>당신에게 추천하는 게임</h3></div>
    
     <div class="row">
       <div class="col-md-1"></div>

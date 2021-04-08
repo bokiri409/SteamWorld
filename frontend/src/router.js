@@ -45,9 +45,6 @@ import RecommendGame from './components/recommend/RecommendGame.vue'
 
 Vue.use(VueRouter);
 
-const User = {
-    template: `<div>Result {{ $route.params.result }}</div>`
-  }
 
 export const router = new VueRouter({
     mode: 'history',
@@ -207,7 +204,7 @@ export const router = new VueRouter({
         },
         {
             path: '/result/ESFJ',
-            component: ESTJ
+            component: ESFJ
         },
         {
             path: '/result/ESFP',

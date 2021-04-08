@@ -3,7 +3,12 @@
     <h1>당신의 게임 유형은</h1>
     <h1>평화로운 방랑자입니다.</h1>
 
-    <p>추천게임</p>
+            <hr>
+
+     <p>당신은 온순한 성품과 따스한 마음을 가진 사람입니다. 힘든 여행길에도 당신의 착한 인성이 빛을 밝혀 줄 것입니다.</p>
+
+
+     <div class="text-center" style="margin-top:50px;"><h3>당신에게 추천하는 게임</h3></div>
   
     <div class="row">
       <div class="col-md-1"></div>

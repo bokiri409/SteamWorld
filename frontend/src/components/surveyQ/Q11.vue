@@ -2,16 +2,24 @@
 
 <div class="container blueArea">
     <div clss="row">
-
-        <h2 class="typing-txt">Q11. 어쩌구 저쩌구 씨부렁씨부렁 </h2>
+                        <vue-typer
+          :text="['Q11. 강력하기로 유명한 길드에서 퀘스트에 참여할 용병을 모집한다.']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
         <hr>
-        <img height=300px  src="../../assets/img/bg2.gif"/>
+               <div class="text-center">
+        <img height=300px src="../../assets/img/q11.gif"/>
+        </div>
         <hr>
 
 
 
-        <router-link to="/q12" class="nav-link"><b-button @click="put1">JJJJJ </b-button></router-link>
-        <router-link to="/q12" class="nav-link"><b-button @click="put2">PPPPP</b-button></router-link>
+        <router-link to="/q12" class="nav-link"><b-button @click="put1">어떤 퀘스트인지 상세하게 알아보고 결정한다. </b-button></router-link>
+        <router-link to="/q12" class="nav-link"><b-button @click="put2">길드의 유명세에 편승하자. 일단 참여한다!</b-button></router-link>
 
 
 
@@ -73,5 +81,22 @@ h2.typing-txt::after{
   50%{opacity:1;}
   100%{opacity:0;}
 }
+
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
+
 </style>
 

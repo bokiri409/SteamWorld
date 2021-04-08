@@ -1,11 +1,22 @@
 <template>
   <div>
     <div class="container blueArea" id="area">
-      <div clss="row">
-        <h2 class="typing-txt">
-          Q3.역시 혼자는 위험해! 파티를 맺고 던전을 돌때 나는
-        </h2>
+      <div class="row">
+        <vue-typer
+          :text="[' Q3.역시 혼자는 위험해! 파티를 맺고 던전을 돌때 나는']"
+          :repeat="0"
+          initial-action="typing"
+          :pre-type-delay="70"
+          :type-delay="70"
+          caret-animation="blink"
+        ></vue-typer>
+
+        </div>
+
         <hr />
+
+        <div class="text-center">
+
         <img height="300px" src="../../assets/img/q3.gif" />
         <hr />
 
@@ -21,7 +32,6 @@
         >
       </div>
     </div>
-  
   </div>
 </template>
 
@@ -41,33 +51,43 @@ export default {
 </script>
 
 <style scoped>
-
-h2.typing-txt{
-  position:relative;
+h2.typing-txt {
+  position: relative;
   display: inline-block;
-  height: 40px; overflow: hidden;
+  height: 40px;
+  overflow: hidden;
   animation: typingAni 2s steps(15, end) 1;
 }
 
-h2.typing-txt::after{
-    position:absolute; 
-  display:block;
-  content:""; 
-  width: 5px; 
+h2.typing-txt::after {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 5px;
   height: 30px;
-  top : 5px;
-  right:0px; 
+  top: 5px;
+  right: 0px;
   border-right: 3px solid rgb(252, 252, 252);
   animation: cursor 0.3s step-end infinite;
 }
 @keyframes typingAni {
-  0%{width:0%}
-  100%{width: 80%};
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 80%;
+  }
 }
-@keyframes cursor{
-  0%{opacity:0;}
-  50%{opacity:1;}
-  100%{opacity:0;}
+@keyframes cursor {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 h2.typing-txt::after {
   position: absolute;
@@ -99,7 +119,21 @@ h2.typing-txt::after {
     opacity: 0;
   }
 }
-h2{
-  font-size:2vw;
+h2 {
+  font-size: 2vw;
 }
+
+.vue-typer {
+  font-family: "DungGeunMo";
+  font-size: 2.2vw;
+}
+
+button:hover{
+  background-color:#1f813f;
+}
+
+button{
+  width:100%;
+}
+
 </style>

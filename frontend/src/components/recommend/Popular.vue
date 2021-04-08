@@ -1,8 +1,8 @@
 <template>
-  <section class="section-show">
+  <div class="section-show" style="background-color:#00000077">
     
-      <div style="margin-top: 30px">
-        <h3>인기 게임 목록</h3>
+      <div style="margin-top: 30px; margin-bottom:50px;">
+        <h3>지금 스팀에서 가장 인기 있는 게임</h3>
       </div>
 
       <div class="row">
@@ -53,7 +53,7 @@
           </b-card>
         </div>
       </div>
-  </section>
+  </div>
 </template>
 
 <script>

@@ -1,15 +1,17 @@
 <template>
-  <div class="section-show" style="margin-bottom:100px;">
-    <div class="container" style="background-color:#00000077; margin-bottom:50px;">
+  <div class="section-show" style="margin-bottom:100px; margin-top:120px;">
+    <div class="container" style="background-color:#00000077; margin-bottom:50px; padding-top:10px;">
       <div class="section-title">
         <h2>Game For You</h2>
         <p>게임 추천</p>
       </div>
-    </div>
-    <div class="container">
-      <div style="background-color: none">
+
+       <div class="container">
+         
+      <div style="">
+        
         <b-card title="Card Title" no-body>
-          <b-card-header header-tag="nav" style="background-color: none">
+          <b-card-header header-tag="nav" style="background-color:#00000077">
             <b-nav card-header tabs>
               <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
               <b-nav-item @click.prevent="loadPopular()" exact exact-active-class="active" style=""
@@ -24,9 +26,16 @@
               <!-- <b-nav-item @click.prevent="loadLikeGame()">관심 게임</b-nav-item> -->
             </b-nav>
           </b-card-header>
-          <div v-if="this.active==2">
-          <div style="margin-top: 30px margin-bottom:30px ">
-            <h3>스팀 게임 검색하기</h3>
+             <div justify-content style="background-color:#00000077">
+            <div id="recommend-contents" style="background-color:#00000077">
+              <component :is="componentLoading()"></component>
+            </div>
+          </div>
+          <div v-if="this.active==2" style="min-height:400px;">
+          <div style="margin-top:30px; background-color:#00000077">
+            <div class="section-title">
+            <h2 style="color:white">스팀 게임 검색하기</h2>
+            </div>
             <div class="form-group">
               <input
                 type="search"
@@ -59,23 +68,23 @@
             </div>
           </div>
           </div>
-          <div style="text-align: center;ppading-top:300px" >
-            <a href="javascript:void(0)" @click="changeShow(false)" v-show="firstpage == false">
-              <i class="bi bi-chevron-double-left"></i>
+          <div class="row">
+          <div class="col-md-12 text-center" style="text-align: center; padding-top:30px  " >
+            <a class="" href="javascript:void(0)" style="font-size:30px; margin-rignt:20px;" @click="changeShow(false)" v-show="firstpage == false">
+              <i class="bi bi-chevron-double-left" style="color:rgb(51 255 0)"></i>
             </a>
-            <a href="javascript:void(0)" @click="changeShow(true)" v-show="resultleft == true">
-              <i class="bi bi-chevron-double-right"></i>
+            <a class="" href="javascript:void(0)" style="font-size:30px; margin-left:30px;" @click="changeShow(true)" v-show="resultleft == true">
+              <i class="bi bi-chevron-double-right" style="color:rgb(51 255 0)"></i>
             </a>
           </div>
+          </div>
 
-          <b-card-body justify-content style="background-color: none">
-            <div id="recommend-contents">
-              <component :is="componentLoading()"></component>
-            </div>
-          </b-card-body>
+       
         </b-card>
       </div>
     </div>
+    </div>
+   
   </div>
 </template>
 
