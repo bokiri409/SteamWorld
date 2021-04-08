@@ -1,5 +1,9 @@
 <template>
   <div class="section-show">
+    <div v-if="isLoading==true">
+      <img src="../../assets/img/loading-87.gif">
+    </div>
+    <div v-if="isLoading==false">
     <div class="container">
           <div style="margin-top: 30px; margin-bottom:50px;">
         <h5>스팀 보유 게임과 관심 게임을 기반으로 새로운 게임을 추천합니다.</h5>
@@ -78,7 +82,7 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
 </template>
 <script>
 import MyGame from '../myPage/MyGame';
@@ -108,7 +112,9 @@ export default {
       gameList:[],
       gameData:[],
       resultData:[],
-      resultShow: false
+      resultShow: false,
+      isLoading : true
+      
     };
   },
   async created() {
@@ -125,11 +131,14 @@ export default {
       }
       await this.getItem();
       await this.getMyGame();
+      this.isLoading = false;
       
     }
   },
   methods: {
     async recommendWish(){
+      alert("추천 결과가 나올 때 까지 잠시 기다려주세요!")
+      this.isLoading = true;
 
         for(var item of this.itemList){
             this.appids.push(item.appid);
@@ -187,9 +196,10 @@ export default {
           })
         }
         console.log("rd: ", this.resultData)
+        alert("추천이 완료되었습니다!")
+        this.isLoading = false;
         this.delResult();
         this.addResult();
-        
     },
     async addResult(){
         await axios

@@ -1,9 +1,6 @@
 <template>
   <section class="section-show">
-    <div
-      class="container"
-      style="background-color:#00000077; margin-bottom:50px; align:center"
-    >
+    <div class="container" style="background-color:#00000077; margin-bottom:50px; align:center">
       <div class="section-title">
         <h2>Find Password</h2>
         <p>비밀번호 찾기</p>
@@ -21,7 +18,7 @@
             :hidden="flag == true"
           />
         </div>
-        
+
         <button
           type="submit"
           class="btn btn-dark btn-lg btn-block"
@@ -49,7 +46,7 @@
           @click="emailConfirm()"
           :hidden="flag == false"
         >
-        이메일 인증
+          이메일 인증
         </button>
         <button
           type="submit"
@@ -58,7 +55,7 @@
           @click="checkid()"
           :hidden="flag == false"
         >
-        인증코드 다시받기
+          인증코드 다시받기
         </button>
       </div>
     </div>
@@ -87,15 +84,11 @@ export default {
       let err = true;
       let msg = '';
 
-      err &&
-        !this.user.userid &&
-        ((msg = '이메일을 입력해주세요'), (err = false));
+      err && !this.user.userid && ((msg = '이메일을 입력해주세요'), (err = false));
       err &&
         !this.validEmail(this.user.userid) &&
-        ((msg =
-          '이메일 형식에 맞춰 입력해주세요 ex) steamworld@steamworld.com'),
-        (err = false));
-      
+        ((msg = '이메일 형식에 맞춰 입력해주세요 ex) steamworld@steamworld.com'), (err = false));
+
       if (!err) alert(msg);
       else this.checkid();
     },
@@ -129,15 +122,16 @@ export default {
         });
     },
     emailConfirm: function() {
-        console.log(this.code)
+      // console.log(this.code)
       // axios.post(api_url + `/a105/mail/verify`, code).then((res) => {
       axios.post(`${SERVER_URL}/mail/verify`, this.code).then((res) => {
         if (res.data.success == 'success') {
           this.$router.push({
-            path: '/user/resetpassword', query: {userid: this.user.userid},
+            path: '/user/resetpassword',
+            query: { userid: this.user.userid },
           });
         } else {
-          alert('이메일 인증에 실패했습니다. 다시 시도해주세요.')
+          alert('이메일 인증에 실패했습니다. 다시 시도해주세요.');
         }
       });
     },

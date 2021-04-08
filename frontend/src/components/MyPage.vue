@@ -52,10 +52,6 @@
             </div>
           </div>
 
-          <!-- <b-button v-if="user.steamid == '0'" class="btn-lg" style="border-radius: 10rem" @click="getUrl()"
-            >스팀 연동하기</b-button
-          > -->
-
           <form action="https://steamcommunity.com/openid/login" method="post">
             <input
               type="hidden"
@@ -74,77 +70,15 @@
             <!-- server side -->
             <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
             <input type="hidden" name="openid.return_to" value="http://j4a105.p.ssafy.io/mypage" />
-            <!-- <b-button v-if="user.steamid == '0' || !user.steamid" type="submit btn-large" style="border-radius: 10rem" -->
             <b-button type="submit btn-large" style="border-radius: 10rem"
               ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
             >
           </form>
 
-          <!-- <div class="counts container">
-            <div class="row">
-              <div class="col-lg-3 col-md-6">
-                <div class="count-box">
-                  <i class="bi bi-controller"></i>
-                  <span
-                    data-purecounter-start="0"
-                    data-purecounter-end="232"
-                    data-purecounter-duration="0"
-                    class="purecounter"
-                    >32</span
-                  >
-                  <p>보유 게임</p>
-                </div>
-              </div>
-
-              <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-                <div class="count-box">
-                  <i class="bi bi-emoji-heart-eyes"></i>
-                  <span
-                    data-purecounter-start="0"
-                    data-purecounter-end="521"
-                    data-purecounter-duration="0"
-                    class="purecounter"
-                    >24</span
-                  >
-                  <p>관심 게임</p>
-                </div>
-              </div>
-
-              <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-                <div class="count-box">
-                  <i class="bi bi-headset"></i>
-                  <span
-                    data-purecounter-start="0"
-                    data-purecounter-end="1463"
-                    data-purecounter-duration="0"
-                    class="purecounter"
-                    >1463</span
-                  >
-                  <p>총 플레이 시간</p>
-                </div>
-              </div>
-
-              <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-                <div class="count-box">
-                  <i class="bi bi-award"></i>
-                  <span
-                    data-purecounter-start="0"
-                    data-purecounter-end="24"
-                    data-purecounter-duration="0"
-                    class="purecounter"
-                    >24</span
-                  >
-                  <p>도전과제</p>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
           <div style="background-color: none">
             <b-card title="Card Title" no-body>
               <b-card-header header-tag="nav" style="background-color: none">
                 <b-nav card-header tabs>
-                  <!-- <b-nav-item>'s with child routes. Note the trailing slash on the first <b-nav-item> -->
                   <b-nav-item
                     @click.prevent="loadUpdate()"
                     exact
@@ -160,18 +94,12 @@
               </b-card-header>
 
               <b-card-body justify-content style="background-color: none">
-                <!-- Child route gets rendered in <router-view> or <nuxt-child> -->
                 <div id="mypage-contents">
-                  <!-- <UpdateUser id="update" style="margin-top:0px;margin-left:0px" /> -->
                   <component :is="componentLoading()"></component>
                 </div>
-                <!-- Or if using Nuxt.js
-      <nuxt-child></nuxt-child>
-      -->
               </b-card-body>
             </b-card>
           </div>
-
         </div>
       </div>
     </div>
@@ -258,20 +186,19 @@ export default {
     this.user.steamid = localStorage.getItem('steamid');
     this.user.nickname = localStorage.getItem('nickname');
     this.user.userid = localStorage.getItem('userid');
-    console.log('steamid: ', this.user.steamid);
+    // console.log('steamid: ', this.user.steamid);
     if (!this.user.steamid || this.user.steamid == 0) {
       await this.getUrl();
-      console.log('localstorage steamid : ', localStorage.getItem('steamid'));
+      // console.log('localstorage steamid : ', localStorage.getItem('steamid'));
       this.user.steamid = await localStorage.getItem('steamid');
-    }
-    else{
-      if(this.itemOutList.length == 0){
+    } else {
+      if (this.itemOutList.length == 0) {
         await this.getUrl();
       }
     }
   },
   async mounted() {
-    console.log('mounted steamid : ', localStorage.getItem('steamid'));
+    // console.log('mounted steamid : ', localStorage.getItem('steamid'));
     this.user.steamid = localStorage.getItem('steamid');
   },
   methods: {
@@ -284,19 +211,19 @@ export default {
     async getUrl() {
       if (!localStorage.getItem('steamid') || localStorage.getItem('steamid') == '0') {
         var link = document.location.href.split('&');
-        console.log(link[3]);
+        // console.log(link[3]);
         if (link[3]) {
           this.user.steamid = link[3].slice(67, link[3].length);
           localStorage.setItem('steamid', this.user.steamid);
-          console.log('this.user.steamid : ', this.user.steamid);
-          console.log('update steamid start');
+          // console.log('this.user.steamid : ', this.user.steamid);
+          // console.log('update steamid start');
           await this.updateSteamid();
           await this.getItem();
-          console.log(this.itemOutList);
+          // console.log(this.itemOutList);
           // window.location.reload();
         }
       }
-      console.log('getUrl.steamid : ', localStorage.getItem('steamid'));
+      // console.log('getUrl.steamid : ', localStorage.getItem('steamid'));
     },
     getUserInfo() {
       axios
@@ -326,7 +253,7 @@ export default {
         userid: this.user.userid,
         steamid: this.user.steamid,
       };
-      console.log("updateSteamid")
+      // console.log('updateSteamid');
       await axios
         .post(`${SERVER_URL}/user/steam`, this.form, {
           headers: {
@@ -338,7 +265,6 @@ export default {
             alert('steamid 연동에 실패했습니다.');
           } else {
             localStorage.setItem('steamid', this.form.steamid);
-
           }
         })
         .catch((res) => {
@@ -347,7 +273,7 @@ export default {
     },
     async getItem() {
       await axios.get(`${REC_SERVER_URL}/steamid/` + this.user.steamid).then((res) => {
-        console.log("response", res);
+        // console.log('response', res);
         // console.log("response", res.data.data.response);
         for (var app of res.data.data) {
           this.itemOutList.push({
@@ -359,7 +285,7 @@ export default {
             issteam: '1',
           });
         }
-        console.log(this.itemOutList);
+        // console.log(this.itemOutList);
       });
       await this.additem();
     },
@@ -408,7 +334,7 @@ export default {
         },
       };
       try {
-        console.log(axios.get('https://cors-anywhere.herokuapp.com/' + url, optionAxios));
+        // console.log(axios.get('https://cors-anywhere.herokuapp.com/' + url, optionAxios));
         return axios
           .get('https://cors-anywhere.herokuapp.com/' + url, optionAxios)
           .then((html) => {
@@ -416,7 +342,7 @@ export default {
             const $ = cheerio.load(html.data);
             // ul.list--posts를 찾고 그 children 노드를 bodyList에 저장
             const bodyList = $('ul.list--posts').children('li.item--post');
-            console.log(bodyList);
+            // console.log(bodyList);
 
             // bodyList를 순회하며 titleList에 h2 > a의 내용을 저장
             bodyList.each(function(i, elem) {
@@ -452,7 +378,7 @@ export default {
           const $ = cheerio.load(htmlText);
 
           const bodyList = $('div.game_description_snippet');
-          console.log('1' + bodyList);
+          // console.log('1' + bodyList);
 
           // bodyList를 순회하며 titleList에 h2 > a의 내용을 저장
           bodyList.each(function(i, elem) {

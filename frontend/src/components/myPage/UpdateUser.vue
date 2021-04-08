@@ -36,7 +36,13 @@
             <div style="margin-top:35px">
               <div class="inpbx" style="font-size: large">
                 <span v-if="!show_user" style="font-size: 20px ;">{{ user.nickname }}</span>
-              <b-input v-else style="font-size: 20px" v-bind:value=user.nickname v-model=user.nickname> </b-input>
+                <b-input
+                  v-else
+                  style="font-size: 20px"
+                  v-bind:value="user.nickname"
+                  v-model="user.nickname"
+                >
+                </b-input>
               </div>
             </div>
           </div>
@@ -51,25 +57,19 @@
         <b-button type="primary" @click.prevent="show_update_user()" v-if="!show"
           >프로필 수정</b-button
         >
-      <div v-if="show_user == true" style="margin-left:30px">
-        <div>
-        <b-button 
-        type="primary" 
-        @click.prevent="updateUser()"
-        >
-          수정 완료
-        </b-button>
+        <div v-if="show_user == true" style="margin-left:30px">
+          <div>
+            <b-button type="primary" @click.prevent="updateUser()">
+              수정 완료
+            </b-button>
+          </div>
+          <br /><br />
+          <div>
+            <b-button type="primary" @click.prevent="cancel()">
+              취소
+            </b-button>
+          </div>
         </div>
-        <br/><br/>
-        <div>
-        <b-button 
-        type="primary" 
-        @click.prevent="cancel()"
-        >
-          취소
-        </b-button>
-        </div>
-      </div>
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@ export default {
       modalText: '',
       user: {
         userid: '',
-        password:'',
+        password: '',
         nickname: '',
         steamid: '',
       },
@@ -124,50 +124,48 @@ export default {
       this.show = false;
     },
 
-    updateUser(){      
-      console.log(localStorage.getItem('token'))
-      console.log(this.user)
+    updateUser() {
+      // console.log(localStorage.getItem('token'))
+      // console.log(this.user)
       axios
-        .put(`${SERVER_URL}/user`,this.user, {
+        .put(`${SERVER_URL}/user`, this.user, {
           headers: {
             'x-access-token': localStorage.getItem('token'),
           },
         })
-        .then((res) =>{
-           if(res.data.success == 'fail'){
+        .then((res) => {
+          if (res.data.success == 'fail') {
             alert('유저 정보를 수정하는데 실패 했습니다.');
-          }
-          else{
-            alert('수정 완료')
+          } else {
+            alert('수정 완료');
             localStorage.setItem('nickname', this.user.nickname);
             window.location.reload();
           }
         })
-        .catch((res) =>{
+        .catch((res) => {
           alert('error : ' + res);
-        })
-
+        });
     },
 
     handleClickButton() {
       this.visible = !this.visible;
     },
-    clickModal(){
+    clickModal() {
       this.show_modal = true;
       // window.open('/updatepassword')
     },
-    
+
     goPassword: function(userid) {
-      console.log(userid);
+      // console.log(userid);
       this.$router.push({
-            path: '/user/resetpassword', query: {userid: this.user.userid},
-          });
-          },
+        path: '/user/resetpassword',
+        query: { userid: this.user.userid },
+      });
+    },
   },
 };
 </script>
 <style scoped>
-
 .parent {
   display: flex;
 }

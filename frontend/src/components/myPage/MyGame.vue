@@ -1,9 +1,9 @@
 <template>
-  <div
-      class="container"
-      style="background-color:#00000077; margin-bottom:50px;"
-    >
-
+  <div class="container" style="background-color:#00000077; margin-bottom:50px;">
+    <div v-if="isLoading == true">
+      <img src="../../assets/img/loading-87.gif" />
+    </div>
+    <div v-if="isLoading == false">
       <div class="row">
         <div
           class="col-md-4"
@@ -31,24 +31,24 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
-
 import { mapState } from 'vuex';
 
 const axios = require('axios');
 const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
 // const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
 export default {
-  data(){
+  data() {
     return {
       user: {
         userid: '',
         nickname: '',
         steamid: '',
       },
-      item:{
+      item: {
         itemid: 0,
         userid: '',
         appid: '',
@@ -58,8 +58,8 @@ export default {
       },
       itemList: [],
       gameData: [],
-
-    }
+      isLoading: true,
+    };
   },
   async created() {
     this.user.steamid = localStorage.getItem('steamid');
@@ -67,42 +67,43 @@ export default {
     this.user.userid = localStorage.getItem('userid');
     await this.getItem();
     await this.getGame();
+    this.isLoading = false;
   },
   computed: {
     ...mapState(['loginStatus']),
   },
-  methods:{
-    async getItem(){
+  methods: {
+    async getItem() {
       await axios
-        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '1'} })
-        .then((res) =>{
+        .get(`${SERVER_URL}/item/list`, { params: { userid: this.user.userid, issteam: '1' } })
+        .then((res) => {
           this.itemList = res.data.data;
           // console.log("itemList @@: ",this.itemList)
         })
         .catch((res) => {
-          console.log("err : " + res)
-        })
+          console.log('err : ' + res);
+        });
     },
-    async getGame(){
-          // console.log("itemList @@: ",this.itemList)
-      for(var app of this.itemList){
-       await axios
-          .get(`${SERVER_URL}/game/search`, { params: { appid: app.appid} })
+    async getGame() {
+      // console.log("itemList @@: ",this.itemList)
+      for (var app of this.itemList) {
+        await axios
+          .get(`${SERVER_URL}/game/search`, { params: { appid: app.appid } })
           .then((res) => {
-            if(res.data.data != null){
-            // console.log("data : ", res.data.data);
-            this.gameData.push(res.data.data);
+            if (res.data.data != null) {
+              // console.log("data : ", res.data.data);
+              this.gameData.push(res.data.data);
             }
           })
           .catch((res) => {
-          console.log("err : " + res)
-        })
+            console.log('err : ' + res);
+          });
       }
     },
     goDetail: function(appid) {
-      console.log(appid);
+      // console.log(appid);
       this.$router.push({ path: '/detail', query: { appId: appid } });
     },
-  }
-}
+  },
+};
 </script>

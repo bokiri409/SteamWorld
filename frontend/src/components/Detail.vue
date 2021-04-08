@@ -1,137 +1,121 @@
 <template>
   <section class="section-show">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="section-title">
-            <h2>Game Detail</h2>
-            <p>게임 상세</p>
+    <div v-if="isLoading == true">
+      <img src="../assets/img/loading-87.gif" />
+    </div>
+    <div v-if="isLoading == false">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title">
+              <h2>Game Detail</h2>
+              <p>게임 상세</p>
+            </div>
+            <!-- <h1>{{$route.query.appId}}</h1> -->
+            <h1 style="margin-left:15px;">{{ gameInfo.data.game.name }}</h1>
           </div>
-          <!-- <h1>{{$route.query.appId}}</h1> -->
-          <h1 style="margin-left:15px;">{{ gameInfo.data.game.name }}</h1>
-        </div>
 
-        <div class="col-md-8">
-          <img :src="headerUrl" style="width:100%" />
-        </div>
+          <div class="col-md-8">
+            <img :src="headerUrl" style="width:100%" />
+          </div>
 
-        <div class="col-md-4 col-sm-12">
-          <span>tags : </span>
-          <span
-            style="margin-right:10px;"
-            v-for="(genre, idx) in genreList"
-            :key="idx"
-          >
-            <b-badge
-              style="height:30px; font-size:1rem; font-weight:normal; border-radius:10px;"
-              variant="primary"
-              >{{ genre.genre }}</b-badge
-            ></span
-          >
-          <table style="width:100%; ">
-            <tr>
-              <td><h4>제작사:</h4></td>
-              <td style="text-align:right; width:60%">
-                <h5>{{ gameInfo.data.game.dev }}</h5>
-              </td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td><h4>평가:</h4></td>
-              <td style="text-align:right; width:60%">
-                <h5>{{ gameInfo.data.game.score }} 점</h5>
-              </td>
-            </tr>
-          </table>
+          <div class="col-md-4 col-sm-12">
+            <span>tags : </span>
+            <span style="margin-right:10px;" v-for="(genre, idx) in genreList" :key="idx">
+              <b-badge
+                style="height:30px; font-size:1rem; font-weight:normal; border-radius:10px;"
+                variant="primary"
+                >{{ genre.genre }}</b-badge
+              ></span
+            >
+            <table style="width:100%; ">
+              <tr>
+                <td><h4>제작사:</h4></td>
+                <td style="text-align:right; width:60%">
+                  <h5>{{ gameInfo.data.game.dev }}</h5>
+                </td>
+              </tr>
+              <tr></tr>
+              <tr>
+                <td><h4>평가:</h4></td>
+                <td style="text-align:right; width:60%">
+                  <h5>{{ gameInfo.data.game.score }} 점</h5>
+                </td>
+              </tr>
+            </table>
 
-          <!--
+            <!--
               <i class="bi bi-star"></i>
               <i class="bi bi-star-fill"></i>
               -->
-          <button
-            v-if="this.userid"
-            type="button"
-            class="btn btn-secondary"
-            style="width:100%; height: 50px; margin-bottom:20px;"
-            @click="LikeHandler()"
-          >
-            <i
-              class="bi bi-star"
-              style="color:yellow; font-size: 1.3rem"
-              v-if="like == 0"
-            ></i>
-            <i
-              class="bi bi-star-fill"
-              style="color:yellow; font-size: 1.3rem"
-              v-if="like == 1"
-            ></i>
-            <!--컬러 회색 #6c757d하고 노란색 #ffc107-->
-            관심 게임 추가하기
-          </button>
-          <button
-            v-else-if="this.issteam == 1"
-            type="button"
-            class="btn btn-secondary"
-            style="width:100%; height: 50px; margin-bottom:20px;"
-            @click="LikeHandlerHave()"
-          >
-            <i
-              class="bi bi-star"
-              style="color:yellow; font-size: 1.3rem"
-              v-if="like == 0"
-            ></i>
-            <i
-              class="bi bi-star-fill"
-              style="color:yellow; font-size: 1.3rem"
-              v-if="like == 1"
-            ></i>
-            <!--컬러 회색 #6c757d하고 노란색 #ffc107-->
-            관심 게임 추가하기
-          </button>
-          <button
-            v-else
-            type="button"
-            class="btn btn-secondary"
-            style="width:100%; height: 50px; margin-bottom:20px;"
-            @click="LikeHandlerNo()"
-          >
-            <i
-              class="bi bi-star"
-              style="color:yellow; font-size: 1.3rem"
-              v-if="like == 0"
-            ></i>
-            <i
-              class="bi bi-star-fill"
-              style="color:yellow; font-size: 1.3rem"
-              v-if="like == 1"
-            ></i>
-            <!--컬러 회색 #6c757d하고 노란색 #ffc107-->
-            관심 게임 추가하기
-          </button>
-
-          <a :href="gameInfo.data.game.storelink" target="_blank"
-            ><button
-              style="width:100%; height: 50px;"
+            <button
+              v-if="this.userid"
               type="button"
-              class="btn btn-primary"
+              class="btn btn-secondary"
+              style="width:100%; height: 50px; margin-bottom:20px;"
+              @click="LikeHandler()"
             >
-              <img src="../assets/img/steam.svg" style="width:25px" />
-              스팀 상점 바로가기
-            </button></a
-          >
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12 section-title">
-          <h2>게임 간단 설명</h2>
-          <h5>{{ gameInfo.data.game.shortDes }}</h5>
-        </div>
-        <div class="row"></div>
+              <i class="bi bi-star" style="color:yellow; font-size: 1.3rem" v-if="like == 0"></i>
+              <i
+                class="bi bi-star-fill"
+                style="color:yellow; font-size: 1.3rem"
+                v-if="like == 1"
+              ></i>
+              <!--컬러 회색 #6c757d하고 노란색 #ffc107-->
+              관심 게임 추가하기
+            </button>
+            <button
+              v-else-if="this.issteam == 1"
+              type="button"
+              class="btn btn-secondary"
+              style="width:100%; height: 50px; margin-bottom:20px;"
+              @click="LikeHandlerHave()"
+            >
+              <i class="bi bi-star" style="color:yellow; font-size: 1.3rem" v-if="like == 0"></i>
+              <i
+                class="bi bi-star-fill"
+                style="color:yellow; font-size: 1.3rem"
+                v-if="like == 1"
+              ></i>
+              <!--컬러 회색 #6c757d하고 노란색 #ffc107-->
+              관심 게임 추가하기
+            </button>
+            <button
+              v-else
+              type="button"
+              class="btn btn-secondary"
+              style="width:100%; height: 50px; margin-bottom:20px;"
+              @click="LikeHandlerNo()"
+            >
+              <i class="bi bi-star" style="color:yellow; font-size: 1.3rem" v-if="like == 0"></i>
+              <i
+                class="bi bi-star-fill"
+                style="color:yellow; font-size: 1.3rem"
+                v-if="like == 1"
+              ></i>
+              <!--컬러 회색 #6c757d하고 노란색 #ffc107-->
+              관심 게임 추가하기
+            </button>
 
-        <div class="col-md-12 section-title">
-          <h2>관련 영상</h2>
-          <video :src="videoUrl" controls autoplay />
-          <!--
+            <a :href="gameInfo.data.game.storelink" target="_blank"
+              ><button style="width:100%; height: 50px;" type="button" class="btn btn-primary">
+                <img src="../assets/img/steam.svg" style="width:25px" />
+                스팀 상점 바로가기
+              </button></a
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 section-title">
+            <h2>게임 간단 설명</h2>
+            <h5>{{ gameInfo.data.game.shortDes }}</h5>
+          </div>
+          <div class="row"></div>
+
+          <div class="col-md-12 section-title">
+            <h2>관련 영상</h2>
+            <video :src="videoUrl" controls autoplay />
+            <!--
           <div class="col-12 col-sm-6 col-md-4 col-lg-4"
            v-for="(gamelink, idx) in gameData.data.gamelinks"
           :key="idx"
@@ -140,14 +124,15 @@
         
         </div>
    -->
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-12 section-title">
-          <h2>게임 상세 설명</h2>
+        <div class="row">
+          <div class="col-md-12 section-title">
+            <h2>게임 상세 설명</h2>
 
-          <div v-html="this.gameDes" style="width:100%; padding: 5px;"></div>
+            <div v-html="this.gameDes" style="width:100%; padding: 5px;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -174,6 +159,7 @@ export default {
       userid: '',
       itemlist: [],
       issteam: '',
+      isLoading: true,
     };
   },
   created() {
@@ -183,11 +169,11 @@ export default {
     var img = document.getElementById('headerImg');
 
     // console.log(this.headerUrl);
-    document.getElementById('headerImg').innerHTML =
-      '<img src=' + this.headerUrl + '/>';
+    document.getElementById('headerImg').innerHTML = '<img src=' + this.headerUrl + '/>';
     img.src = this.headerUrl;
   },
   mounted() {
+    this.isLoading = false;
     axios
       .get(
         `${SERVER_URL}/item/search?appid=${this.$route.query.appId}&userid=${this.userid}`,
@@ -198,7 +184,7 @@ export default {
         }
       )
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         if (res.data.success == 'success') {
           this.like = 1;
         } else {
@@ -220,11 +206,11 @@ export default {
             gameData.data.appid +
             '/header.jpg';
 
-          console.log(gameData.data);
-          console.log(this.headerUrl);
+          // console.log(gameData.data);
+          // console.log(this.headerUrl);
 
           this.linkUrls = gameData.data.gamelinks;
-          console.log(this.linkUrls[0].url);
+          // console.log(this.linkUrls[0].url);
 
           // for(gameData.data.gamelinks)
           const gameDes = '';
@@ -235,7 +221,7 @@ export default {
           for (var i = 0; i < 3; ++i) {
             this.genreList.push(this.gameData.data.gametags[i]);
           }
-          console.log(this.genreList);
+          // console.log(this.genreList);
         })
         .catch((err) => {
           console.log(err);
@@ -252,7 +238,7 @@ export default {
           playtime_forever: 0,
           userid: this.userid,
         });
-        console.log(this.itemlist);
+        // console.log(this.itemlist);
         await axios
           .post(`${SERVER_URL}/item/add`, this.itemlist)
           // .post(`${LOCALHOST_URL}/item/add`, this.itemlist)
@@ -278,9 +264,9 @@ export default {
             }
           )
           .then((res) => {
-            console.log('res');
-            console.log(res);
-            console.log(res.data.issteam);
+            // console.log('res');
+            // console.log(res);
+            // console.log(res.data.issteam);
             if (res.data.data.issteam == '1') {
               alert('이미 보유한 게임입니다!');
             } else {

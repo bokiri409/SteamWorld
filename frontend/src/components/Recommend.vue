@@ -1,6 +1,12 @@
 <template>
   <div class="section-show" style="margin-bottom:100px; margin-top:120px;">
     <div class="container" style="background-color:#00000077; margin-bottom:50px; padding-top:10px;">
+
+    <div v-if="isLoading==true">
+      <img src="../assets/img/loading-87.gif">
+    </div>
+    <div v-if="isLoading==false">
+    <div class="container" style="background-color:#00000077; margin-bottom:50px;">
       <div class="section-title">
         <h2>Game For You</h2>
         <p>게임 추천</p>
@@ -17,7 +23,7 @@
               <b-nav-item @click.prevent="loadPopular()" exact exact-active-class="active" style=""
                 >인기 게임</b-nav-item
               >
-              <b-nav-item @click.prevent="loadRecommendGame()" exact exact-active-class="active"
+              <b-nav-item v-if="this.user.userid != ''" @click.prevent="loadRecommendGame()" exact exact-active-class="active"
                 >게임 추천</b-nav-item
               >
               <b-nav-item @click.prevent="loadSearchGame()" exact exact-active-class="active"
@@ -114,6 +120,7 @@ export default {
       endindex: 0,
       resultleft: false,
       firstpage: true,
+      isLoading: true,
     };
   },
   components: {
@@ -122,11 +129,12 @@ export default {
   },
   created() {
     if (localStorage.getItem('token')) {
-      this.token = localStorage.getItem('token');
-      this.nickname = localStorage.getItem('nickname');
-      this.steamid = localStorage.getItem('steamid');
-      this.userid = localStorage.getItem('userid');
+      this.user.token = localStorage.getItem('token');
+      this.user.nickname = localStorage.getItem('nickname');
+      this.user.steamid = localStorage.getItem('steamid');
+      this.user.userid = localStorage.getItem('userid');
     }
+    this.isLoading = false;
   },
   mounted() {},
   methods: {
@@ -150,6 +158,7 @@ export default {
       this.active = 2;
     },
     searchData: function() {
+      this.isLoading = true;
       if (this.searchname.length < 2) {
         alert('최소 2글자 이상 검색이 가능합니다.');
         return;
@@ -188,6 +197,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+        this.isLoading = false;
     },
     changeShow: function(flag) {
       this.searchshowdata = [];

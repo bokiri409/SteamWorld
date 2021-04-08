@@ -1,10 +1,7 @@
 <template>
   <section class="section-show">
     <!-- ======= About Section ======= -->
-    <div
-      class="container"
-      style="background-color:#00000077; margin-bottom:50px;"
-    >
+    <div class="container" style="background-color:#00000077; margin-bottom:50px;">
       <div class="section-title">
         <h2>Login</h2>
         <p>로그인</p>
@@ -53,9 +50,7 @@
         <!-- ======= Login Section ======= -->
 
         <div class="form-group">
-          <label :invalid-feedback="invalidFeedback"
-            >User ID (Email address)</label
-          >
+          <label :invalid-feedback="invalidFeedback">User ID (Email address)</label>
           <b-form-input
             type="email"
             class="form-control form-control-lg"
@@ -82,16 +77,12 @@
             :state="statePassword"
           />
           <b-form-text id="password-help-block">
-            Your password must be 8-20 characters long, contain letters and
-            numbers, and must not contain spaces, special characters, or emoji.
+            Your password must be 8-20 characters long, contain letters and numbers, and must not
+            contain spaces, special characters, or emoji.
           </b-form-text>
         </div>
 
-        <button
-          type="submit"
-          class="btn btn-dark btn-lg btn-block"
-          @click="loginHandler()"
-        >
+        <button type="submit" class="btn btn-dark btn-lg btn-block" @click="loginHandler()">
           로그인
         </button>
 
@@ -104,8 +95,6 @@
 </template>
 
 <script>
-
-
 const axios = require('axios');
 const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
 // const SERVER_URL = process.env.VUE_APP_LOCALHOST_URL;
@@ -147,14 +136,10 @@ export default {
 
       //에러메세지 출력 - 이메일, 패스워드 미입력시
       !this.user.userid && ((msg = '이메일을 입력해주세요.'), (err = false));
-      err &&
-        !this.user.password &&
-        ((msg = '비밀번호를 입력해주세요.'), (err = false));
+      err && !this.user.password && ((msg = '비밀번호를 입력해주세요.'), (err = false));
       err &&
         !this.validEmail(this.user.userid) &&
-        ((msg =
-          '이메일 형식에 맞게 입력해주세요. ex) steamworld@steamworld.com'),
-        (err = false));
+        ((msg = '이메일 형식에 맞게 입력해주세요. ex) steamworld@steamworld.com'), (err = false));
 
       if (!err) alert(msg);
       else this.login(); //에러 안나면 login()실행
@@ -166,36 +151,22 @@ export default {
       return re.test(email);
     },
     login: function() {
-      // this.$store
-      //   .dispatch('login', this.user)
-      //   .then(() =>
-      //     this.$router.replace({
-      //       path: '/',
-      //     })
-      //   )
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      axios.post(`${SERVER_URL}/user/login`, this.user)
-                .then(res => {
-                    console.log(SERVER_URL);
-                    if(res.data.success == 'success'){
-                      localStorage.setItem('token', res.data['x-access-token']);
-                      localStorage.setItem('userid', res.data.data.userid);
-                      localStorage.setItem('nickname', res.data.data.nickname);
-                      localStorage.setItem('steamid', res.data.data.steamid);
+      axios.post(`${SERVER_URL}/user/login`, this.user).then((res) => {
+        // console.log(SERVER_URL);
+        if (res.data.success == 'success') {
+          localStorage.setItem('token', res.data['x-access-token']);
+          localStorage.setItem('userid', res.data.data.userid);
+          localStorage.setItem('nickname', res.data.data.nickname);
+          localStorage.setItem('steamid', res.data.data.steamid);
 
-                      window.location.reload();
-                      this.$router.replace(`/`);
-                      window.location.reload();
-                    }
-                    else{
-                      alert('ID 또는 비밀번호를 확인해주세요')
-                      this.user.password = ''
-                    }
-                    
-                })
-        
+          window.location.reload();
+          this.$router.replace(`/`);
+          window.location.reload();
+        } else {
+          alert('ID 또는 비밀번호를 확인해주세요');
+          this.user.password = '';
+        }
+      });
     },
   },
 };

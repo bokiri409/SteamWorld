@@ -1,14 +1,14 @@
 <template>
   <div class="section-show" style="background-color:#00000077">
     
-      <div style="margin-top: 30px; margin-bottom:50px;">
-        <h3>지금 스팀에서 가장 인기 있는 게임</h3>
-      </div>
-
+    <div v-if="isLoading == true">
+      <img src="../../assets/img/loading-87.gif" />
+    </div>
+    <div v-if="isLoading == false">
       <div class="row">
         <div
           class="col-md-4"
-          v-for="(games) in this.gamedata"
+          v-for="games in this.gamedata"
           :key="games.title"
           style="margin-bottom: 20px"
         >
@@ -75,12 +75,13 @@ export default {
         }
       },
       like: '',
-       user:{
+      user: {
         token: '',
         nickname: '',
         steamid: '',
         userid: '',
-      }
+      },
+      isLoading: true,
     };
   },
   created() {
@@ -119,6 +120,8 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+
+    this.isLoading = false;
   },
   methods: {
     isLogin: function() {
@@ -132,13 +135,13 @@ export default {
       if (this.like == 0) {
         this.like = 1;
         // var game = this.select('.col-md-4');
-        console.log(name);
+        // console.log(name);
       } else {
         this.like = 0;
       }
     },
     goDetail: function(appid) {
-      console.log(appid);
+      // console.log(appid);
       this.$router.push({ path: '/detail', query: { appId: appid } });
     },
   },

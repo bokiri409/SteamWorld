@@ -3,6 +3,10 @@
       class="container"
       style="background-color:#00000077; margin-bottom:50px;"
     >
+<div v-if="isLoading==true">
+      <img src="../../assets/img/loading-87.gif">
+    </div>
+    <div v-if="isLoading==false">
 
       <div class="row">
         <div
@@ -31,6 +35,7 @@
         </div>
       </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -58,6 +63,7 @@ export default {
       },
       itemList: [],
       gameData: [],
+      isLoading: true,
 
     }
   },
@@ -67,6 +73,7 @@ export default {
     this.user.userid = localStorage.getItem('userid');
     await this.getItem();
     await this.getGame();
+    this.isLoading = false;
   },
   computed: {
     ...mapState(['loginStatus']),
