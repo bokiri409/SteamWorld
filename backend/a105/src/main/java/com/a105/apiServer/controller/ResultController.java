@@ -117,7 +117,7 @@ public class ResultController {
 //		userid = userid.substring(0, userid.length()-1);
 
 //		userid= userid.replace("%40", "@");	
-		System.out.println("@@@@@@@@" +userid);
+//		System.out.println("@@@@@@@@" +userid);
 		try {
 			if (resultService.resultDelete(userid) >=1){
 				result.put("success", "success");
@@ -125,7 +125,7 @@ public class ResultController {
 				
 			}
 			else {
-				System.out.println("####");
+//				System.out.println("####");
 				result.put("success", "fail");
 				entity = new ResponseEntity<>(result, HttpStatus.OK);
 			}

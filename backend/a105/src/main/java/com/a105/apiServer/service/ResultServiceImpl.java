@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.a105.apiServer.dao.ResultDao;
-import com.a105.apiServer.dto.ItemDto;
 import com.a105.apiServer.dto.ResultDto;
 
 @Service
@@ -46,7 +45,7 @@ public class ResultServiceImpl implements ResultService{
 	}
 	
 	public int resultDelete(String userid) throws Exception{
-		System.out.println("impl userid : " + userid);
+//		System.out.println("impl userid : " + userid);
 //		System.out.println(resultDao.deleteResult(userid));
 		return resultDao.deleteResult(userid);
 	}

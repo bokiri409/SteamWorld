@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService{
 	private String matchPassword(String userid, String password) throws Exception {
 
 		UserDto user = userDao.getUser(userid);
-		System.out.println(user.getPassword());
-		System.out.println(passwordEncoder.matches(password, user.getPassword()));
+//		System.out.println(user.getPassword());
+//		System.out.println(passwordEncoder.matches(password, user.getPassword()));
 		if(passwordEncoder.matches(password, user.getPassword())) {
 			
 			return  user.getPassword();
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserDto info(String userid) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("userid : " + userid);
+//		System.out.println("userid : " + userid);
 
 		return userDao.getUser(userid);
 	}
