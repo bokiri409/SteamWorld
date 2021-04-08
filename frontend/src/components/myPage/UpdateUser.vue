@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="child1">
-        <b-button type="primary" @click.prevent="clickModal()" v-if="!show">
+        <b-button type="primary" @click.prevent="goPassword()" v-if="!show">
           비밀번호 변경
         </b-button>
         <br />
@@ -155,7 +155,14 @@ export default {
     clickModal(){
       this.show_modal = true;
       // window.open('/updatepassword')
-    }
+    },
+    
+    goPassword: function(userid) {
+      console.log(userid);
+      this.$router.push({
+            path: '/user/resetpassword', query: {userid: this.user.userid},
+          });
+          },
   },
 };
 </script>
