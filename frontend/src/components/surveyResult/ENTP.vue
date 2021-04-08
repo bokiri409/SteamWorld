@@ -60,8 +60,9 @@
             @click="goDetail(games.appid)"
             img-top
             tag="article"
-        style="width: 100%; margin-left:10px; margin-right:10px; padding:0 0 0 0; text-align:center;  background-color:#00000077; height: 100%"      >
-          >
+        style="width: 100%; margin-left:10px; margin-right:10px; padding:0 0 0 0; text-align:center;  background-color:#00000077; height: 100%"
+      >
+          
           </b-card>
         </div>
       </div>
@@ -102,7 +103,6 @@ export default {
     this.appId1="1097150";
     this.appId2="578080";
 
-    console.log(this.headerUrl);
     this.header1 ="https://cdn.cloudflare.steamstatic.com/steam/apps/"+this.appId1+"/header.jpg"
     this.header2 ="https://cdn.cloudflare.steamstatic.com/steam/apps/"+this.appId2+"/header.jpg"
 
@@ -110,18 +110,14 @@ export default {
   methods: {
 
     goDetail: function(appid) {
-      console.log("가자가자"+appid)
       this.$router.push({ path: "/detail", query: { appId: appid } });
     },
     getSimilar: function(appid){
             this.gamedata=[];
-      console.log("비스무리");
        axios.get(`${REC_SERVER_URL}/cbf/`+appid)
       .then((res) => {
         var i = 0;
         for (i = 0; i < 9; i++) {
-          // this.gamedata.title = res.data.data[i].name;
-          // this.gamedata.thumnail = res.data.data[i].imgsrc;
           this.gamedata = [
             ...this.gamedata,
             ...[
@@ -133,7 +129,6 @@ export default {
             ],
           ];
         }
-        // console.log(this.gamedata);
       })
       .catch((err) => {
         console.log(err);

@@ -130,8 +130,32 @@
         <div class="row">
           <div class="col-md-12 section-title">
             <h2>게임 상세 설명</h2>
-
             <div v-html="this.gameDes" style="width:100%; padding: 5px;"></div>
+          </div>
+        </div>
+        <div style="text-align: center; padding: 25px;">
+          <button class="col-md-10" style="background-color:black; color:#18d26e;" @click="getSimilar()">
+            {{ gameInfo.data.game.name }}와 유사한 게임을 확인해보세요
+          </button>
+        </div>
+        <div class="row">
+          <div
+            class="col-md-4"
+            v-for="games in this.gamedatas"
+            :key="games.title"
+            style="margin-bottom: 20px"
+          >
+            <b-card
+              v-if="games.title != ''"
+              :title="games.title"
+              :img-src="games.imgsrc"
+              img-alt="Image"
+              @click="goDetail(games.appid)"
+              img-top
+              tag="article"
+          style="width: 100%; margin-left:10px; margin-right:10px; padding:0 0 0 0; text-align:center;  background-color:#00000077; height: 100%"
+          >
+            </b-card>
           </div>
         </div>
       </div>
@@ -143,6 +167,7 @@
 import axios from 'axios';
 import { SERVER_URL, LOCALHOST_URL } from '../main.js';
 // const SERVER_URL = process.env.VUE_APP_API_SERVER_URL;
+const REC_SERVER_URL = process.env.VUE_APP_REC_SERVER_URL;
 
 export default {
   data() {
@@ -160,6 +185,7 @@ export default {
       itemlist: [],
       issteam: '',
       isLoading: true,
+      gamedatas:[],
     };
   },
   created() {
@@ -297,6 +323,35 @@ export default {
     },
     LikeHandlerHave: function() {
       alert('이미 보유한 게임입니다!');
+    },
+    getSimilar: function(){
+      this.gamedatas=[];
+       axios.get(`${REC_SERVER_URL}/cbf/`+ this.$route.query.appId)
+      .then((res) => {
+        var i = 0;
+        for (i = 0; i < 9; i++) {
+          // this.gamedata.title = res.data.data[i].name;
+          // this.gamedata.thumnail = res.data.data[i].imgsrc;
+          this.gamedatas = [
+            ...this.gamedatas,
+            ...[
+              {
+                title: res.data.data[i].name,
+                appid: res.data.data[i].appid,
+                imgsrc: "https://cdn.cloudflare.steamstatic.com/steam/apps/"+res.data.data[i].appid+"/header.jpg"
+              },
+            ],
+          ];
+        }
+        // console.log(this.gamedata);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },
+     goDetail: function(appid) {
+      this.$router.push({ path: "/detail", query: { appId: appid } });
+      this.$router.go()
     },
   },
 };
