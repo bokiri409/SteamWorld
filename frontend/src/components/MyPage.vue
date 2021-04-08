@@ -1,35 +1,37 @@
 <template>
   <section class="section-show">
-    <div class="row" style="width: 100%">
-      <div v-if="isLoading == true">
+    <div v-if="isLoading == true">
       <img src="../assets/img/loading-87.gif" style="opacity:0.5;" />
     </div>
     <div v-if="isLoading == false">
-      <div class="col-md-1"></div>
-      <div class="col-md-10 box" style="background-color: #00000077">
+      <div
+        class="container"
+        style="background-color:#00000077; margin-bottom:50px; padding-top:10px;"
+      >
         <div class="section-title">
-          <h2>마이페이지</h2>
-          <p>My Page</p>
+          <h2>My Page</h2>
+          <p>마이페이지</p>
 
-          <h1 class="typing-txt" style="margin-bottom: 100px">
+          <h1 class="typing-txt" style="margin-bottom: 50px; margin-top: 30px">
             {{ user.nickname }} 님의 마이페이지
           </h1>
 
           <br />
 
-          <div class="profile-row row">
+          <div class="profile-row row" style="margin-bottom: 60px">
             <div></div>
-            <div class="col-md-6">
-              <div
-              >
-              <h5>스팀 프로필, 게임 세부 정부 공개 후 스팀 로그인을 해주세요!</h5>
+            <div class="col-md-8">
+              <div>
+                <h5>
+                  스팀 프로필, 게임 세부 정부 공개 후 스팀 로그인을 해주세요!
+                </h5>
                 <img
                   src="../assets/img/poster.png"
                   style="display: block; max-width: 100%; min-width: 100%"
                 />
               </div>
             </div>
-            <div class="col-md-6" style="">
+            <div class="col-md-4" style="padding-top: 20px">
               <div class="section-title">
                 <h2>닉네임</h2>
               </div>
@@ -42,7 +44,10 @@
                 <h2>스팀 아이디</h2>
               </div>
               <h3 v-if="user.steamid != '0'">{{ user.steamid }}</h3>
-              <form action="https://steamcommunity.com/openid/login" method="post">
+              <form
+                action="https://steamcommunity.com/openid/login"
+                method="post"
+              >
                 <input
                   type="hidden"
                   name="openid.identity"
@@ -53,19 +58,28 @@
                   name="openid.claimed_id"
                   value="http://specs.openid.net/auth/2.0/identifier_select"
                 />
-                <input type="hidden" name="openid.ns" value="http://specs.openid.net/auth/2.0" />
+                <input
+                  type="hidden"
+                  name="openid.ns"
+                  value="http://specs.openid.net/auth/2.0"
+                />
                 <input type="hidden" name="openid.mode" value="checkid_setup" />
                 <!-- <input type="hidden" name="openid.realm" value="http://localhost:8081" />
             <input type="hidden" name="openid.return_to" value="http://localhost:8081/mypage" /> -->
                 <!-- server side -->
-                <input type="hidden" name="openid.realm" value="http://j4a105.p.ssafy.io" />
+                <input
+                  type="hidden"
+                  name="openid.realm"
+                  value="http://j4a105.p.ssafy.io"
+                />
                 <input
                   type="hidden"
                   name="openid.return_to"
                   value="http://j4a105.p.ssafy.io/mypage"
                 />
                 <b-button type="submit btn-large" style="border-radius: 10rem"
-                  ><img src="../assets/img/steam.svg" class="steamlogo" />스팀 로그인</b-button
+                  ><img src="../assets/img/steam.svg" class="steamlogo" />스팀
+                  로그인</b-button
                 >
               </form>
             </div>
@@ -82,21 +96,25 @@
                     style=""
                     >프로필 상세</b-nav-item
                   >
-                  <b-nav-item @click.prevent="loadMyGame()" exact exact-active-class="active"
+                  <b-nav-item
+                    @click.prevent="loadMyGame()"
+                    exact
+                    exact-active-class="active"
                     >보유 게임</b-nav-item
                   >
-                  <b-nav-item @click.prevent="loadLikeGame()">관심 게임</b-nav-item>
+                  <b-nav-item @click.prevent="loadLikeGame()"
+                    >관심 게임</b-nav-item
+                  >
                 </b-nav>
               </b-card-header>
 
-              <b-card-body justify-content style="background-color: none">
+              <b-card-body justify-content style="background-color: none;">
                 <div id="mypage-contents">
                   <component :is="componentLoading()"></component>
                 </div>
               </b-card-body>
             </b-card>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -169,7 +187,7 @@ export default {
         isSteam: 0,
       },
       itemOutList: [],
-      
+
       isLoading: true,
     };
   },
@@ -195,7 +213,7 @@ export default {
         await this.getUrl();
       }
     }
-    
+
     this.isLoading = false;
   },
   async mounted() {
@@ -210,7 +228,10 @@ export default {
       this.sliding = false;
     },
     async getUrl() {
-      if (!localStorage.getItem('steamid') || localStorage.getItem('steamid') == '0') {
+      if (
+        !localStorage.getItem('steamid') ||
+        localStorage.getItem('steamid') == '0'
+      ) {
         var link = document.location.href.split('&');
         // console.log(link[3]);
         if (link[3]) {
@@ -273,26 +294,27 @@ export default {
         });
     },
     async getItem() {
-      await axios.get(`${REC_SERVER_URL}/steamid/` + this.user.steamid).then((res) => {
-        // console.log('response', res);
-        // console.log("response", res.data.data.response);
-        for (var app of res.data.data) {
-          this.itemOutList.push({
-            itemid: 0,
-            userid: this.user.userid,
-            appid: app.appid,
-            playtime_forever: app.playtime_forever,
-            playtime_2weeks: app.playtime_2weeks,
-            issteam: '1',
-          });
-        }
-        // console.log(this.itemOutList);
-      });
+      await axios
+        .get(`${REC_SERVER_URL}/steamid/` + this.user.steamid)
+        .then((res) => {
+          // console.log('response', res);
+          // console.log("response", res.data.data.response);
+          for (var app of res.data.data) {
+            this.itemOutList.push({
+              itemid: 0,
+              userid: this.user.userid,
+              appid: app.appid,
+              playtime_forever: app.playtime_forever,
+              playtime_2weeks: app.playtime_2weeks,
+              issteam: '1',
+            });
+          }
+          // console.log(this.itemOutList);
+        });
       await this.additem();
     },
     async additem() {
-      
-    this.isLoading = true;
+      this.isLoading = true;
       // console.log('outList: ', this.itemOutList);
       await axios
         .post(`${SERVER_URL}/item/add`, this.itemOutList)
@@ -304,8 +326,8 @@ export default {
         .catch((res) => {
           alert('error : ', res);
         });
-        
-    this.isLoading = false;
+
+      this.isLoading = false;
     },
     async updateItem() {},
     componentLoading() {
