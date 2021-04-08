@@ -60,7 +60,7 @@
             @click="goDetail(games.appid)"
             img-top
             tag="article"
-        style="width: 100%; margin-left:10px; margin-right:10px; padding:0 0 0 0; text-align:center;  background-color:#00000077; height: 100%"      >
+        style="width: 100%; margin-left:10px; margin-right:10px; padding:0 0 0 0; text-align:center;  background-color:#00000077; height: 100%"
           >
           </b-card>
         </div>
