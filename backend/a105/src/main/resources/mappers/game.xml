@@ -8,8 +8,14 @@
 	</select>
 	
 	<select id="getGamePopular" parameterType="SizeDto" resultType="GamesDto">
-		select * from a105.games
-		order by vote DESC
+		select *
+        from(
+        select * 
+        from a105.games
+        order by vote DESC
+        limit 0, 100
+        )as a
+        order by rand()
 		limit #{start}, #{size}
 	</select>
 	
