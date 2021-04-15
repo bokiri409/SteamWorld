@@ -29,3 +29,7 @@
 - [Framer] - 와이어프레임 기획 및 제작
 - [Jenkins] - CI/CD 툴
 - [Flask] - 추천 서버
+
+## CI/CD
+- jenkins, Docker 활용
+- https://www.notion.so/docker-jenkins-30e0c2d1de654ceeb644a6d9e64ee57e
